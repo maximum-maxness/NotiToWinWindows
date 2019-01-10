@@ -1,74 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <items>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+      prefWidth="900.0"
+      xmlns="http://javafx.com/javafx/8">
+    <stylesheets>
+        <URL value="@css/jsonviewer.css"/>
+    </stylesheets>
+    <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" VBox.vgrow="ALWAYS">
         <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="222.0">
-          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="NOTITOWIN" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
-              <font>
-                <Font size="18.0" fx:id="x1" />
-              </font>
-              <textFill>
-                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-              </textFill>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" style="&#10;" text="NOTITOWIN"
+                   textAlignment="CENTER"
+                   AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+                <font>
+                    <Font size="18.0" fx:id="x1"/>
+                </font>
+                <textFill>
+                    <Color blue="0.624" green="0.624" red="0.624" fx:id="x2"/>
+                </textFill>
             </Label>
-                  <VBox layoutY="41.0" prefHeight="534.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure" />
-                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer" />
-                     </children>
-                  </VBox>
-          </children>
+            <VBox layoutY="41.0" prefHeight="534.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
+                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure"/>
+                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer"/>
+            </VBox>
         </AnchorPane>
         <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="218.0">
-          <children>
-            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="JSON Viewer" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0" />
-                  <ChoiceBox layoutY="85.0" prefHeight="46.0" prefWidth="218.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
-                     <effect>
-                        <ColorAdjust brightness="0.34" contrast="1.0" hue="-1.0" saturation="-1.0" />
-                     </effect>
-                  </ChoiceBox>
-                  <Label layoutX="8.0" layoutY="68.0" prefHeight="17.0" prefWidth="155.0" text="Select Received Notification:" textFill="#9f9f9f" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="68.0" />
-          </children>
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="JSON Viewer"
+                   textAlignment="CENTER" textFill="$x2"
+                   AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0"/>
+            <ChoiceBox layoutY="85.0" prefHeight="46.0" prefWidth="218.0" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
+                <effect>
+                    <ColorAdjust brightness="0.34" contrast="1.0" hue="-1.0" saturation="-1.0"/>
+                </effect>
+            </ChoiceBox>
+            <Label layoutX="8.0" layoutY="68.0" prefHeight="17.0" prefWidth="155.0"
+                   text="Select Received Notification:" textFill="#9f9f9f" AnchorPane.leftAnchor="4.0"
+                   AnchorPane.topAnchor="68.0"/>
         </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TreeView prefHeight="578.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-      </items>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <TreeView prefHeight="578.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        </AnchorPane>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-      <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="NotiToWin v1.0" HBox.hgrow="ALWAYS">
-          <font>
-            <Font size="11.0" fx:id="x3" />
-          </font>
-          <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
-          </textFill>
+        <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </padding>
+        <Label maxHeight="1.7976931348623157E308" text="NotiToWin v1.0" HBox.hgrow="ALWAYS">
+            <font>
+                <Font size="11.0" fx:id="x3"/>
+            </font>
+            <textFill>
+                <Color blue="0.625" green="0.625" red="0.625" fx:id="x4"/>
+            </textFill>
         </Label>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER" />
-      </children>
-      <padding>
-        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-      </padding>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Label font="$x3" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER"/>
     </HBox>
-  </children>
-  <stylesheets>
-    <URL value="@css/jsonviewer.css" />
-  </stylesheets>
 </VBox>

@@ -1,32 +1,36 @@
 package controller;
 
 import java.io.IOException;
-import java.net.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class DiscoveryThread implements Runnable {
+class DiscoveryThread implements Runnable {
 
-    DatagramSocket socket;
+    private final AtomicBoolean running = new AtomicBoolean(false);
     private final String className = getClass().getName();
+    private DatagramSocket socket;
+
+    static DiscoveryThread getInstance() {
+        return DiscoveryThreadHolder.INSTANCE;
+    }
 
     @Override
     public void run() {
+        System.out.println("Server Thread Started!");
+        running.set(true);
         try {
             socket = new DatagramSocket(8657, InetAddress.getByName("0.0.0.0"));
             socket.setBroadcast(true);
 
-            while (!Thread.interrupted()) {
+            while (running.get()) {
                 System.out.println(className + ":::   Ready to receive packet!");
 
                 byte[] receiverBuffer = new byte[15000];
                 DatagramPacket packet = new DatagramPacket(receiverBuffer, receiverBuffer.length);
                 socket.receive(packet);
                 System.out.println("Whats this");
-                if (Thread.interrupted()) {
-                    socket.close();
-                    System.out.println("INTERUPTTED!");
-                }
 
                 System.out.println(className + ":::   Packet received from: " + packet.getAddress().getHostAddress());
                 String message = new String(packet.getData());
@@ -41,19 +45,19 @@ public class DiscoveryThread implements Runnable {
 
                     System.out.println(className + ":::   Packet Sent to: " + sendPacket.getAddress().getHostAddress());
                 }
-
             }
             System.out.println("about to close socket");
         } catch (IOException e) {
-            Logger.getLogger(DiscoveryThread.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Socket Closed");
         }
     }
 
-    public static DiscoveryThread getInstance() {
-        return DiscoveryThreadHolder.INSTANCE;
+    void stop() {
+        running.set(false);
+        socket.close();
     }
 
-    public static class DiscoveryThreadHolder {
+    private static class DiscoveryThreadHolder {
         private static final DiscoveryThread INSTANCE = new DiscoveryThread();
     }
 

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -48,12 +47,6 @@
                                         <Pane prefHeight="330.0" prefWidth="8.0" />
                                         <Button fx:id="startServerButton" mnemonicParsing="false" onAction="#startServer" prefHeight="33.0" prefWidth="105.0" text="Start Server" />
                                         <Button fx:id="stopServerButton" disable="true" mnemonicParsing="false" onAction="#stopServer" prefHeight="33.0" prefWidth="105.0" text="Stop Server" />
-                              <Pane prefHeight="34.0" prefWidth="79.0">
-                                 <children>
-                                    <Label layoutX="53.0" layoutY="9.0" text="Port:" />
-                                 </children>
-                              </Pane>
-                              <TextField fx:id="portField" prefHeight="34.0" prefWidth="68.0" text="8657" />
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="17.0" prefWidth="670.0">

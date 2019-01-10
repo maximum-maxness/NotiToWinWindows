@@ -1,24 +1,22 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
 import runner.Main;
 
-import java.io.PrintStream;
-import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
+@SuppressWarnings("WeakerAccess")
 public class ConfigureViewController {
 
-    //    private Thread discoveryThread;
-    private SimpleSocketServer simpleSocketServer;
+    private Executor discoveryThread;
+    private DiscoveryThread discovery;
 
     @FXML
     private Button startServerButton, stopServerButton, toJSONButton;
@@ -28,9 +26,6 @@ public class ConfigureViewController {
 
     @FXML
     private TextArea logOutput;
-
-    @FXML
-    private TextField portField;
 
     @FXML
     private URL location;
@@ -44,29 +39,19 @@ public class ConfigureViewController {
 
     @FXML
     private void initialize() {
-//        discoveryThread = new Thread(DiscoveryThread.getInstance());
-        Console console = new Console(logOutput);
-        PrintStream ps = new PrintStream(console, true);
-        System.setOut(ps);
+        discovery = DiscoveryThread.getInstance();
+        discoveryThread = Executors.newFixedThreadPool(1);
+        discoveryThread.execute(discovery);
+//        Console console = new Console(logOutput);
+//        PrintStream ps = new PrintStream(console, true);
+//        System.setOut(ps);
 //        System.setErr(ps);
     }
 
     @FXML
     private void startServer() {
         System.out.println("Started the Server.");
-        if (simpleSocketServer == null) {
-            int port = Integer.parseInt(portField.getText());
-            simpleSocketServer = new SimpleSocketServer(port);
-        }
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                simpleSocketServer.startServer();
-
-            }
-        };
-        thread.start();
-//        discoveryThread.start();
+        discoveryThread.execute(discovery);
         startServerButton.setDisable(true);
         stopServerButton.setDisable(false);
         serverStatusLabel.setText("Started");
@@ -75,9 +60,7 @@ public class ConfigureViewController {
 
     @FXML
     private void stopServer() {
-//        DiscoveryThreadShutdown.shutdown();
-//        discoveryThread.interrupt();
-        simpleSocketServer.stopServer();
+        discovery.stop();
         startServerButton.setDisable(false);
         stopServerButton.setDisable(true);
         serverStatusLabel.setText("Stopped");
