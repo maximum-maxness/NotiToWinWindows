@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Properly implemented DiscoveryThread, can now start and stop without error.">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_json_json_20180813.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/JSONConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/Notification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/PacketType.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Start of notification implementation on server side">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NotiToWinWindows1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/NotiToWinWindows1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/SimpleSocketServer.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/jsonviewer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/jsonviewer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Console.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DiscoveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DiscoveryThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/JSONViewerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/JSONViewerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runner/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/runner/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/jsonviewer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/jsonviewer.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -108,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/src/controller/DiscoveryThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="808">
-              <caret line="119" column="44" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
+              <caret line="117" column="44" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -196,7 +183,7 @@
         <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
               <folding>
                 <element signature="e#237#268#0" expanded="true" />
                 <element signature="e#1227#1228#0" expanded="true" />
@@ -246,8 +233,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="65" column="105" selection-start-line="65" selection-start-column="105" selection-end-line="65" selection-end-column="105" />
+            <state relative-caret-position="986">
+              <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
             </state>
           </provider>
           <provider editor-type-id="JavaFX-Scene-Builder" />
@@ -385,7 +372,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547359331263" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547360021290" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../NotiToWinWindowsSTUB" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -506,7 +493,7 @@
       <workItem from="1547148908695" duration="2852000" />
       <workItem from="1547228212240" duration="777000" />
       <workItem from="1547234463134" duration="21000" />
-      <workItem from="1547317874500" duration="10284000" />
+      <workItem from="1547317874500" duration="10318000" />
     </task>
     <task id="LOCAL-00001" summary="Properly implemented DiscoveryThread, can now start and stop without error.">
       <created>1547144786327</created>
@@ -515,15 +502,21 @@
       <option name="project" value="LOCAL" />
       <updated>1547144786327</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Start of notification implementation on server side">
+      <created>1547360043374</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1547360043374</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23462000" />
+    <option name="totallyTimeSpent" value="23496000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.24253732" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -574,7 +567,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Properly implemented DiscoveryThread, can now start and stop without error." />
-    <option name="LAST_COMMIT_MESSAGE" value="Properly implemented DiscoveryThread, can now start and stop without error." />
+    <MESSAGE value="Start of notification implementation on server side" />
+    <option name="LAST_COMMIT_MESSAGE" value="Start of notification implementation on server side" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -590,7 +584,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/runner/Main.java</url>
-          <line>30</line>
+          <line>18</line>
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
@@ -656,8 +650,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="105" selection-start-line="65" selection-start-column="105" selection-end-line="65" selection-end-column="105" />
+        <state relative-caret-position="986">
+          <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
@@ -710,7 +704,7 @@
     <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
           <folding>
             <element signature="e#237#268#0" expanded="true" />
             <element signature="e#1227#1228#0" expanded="true" />
@@ -808,7 +802,7 @@
     <entry file="file://$PROJECT_DIR$/src/controller/DiscoveryThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="808">
-          <caret line="119" column="44" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
+          <caret line="117" column="44" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
