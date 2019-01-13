@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import runner.Main;
 
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
@@ -41,10 +42,9 @@ public class ConfigureViewController {
     private void initialize() {
         discovery = DiscoveryThread.getInstance();
         discoveryThread = Executors.newFixedThreadPool(1);
-        discoveryThread.execute(discovery);
-//        Console console = new Console(logOutput);
-//        PrintStream ps = new PrintStream(console, true);
-//        System.setOut(ps);
+        Console console = new Console(logOutput);
+        PrintStream ps = new PrintStream(console, true);
+        System.setOut(ps);
 //        System.setErr(ps);
     }
 

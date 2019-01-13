@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-      prefWidth="900.0"
+      prefWidth="900.0" fx:controller="controller.JSONViewerController"
       xmlns="http://javafx.com/javafx/8">
     <stylesheets>
         <URL value="@css/jsonviewer.css"/>
@@ -27,8 +27,9 @@
             </Label>
             <VBox layoutY="41.0" prefHeight="534.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0"
                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure"/>
-                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer"/>
+                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure"
+                        fx:id="toConfigButton" onAction="#changeViewToConfig"/>
+                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer" disable="true"/>
             </VBox>
         </AnchorPane>
         <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="218.0">
@@ -47,7 +48,7 @@
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TreeView prefHeight="578.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="jsonTree"/>
         </AnchorPane>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
@@ -63,6 +64,6 @@
             </textFill>
         </Label>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Label font="$x3" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER"/>
+        <Label font="$x3" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER" fx:id="serverStatusLabel2"/>
     </HBox>
 </VBox>

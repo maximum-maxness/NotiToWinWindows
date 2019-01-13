@@ -1,90 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigureViewController">
-    <children>
-        <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-            <items>
-                <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="222.0">
-                    <children>
-                        <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="NOTITOWIN" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
-                            <font>
-                                <Font size="18.0" fx:id="x1" />
-                            </font>
-                            <textFill>
-                                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-                            </textFill>
-                        </Label>
-                        <VBox layoutY="41.0" prefHeight="536.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-                            <children>
-                                <Button fx:id="toConfigureButton" disable="true" mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure" />
-                                <Button fx:id="toJSONButton" mnemonicParsing="false" onAction="#changeViewToJSON" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer" />
-                            </children>
-                        </VBox>
-                    </children>
-                </AnchorPane>
-                <AnchorPane>
-                    <children>
-                        <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Configure" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-                        <TextArea fx:id="logOutput" layoutY="376.0" prefHeight="200.0" prefWidth="670.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="376.0" />
-                        <Label text="LOG" textFill="#9f9f9f" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="360.0" />
-                        <VBox layoutY="38.0" prefHeight="337.0" prefWidth="670.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-                            <children>
-                                <HBox prefHeight="34.0" prefWidth="222.0">
-                                    <children>
-                                        <Pane prefHeight="330.0" prefWidth="8.0" />
-                                        <Button fx:id="startServerButton" mnemonicParsing="false" onAction="#startServer" prefHeight="33.0" prefWidth="105.0" text="Start Server" />
-                                        <Button fx:id="stopServerButton" disable="true" mnemonicParsing="false" onAction="#stopServer" prefHeight="33.0" prefWidth="105.0" text="Stop Server" />
-                                    </children>
-                                </HBox>
-                                <HBox prefHeight="17.0" prefWidth="670.0">
-                                    <children>
-                                        <Pane prefWidth="8.0" />
-                                        <Label prefHeight="17.0" prefWidth="75.0" text="Server Status:" textFill="#545454" />
-                                        <Label fx:id="serverStatusLabel" text="Stopped" textFill="RED">
-                                            <font>
-                                                <Font name="System Bold" size="12.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
-        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-            <children>
-                <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="NotiToWin v1.0" HBox.hgrow="ALWAYS">
-                    <font>
-                        <Font size="11.0" fx:id="x3" />
-                    </font>
-                    <textFill>
-                        <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
-                    </textFill>
-                </Label>
-                <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-                <Label font="$x3" maxWidth="-1.0" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER" />
-            </children>
-            <padding>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-            </padding>
-        </HBox>
-    </children>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+      prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+      fx:controller="controller.ConfigureViewController">
     <stylesheets>
-        <URL value="@css/configureView.css" />
+        <URL value="@css/configureView.css"/>
     </stylesheets>
+    <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true"
+               VBox.vgrow="ALWAYS">
+        <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="222.0">
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0"
+                   style="&#10;" text="NOTITOWIN" textAlignment="CENTER"
+                   AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+                <font>
+                    <Font size="18.0" fx:id="x1"/>
+                </font>
+                <textFill>
+                    <Color blue="0.624" green="0.624" red="0.624" fx:id="x2"/>
+                </textFill>
+            </Label>
+            <VBox layoutY="41.0" prefHeight="536.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
+                <Button fx:id="toConfigureButton" disable="true" mnemonicParsing="false" prefHeight="46.0"
+                        prefWidth="228.0" text="Configure"/>
+                <Button fx:id="toJSONButton" mnemonicParsing="false" onAction="#changeViewToJSON"
+                        prefHeight="46.0" prefWidth="229.0" text="JSON Viewer"/>
+            </VBox>
+        </AnchorPane>
+        <AnchorPane>
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Configure"
+                   textAlignment="CENTER" textFill="$x2" AnchorPane.leftAnchor="14.0"
+                   AnchorPane.topAnchor="14.0"/>
+            <TextArea fx:id="logOutput" layoutY="376.0" prefHeight="200.0" prefWidth="670.0"
+                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="376.0"/>
+            <Label text="LOG" textFill="#9f9f9f" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="360.0"/>
+            <VBox layoutY="38.0" prefHeight="337.0" prefWidth="670.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.topAnchor="40.0">
+                <HBox prefHeight="34.0" prefWidth="222.0">
+                    <Pane prefHeight="330.0" prefWidth="8.0"/>
+                    <Button fx:id="startServerButton" mnemonicParsing="false" onAction="#startServer"
+                            prefHeight="33.0" prefWidth="105.0" text="Start Server"/>
+                    <Button fx:id="stopServerButton" disable="true" mnemonicParsing="false"
+                            onAction="#stopServer" prefHeight="33.0" prefWidth="105.0"
+                            text="Stop Server"/>
+                </HBox>
+                <HBox prefHeight="17.0" prefWidth="670.0">
+                    <Pane prefWidth="8.0"/>
+                    <Label prefHeight="17.0" prefWidth="75.0" text="Server Status:" textFill="#545454"/>
+                    <Label fx:id="serverStatusLabel" text="Stopped" textFill="RED">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                    </Label>
+                </HBox>
+            </VBox>
+        </AnchorPane>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+        <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </padding>
+        <Label maxHeight="1.7976931348623157E308" text="NotiToWin v1.0" HBox.hgrow="ALWAYS">
+            <font>
+                <Font size="11.0" fx:id="x3"/>
+            </font>
+            <textFill>
+                <Color blue="0.625" green="0.625" red="0.625" fx:id="x4"/>
+            </textFill>
+        </Label>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Label font="$x3" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER"/>
+    </HBox>
 </VBox>
