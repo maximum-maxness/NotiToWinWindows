@@ -27,7 +27,8 @@
             </Label>
             <VBox layoutY="41.0" prefHeight="534.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0"
                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure" fx:id="toConfigButton" onAction="#changeViewToConfig"/>
+                <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure"
+                        fx:id="toConfigButton" onAction="#changeViewToConfig"/>
                 <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer" disable="true"/>
             </VBox>
         </AnchorPane>

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -67,56 +68,68 @@ class DiscoveryThread implements Runnable {
                         }
                     }
                     while (true) {
+                        byte[] sendData = new byte[15000];
+                        packet = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
                         socket.receive(packet);
                         message = new String(packet.getData());
+                        System.out.println(message);
                         message = message.trim();
-                        JSONConverter json = JSONConverter.unserialize(message);
-                        if (json.getType().equals(PacketType.NOTI_REQUEST)) {
-                            Notification noti = new Notification();
-                            JSONObject jsonOb = json.getJSONObject("body");
-                            Iterator<String> iter = jsonOb.keys();
-                            while (iter.hasNext()) {
-                                String key = iter.next();
-                                switch (key) {
-                                    case "id":
-                                        noti.setId((String) jsonOb.get(key));
-                                        break;
-                                    case "isClearable":
-                                        noti.setClearable((boolean) jsonOb.get(key));
-                                        break;
-                                    case "appName":
-                                        noti.setAppName((String) jsonOb.get(key));
-                                        break;
-                                    case "time":
-                                        noti.setTimeStamp((String) jsonOb.get(key));
-                                        break;
-                                    case "title":
-                                        noti.setTitle((String) jsonOb.get(key));
-                                        break;
-                                    case "text":
-                                        noti.setText((String) jsonOb.get(key));
-                                        break;
-                                    case "isRepliable":
-                                        noti.setRepliable((boolean) jsonOb.get(key));
-                                        break;
-                                    case "requestReplyId":
-                                        noti.setRequestReplyId((String) jsonOb.get(key));
-                                        break;
-                                    case "hasDataLoad":
-                                        noti.setHasDataLoad((boolean) jsonOb.get(key));
-                                        break;
-                                    case "dataLoadHash":
-                                        noti.setDataLoadHash((String) jsonOb.get(key));
-                                        break;
-                                    default:
-                                        System.err.println("Key: \"" + key + "\" isn't a notification key.");
+                        System.out.println(message);
+                        if (message.equals(PacketType.NOTI_REQUEST)) {
+                            sendReady(packet.getAddress(), packet.getPort());
+                            sendData = new byte[15000];
+                            packet = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
+                            socket.receive(packet);
+                            message = message.trim();
+                            System.out.println(message);
+                            JSONConverter json = JSONConverter.unserialize(message);
+                            if (json.getType().equals(PacketType.NOTI_REQUEST)) {
+                                Notification noti = new Notification();
+                                JSONObject jsonOb = json.getJSONObject("body");
+                                Iterator<String> iter = jsonOb.keys();
+                                while (iter.hasNext()) {
+                                    String key = iter.next();
+                                    switch (key) {
+                                        case "id":
+                                            noti.setId((String) jsonOb.get(key));
+                                            break;
+                                        case "isClearable":
+                                            noti.setClearable((boolean) jsonOb.get(key));
+                                            break;
+                                        case "appName":
+                                            noti.setAppName((String) jsonOb.get(key));
+                                            break;
+                                        case "time":
+                                            noti.setTimeStamp((String) jsonOb.get(key));
+                                            break;
+                                        case "title":
+                                            noti.setTitle((String) jsonOb.get(key));
+                                            break;
+                                        case "text":
+                                            noti.setText((String) jsonOb.get(key));
+                                            break;
+                                        case "isRepliable":
+                                            noti.setRepliable((boolean) jsonOb.get(key));
+                                            break;
+                                        case "requestReplyId":
+                                            noti.setRequestReplyId((String) jsonOb.get(key));
+                                            break;
+                                        case "hasDataLoad":
+                                            noti.setHasDataLoad((boolean) jsonOb.get(key));
+                                            break;
+                                        case "dataLoadHash":
+                                            noti.setDataLoadHash((String) jsonOb.get(key));
+                                            break;
+                                        default:
+                                            System.err.println("Key: \"" + key + "\" isn't a notification key.");
+                                    }
                                 }
                                 notifications.add(noti);
+                            } else if (json.getType().equals(PacketType.UNPAIR_CMD)) {
+                                notifications.clear();
+                                clients.clear();
+                                break;
                             }
-                        } else if (json.getType().equals(PacketType.UNPAIR_CMD)) {
-                            notifications.clear();
-                            clients.clear();
-                            break;
                         }
                     }
                 }
@@ -126,6 +139,12 @@ class DiscoveryThread implements Runnable {
         } catch (IOException e) {
             System.out.println("Socket Closed");
         }
+    }
+
+    private void sendReady(InetAddress ip, int port) throws IOException {
+        byte[] sendData = PacketType.READY_RESPONSE.getBytes();
+        DatagramPacket packet = new DatagramPacket(sendData, sendData.length, ip, port);
+        socket.send(packet);
     }
 
     void stop() {
