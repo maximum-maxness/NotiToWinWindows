@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import runner.Main;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,7 +21,7 @@ public class ConfigureViewController {
     private DiscoveryThread discovery;
 
     @FXML
-    private Button startServerButton, stopServerButton, toJSONButton;
+    private Button startServerButton, stopServerButton, toJSONButton, sendReadyButton;
 
     @FXML
     private Label serverStatusLabel;
@@ -71,6 +72,15 @@ public class ConfigureViewController {
     @FXML
     private void changeViewToJSON() {
         Main.changeViewToJSON();
+    }
+
+    @FXML
+    private void sendReady(){
+        try {
+            discovery.sendReadyPacket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

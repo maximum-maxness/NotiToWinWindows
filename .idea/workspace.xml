@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Start of notification implementation on server side">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/DiscoveryThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/proto.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/jsonviewer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/jsonviewer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/DiscoveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DiscoveryThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/configureView.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,18 +67,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/Console.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
@@ -92,8 +81,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/DiscoveryThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="81" column="44" lean-forward="true" selection-start-line="81" selection-start-column="44" selection-end-line="81" selection-end-column="44" />
+            <state relative-caret-position="2550">
+              <caret line="161" column="17" selection-start-line="161" selection-start-column="17" selection-end-line="161" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="43" column="109" selection-start-line="43" selection-start-column="109" selection-end-line="43" selection-end-column="109" />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="639">
+              <caret line="69" column="5" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -127,10 +138,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
+            <state relative-caret-position="306">
               <caret line="25" selection-start-line="25" selection-end-line="25" />
               <folding>
                 <element signature="e#3713#3714#0" expanded="true" />
@@ -151,12 +162,12 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1122">
               <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
             </state>
           </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -201,10 +212,8 @@
         <option value="$PROJECT_DIR$/src/controller/configureViewController.java" />
         <option value="$PROJECT_DIR$/src/controller/DiscoveryThreadShutdown.java" />
         <option value="$PROJECT_DIR$/src/ui/css/configureView.css" />
-        <option value="$PROJECT_DIR$/src/ui/configureView.fxml" />
         <option value="$PROJECT_DIR$/src/controller/SimpleSocketServer.java" />
         <option value="$PROJECT_DIR$/src/controller/Console.java" />
-        <option value="$PROJECT_DIR$/src/controller/ConfigureViewController.java" />
         <option value="$PROJECT_DIR$/src/ui/jsonviewer.fxml" />
         <option value="$PROJECT_DIR$/src/runner/Main.java" />
         <option value="$PROJECT_DIR$/src/controller/Client.java" />
@@ -213,13 +222,15 @@
         <option value="$PROJECT_DIR$/src/controller/JSONViewerController.java" />
         <option value="$PROJECT_DIR$/src/controller/Notification.java" />
         <option value="$PROJECT_DIR$/src/controller/PacketType.java" />
+        <option value="$PROJECT_DIR$/src/ui/configureView.fxml" />
         <option value="$PROJECT_DIR$/src/controller/DiscoveryThread.java" />
+        <option value="$PROJECT_DIR$/src/controller/ConfigureViewController.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-3" />
+    <option name="x" value="957" />
     <option name="width" value="966" />
     <option name="height" value="1043" />
   </component>
@@ -232,6 +243,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -274,7 +286,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -291,7 +302,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547421933562" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547664188507" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../NotiToWinWindowsSTUB" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -414,6 +425,10 @@
       <workItem from="1547234463134" duration="21000" />
       <workItem from="1547317874500" duration="10318000" />
       <workItem from="1547408224518" duration="4913000" />
+      <workItem from="1547660878088" duration="3355000" />
+      <workItem from="1547672939998" duration="2154000" />
+      <workItem from="1547754167365" duration="613000" />
+      <workItem from="1548735039259" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="Properly implemented DiscoveryThread, can now start and stop without error.">
       <created>1547144786327</created>
@@ -433,12 +448,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28409000" />
+    <option name="totallyTimeSpent" value="34539000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1928" height="1048" extended-state="6" />
+    <frame x="-4" y="-4" width="1928" height="1168" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.24520256" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.25586355" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -498,7 +514,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/controller/ConfigureViewController.java</url>
-          <line>62</line>
+          <line>63</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
@@ -507,6 +523,18 @@
           <line>18</line>
           <properties />
           <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/controller/DiscoveryThread.java</url>
+          <line>74</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/controller/DiscoveryThread.java</url>
+          <line>78</line>
+          <properties />
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -529,31 +557,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/css/configureView.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/css/jsonviewer.css">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="25" column="35" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1857#1858#0" expanded="true" />
-            <element signature="e#1896#1897#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/proto.txt" />
     <entry file="file://$PROJECT_DIR$/src/controller/ServerListener.java" />
@@ -577,6 +585,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/DiscoveryThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2550">
+          <caret line="161" column="17" selection-start-line="161" selection-start-column="17" selection-end-line="161" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="43" column="109" selection-start-line="43" selection-start-column="109" selection-end-line="43" selection-end-column="109" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/Notification.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1105">
@@ -599,18 +625,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
+    <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/net/DualStackPlainDatagramSocketImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4369">
-          <caret line="284" column="30" selection-start-line="284" selection-start-column="30" selection-end-line="284" selection-end-column="30" />
+        <state relative-caret-position="306">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#3713#3714#0" expanded="true" />
+            <element signature="e#3771#3772#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -621,23 +643,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/DiscoveryThread.java">
+    <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="81" column="44" lean-forward="true" selection-start-line="81" selection-start-column="44" selection-end-line="81" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="1122">
+          <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/net/DualStackPlainDatagramSocketImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4369">
+          <caret line="284" column="30" selection-start-line="284" selection-start-column="30" selection-end-line="284" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
+    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="639">
+          <caret line="69" column="5" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
           <folding>
-            <element signature="e#3713#3714#0" expanded="true" />
-            <element signature="e#3771#3772#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
