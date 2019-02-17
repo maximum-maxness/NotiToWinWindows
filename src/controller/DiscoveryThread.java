@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-class DiscoveryThread implements Runnable {
+class DiscoveryThread implements Runnable { //TODO Restructure entirely
 
     private final AtomicBoolean running = new AtomicBoolean(false);
     private final String className = getClass().getName();
@@ -79,46 +79,7 @@ class DiscoveryThread implements Runnable {
                             if (message.endsWith("}")) {
                                 JSONConverter json = JSONConverter.unserialize(message);
                                 if (json.getType().equals(PacketType.NOTI_REQUEST)) {
-                                    Notification noti = new Notification();
-                                    JSONObject jsonOb = json.getJSONObject("body");
-                                    Iterator<String> iter = jsonOb.keys();
-                                    while (iter.hasNext()) {
-                                        String key = iter.next();
-                                        switch (key) {
-                                            case "id":
-                                                noti.setId((String) jsonOb.get(key));
-                                                break;
-                                            case "isClearable":
-                                                noti.setClearable((boolean) jsonOb.get(key));
-                                                break;
-                                            case "appName":
-                                                noti.setAppName((String) jsonOb.get(key));
-                                                break;
-                                            case "time":
-                                                noti.setTimeStamp((String) jsonOb.get(key));
-                                                break;
-                                            case "title":
-                                                noti.setTitle((String) jsonOb.get(key));
-                                                break;
-                                            case "text":
-                                                noti.setText((String) jsonOb.get(key));
-                                                break;
-                                            case "isRepliable":
-                                                noti.setRepliable((boolean) jsonOb.get(key));
-                                                break;
-                                            case "requestReplyId":
-                                                noti.setRequestReplyId((String) jsonOb.get(key));
-                                                break;
-                                            case "hasDataLoad":
-                                                noti.setHasDataLoad((boolean) jsonOb.get(key));
-                                                break;
-                                            case "dataLoadHash":
-                                                noti.setDataLoadHash((String) jsonOb.get(key));
-                                                break;
-                                            default:
-                                                System.err.println("Key: \"" + key + "\" isn't a notification key.");
-                                        }
-                                    }
+                                    Notification noti = Notification.jsonToNoti(json);
                                     notifications.add(noti);
                                 } else if (json.getType().equals(PacketType.UNPAIR_CMD)) {
                                     notifications.clear();
@@ -140,6 +101,7 @@ class DiscoveryThread implements Runnable {
             System.out.println("Socket Closed");
         }
     }
+
 
     private String recievePacket(InetAddress ip, int port) throws IOException {
         byte[] recieveBuff = new byte[15000];

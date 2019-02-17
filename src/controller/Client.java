@@ -4,12 +4,14 @@ import java.net.InetAddress;
 
 public class Client {
     private InetAddress ip;
+    private boolean confirmed;
     private String name;
     private int port;
 
     public Client(InetAddress ip, int port) {
         this.ip = ip;
         this.port = port;
+        this.confirmed = false;
     }
 
     public InetAddress getIp() {
@@ -34,5 +36,13 @@ public class Client {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }

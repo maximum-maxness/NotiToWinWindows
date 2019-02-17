@@ -8,6 +8,7 @@ public class PacketType {
     public static final String SERVER_PAIR_RESPONSE = "SERVER_PAIR_RESPONSE";
     public static final String CLIENT_PAIR_CONFIRM = "CLIENT_PAIR_CONFIRM";
     public static final String NOTI_REQUEST = "ANDR_NOTI_RECEIVE";
+    public static final String SERVER_ERROR = "WIN_ERROR";
     public static final String SEND_REPLY = "WIN_REPLY_RECEIVE";
     public static final String DATALOAD_REQUEST = "ANDR_DATALOAD_RECEIVE";
     public static final String READY_RESPONSE = "WIN_READY";
@@ -18,6 +19,7 @@ public class PacketType {
         add(SERVER_PAIR_RESPONSE);
         add(CLIENT_PAIR_CONFIRM);
         add(NOTI_REQUEST);
+        add(SERVER_ERROR);
         add(SEND_REPLY);
         add(DATALOAD_REQUEST);
         add(READY_RESPONSE);

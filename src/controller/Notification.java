@@ -1,6 +1,9 @@
 package controller;
 
+import org.json.JSONObject;
+
 import javax.swing.*;
+import java.util.Iterator;
 
 public class Notification {
 
@@ -109,5 +112,49 @@ public class Notification {
 
     public boolean isValidNoti() {
         return this.id != "" && this.appName != "" && this.title != "" && this.timeStamp != 0L;
+    }
+
+    public static Notification jsonToNoti(JSONConverter json){
+        Notification noti = new Notification();
+        JSONObject jsonOb = json.getJSONObject("body");
+        Iterator<String> iter = jsonOb.keys();
+        while (iter.hasNext()) {
+            String key = iter.next();
+            switch (key) {
+                case "id":
+                    noti.setId((String) jsonOb.get(key));
+                    break;
+                case "isClearable":
+                    noti.setClearable((boolean) jsonOb.get(key));
+                    break;
+                case "appName":
+                    noti.setAppName((String) jsonOb.get(key));
+                    break;
+                case "time":
+                    noti.setTimeStamp((String) jsonOb.get(key));
+                    break;
+                case "title":
+                    noti.setTitle((String) jsonOb.get(key));
+                    break;
+                case "text":
+                    noti.setText((String) jsonOb.get(key));
+                    break;
+                case "isRepliable":
+                    noti.setRepliable((boolean) jsonOb.get(key));
+                    break;
+                case "requestReplyId":
+                    noti.setRequestReplyId((String) jsonOb.get(key));
+                    break;
+                case "hasDataLoad":
+                    noti.setHasDataLoad((boolean) jsonOb.get(key));
+                    break;
+                case "dataLoadHash":
+                    noti.setDataLoadHash((String) jsonOb.get(key));
+                    break;
+                default:
+                    System.err.println("Key: \"" + key + "\" isn't a notification key.");
+            }
+        }
+        return noti;
     }
 }
