@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import runner.Main;
+import server.DiscoveryThread;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -74,13 +75,13 @@ public class ConfigureViewController {
         Main.changeViewToJSON();
     }
 
-    @FXML
-    private void sendReady(){
-        try {
-            discovery.sendReadyPacket();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @FXML
+//    private void sendReady(){
+//        try {
+//            discovery.sendReadyPacket();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

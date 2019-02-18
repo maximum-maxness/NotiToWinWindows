@@ -11,10 +11,10 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class NewDiscoveryThread implements Runnable {
+public class DiscoveryThread implements Runnable {
 
     final AtomicBoolean running = new AtomicBoolean(false);
-    Executor notiThreadPool = Executors.newWorkStealingPool();
+    public static Executor notiThreadPool = Executors.newWorkStealingPool();
     DatagramSocket socket;
     InetAddress recievedIP;
     int recievedPort;
@@ -32,26 +32,32 @@ public class NewDiscoveryThread implements Runnable {
             while (running.get()) {
                 byte[] receiveBuffer = new byte[15000];
                 DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+                System.out.println("Waiting for packet...");
                 socket.receive(receivedPacket); //Wait to receive a packet from a potential client...
+                System.out.println("Received Packet!");
                 this.recievedIP = receivedPacket.getAddress();
                 this.recievedPort = receivedPacket.getPort();
 
 
                 String receivedPacketMessage = new String(receivedPacket.getData());
                 receivedPacketMessage = receivedPacketMessage.trim();
+                System.out.println("Packet Message: " + receivedPacketMessage);
                 switch (receivedPacketMessage) {
                     case PacketType.CLIENT_PAIR_REQUEST: //Client Initially Requests to Pair
+                        System.out.println("Client Pair Request!");
                         Client client1 = new Client(receivedPacket.getAddress(), receivedPacket.getPort());
                         checkClientList(client1); //See if client is already on the list, if not add it
                         sendMessage(PacketType.SERVER_PAIR_RESPONSE); //Respond to client
                         break;
                     case PacketType.CLIENT_PAIR_CONFIRM: //Client Confirms it Wants to Pair
+                        System.out.println("Client Pair Confirm!");
                         int index = findIndxClient(receivedPacket);
                         if(index != 0){
                             clients.get(index - 1).setConfirmed(true);
                         }
                         break;
                     case PacketType.NOTI_REQUEST: //Client is Wanting to Send a Notification
+                        System.out.println("Noti Request!");
                         Client client = findClientFromPacket(receivedPacket);
                         if(client != null) {
                             if (client.isConfirmed()){ //Check if client has gone through the pairing process
@@ -65,6 +71,7 @@ public class NewDiscoveryThread implements Runnable {
                         }
                         break;
                     case PacketType.UNPAIR_CMD: //client wants to unpair
+                        System.out.println("Unpair Command!");
                         notifications.clear(); //clear notifications
                         Client client2 = findClientFromPacket(receivedPacket); //find the client in the list
                         if(client2 != null) {
@@ -85,9 +92,10 @@ public class NewDiscoveryThread implements Runnable {
     }
 
     private void sendMessage(String packetType) throws IOException {
-        byte[] sendData = packetType.getBytes();
+        byte[] sendData = packetType.getBytes(); //Turn the string into a byte array
         DatagramPacket packet = new DatagramPacket(sendData, sendData.length, this.recievedIP, this.recievedPort);
-        socket.send(packet);
+        socket.send(packet); //put into a packet and send
+        System.out.println("Sent: " + packetType);
     }
 
     private void checkClientList(Client client1) throws IOException {
@@ -101,6 +109,7 @@ public class NewDiscoveryThread implements Runnable {
         if (!b) {
             clients.add(client1); //if the client isn't isn't on the list, add it
         }
+        System.out.println("Client is on list? " + b);
     }
 
     private Client findClientFromPacket(DatagramPacket packet){
@@ -111,19 +120,26 @@ public class NewDiscoveryThread implements Runnable {
 
     private int findIndxClient(DatagramPacket packet) {
         for (int count = 0; count < clients.size(); count++) {
-            if (clients.get(count).getIp().equals(packet.getAddress())
-                    && clients.get(count).getPort() == packet.getPort()) {
-                return count + 1;
+            if (clients.get(count).getIp().equals(packet.getAddress()) //if the ip and port match up to a client
+                    && clients.get(count).getPort() == packet.getPort()) { // on the client list, get the index of the
+                return count + 1;                                       // client
             }
         }
         return 0;
     }
 
-    static NewDiscoveryThread getInstance() {
+    public void stop() {
+
+        running.set(false); //stop the while loop
+        socket.close(); // close the socket, causing a connection exception
+        //   Main.updateServerConnectionStatus(false);
+    }
+
+    public static DiscoveryThread getInstance() {
         return DiscoveryThreadHolder.INSTANCE;
     }
 
     private static class DiscoveryThreadHolder {
-        private static final NewDiscoveryThread INSTANCE = new NewDiscoveryThread();
+        private static final DiscoveryThread INSTANCE = new DiscoveryThread();
     }
 }

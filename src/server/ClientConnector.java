@@ -4,13 +4,8 @@ import controller.Client;
 import controller.JSONConverter;
 import controller.Notification;
 import controller.PacketType;
-
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.*;
-
-import static server.NewDiscoveryThread.clients;
-import static server.NewDiscoveryThread.notifications;
 
 public class ClientConnector implements Runnable {
     private InetAddress ip;
@@ -19,17 +14,19 @@ public class ClientConnector implements Runnable {
     private DatagramSocket socket;
     private boolean firstRun = true;
 
-    public ClientConnector(Client client) throws UnknownHostException, SocketException {
+    public ClientConnector(Client client, DatagramSocket socket) throws UnknownHostException, SocketException {
         this.client = client;
         this.port = client.getPort();
         this.ip = client.getIp();
-        this.socket = new DatagramSocket(8657, InetAddress.getByName("0.0.0.0"));
+        this.socket = socket;
         this.socket.setBroadcast(true);
+        System.out.println("Client connector has been created!");
     }
 
     @Override
     public void run() {
         if ((this.port != 0) && (this.ip != null)) {
+            System.out.println("ClientConnector is running!");
             while (true) {
                 try {
                     if (firstRun) {
@@ -39,11 +36,13 @@ public class ClientConnector implements Runnable {
                     String message = recievePacket();
                     switch(message){
                         case PacketType.NOTI_REQUEST:
+                            System.out.println("Noti Request!");
                             sendReady();
                             break;
                         case PacketType.UNPAIR_CMD:
-                            notifications.clear();
-                            clients.remove(client);
+                            System.out.println("Unpair Command!");
+                            DiscoveryThread.notifications.clear();
+                            DiscoveryThread.clients.remove(client);
                             Thread.currentThread().interrupt();
                             break;
                         default:
@@ -61,10 +60,12 @@ public class ClientConnector implements Runnable {
     }
 
     private void processJson(String jsonString){
+        System.out.println("JSON Detected!");
         JSONConverter json = JSONConverter.unserialize(jsonString);
         if(json.getType().equals(PacketType.NOTI_REQUEST)){
+            System.out.println("JSON Type is Noti Request!");
             Notification noti = Notification.jsonToNoti(json);
-            notifications.add(noti);
+            DiscoveryThread.notifications.add(noti);
         } else {
             System.err.println("Json type: " + json.getType() + "is unrecognized.");
         }

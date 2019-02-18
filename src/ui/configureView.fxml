@@ -41,7 +41,7 @@
                     <Pane prefHeight="330.0" prefWidth="8.0" />
                     <Button fx:id="startServerButton" mnemonicParsing="false" onAction="#startServer" prefHeight="33.0" prefWidth="105.0" text="Start Server" />
                     <Button fx:id="stopServerButton" disable="true" mnemonicParsing="false" onAction="#stopServer" prefHeight="33.0" prefWidth="105.0" text="Stop Server" />
-               <Button mnemonicParsing="false" text="Send Ready" fx:id="sendReadyButton" onAction="#sendReady"/>
+               <!--<Button mnemonicParsing="false" text="Send Ready" fx:id="sendReadyButton" onAction="#sendReady"/>-->
                 </HBox>
                 <HBox prefHeight="17.0" prefWidth="670.0">
                     <Pane prefWidth="8.0" />
