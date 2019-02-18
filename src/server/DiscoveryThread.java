@@ -60,11 +60,12 @@ public class DiscoveryThread implements Runnable {
                         System.out.println("Noti Request!");
                         Client client = findClientFromPacket(receivedPacket);
                         if(client != null) {
-                            if (client.isConfirmed()){ //Check if client has gone through the pairing process
+                            if (client.isConfirmed() && !(client.isHasThread())){ //Check if client has gone through the pairing process
                                 ClientConnector cc = new ClientConnector(client, socket);
                                 notiThreadPool.execute(cc); //create a new thread listening to notifications
+                                client.setHasThread(true);
                             } else {
-                                System.err.println("Hasn't gone through pairing process yet.");
+                                System.err.println("Hasn't gone through pairing process yet, or already has thread.");
                             }
                         } else {
                             System.err.println("Client hasn't connected before...");

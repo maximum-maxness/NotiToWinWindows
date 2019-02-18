@@ -4,7 +4,7 @@ import java.net.InetAddress;
 
 public class Client {
     private InetAddress ip;
-    private boolean confirmed;
+    private boolean confirmed, hasThread;
     private String name;
     private int port;
 
@@ -12,6 +12,7 @@ public class Client {
         this.ip = ip;
         this.port = port;
         this.confirmed = false;
+        this.hasThread = false;
     }
 
     public InetAddress getIp() {
@@ -44,5 +45,13 @@ public class Client {
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public boolean isHasThread() {
+        return hasThread;
+    }
+
+    public void setHasThread(boolean hasThread) {
+        this.hasThread = hasThread;
     }
 }

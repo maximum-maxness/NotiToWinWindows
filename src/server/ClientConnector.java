@@ -37,7 +37,12 @@ public class ClientConnector implements Runnable {
                     switch(message){
                         case PacketType.NOTI_REQUEST:
                             System.out.println("Noti Request!");
+                            Thread.sleep(100);
                             sendReady();
+                            sendReady();
+
+                            sendReady();
+
                             break;
                         case PacketType.UNPAIR_CMD:
                             System.out.println("Unpair Command!");
@@ -48,11 +53,12 @@ public class ClientConnector implements Runnable {
                         default:
                             if(message.endsWith("}")){
                                 processJson(message);
+                                sendReady();
                             } else {
                                 System.err.println("Packet: " + message + " is invalid.");
                             }
                     }
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }

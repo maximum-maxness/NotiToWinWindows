@@ -116,7 +116,7 @@ public class Notification {
 
     public static Notification jsonToNoti(JSONConverter json){
         Notification noti = new Notification();
-        JSONObject jsonOb = json.getJSONObject("body");
+        JSONObject jsonOb = json.getMainBody();
         Iterator<String> iter = jsonOb.keys();
         while (iter.hasNext()) {
             String key = iter.next();
