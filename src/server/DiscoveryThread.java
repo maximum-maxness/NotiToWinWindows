@@ -52,15 +52,15 @@ public class DiscoveryThread implements Runnable {
                     case PacketType.CLIENT_PAIR_CONFIRM: //Client Confirms it Wants to Pair
                         System.out.println("Client Pair Confirm!");
                         int index = findIndxClient(receivedPacket);
-                        if(index != 0){
+                        if (index != 0) {
                             clients.get(index - 1).setConfirmed(true);
                         }
                         break;
                     case PacketType.NOTI_REQUEST: //Client is Wanting to Send a Notification
                         System.out.println("Noti Request!");
                         Client client = findClientFromPacket(receivedPacket);
-                        if(client != null) {
-                            if (client.isConfirmed() && !(client.isHasThread())){ //Check if client has gone through the pairing process
+                        if (client != null) {
+                            if (client.isConfirmed() && !(client.isHasThread())) { //Check if client has gone through the pairing process
                                 ClientConnector cc = new ClientConnector(client, socket);
                                 notiThreadPool.execute(cc); //create a new thread listening to notifications
                                 client.setHasThread(true);
@@ -75,18 +75,23 @@ public class DiscoveryThread implements Runnable {
                         System.out.println("Unpair Command!");
                         notifications.clear(); //clear notifications
                         Client client2 = findClientFromPacket(receivedPacket); //find the client in the list
-                        if(client2 != null) {
+                        if (client2 != null) {
                             clients.remove(client2); //remove the client from the list
                         } else {
                             System.err.println("Client hasn't connected before, nothing to do.");
                         }
                         break;
                     default: //Other message contained within packet
-                        System.err.println("Packet: " + receivedPacketMessage + " is not recognized.");
+                        if (receivedPacketMessage.startsWith("{")) {
+                            System.err.println("JSON Packet Received, letting Client Connector Handle This.");
+                        } else {
+                            System.err.println("Packet: " + receivedPacketMessage + " is not recognized.");
+                        }
                 }
             }
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,9 +118,9 @@ public class DiscoveryThread implements Runnable {
         System.out.println("Client is on list? " + b);
     }
 
-    private Client findClientFromPacket(DatagramPacket packet){
+    private Client findClientFromPacket(DatagramPacket packet) {
         int index = findIndxClient(packet);
-        if(index != 0) return clients.get(index - 1);
+        if (index != 0) return clients.get(index - 1);
         else return null;
     }
 

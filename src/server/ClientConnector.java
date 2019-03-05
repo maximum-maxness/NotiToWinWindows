@@ -14,12 +14,11 @@ public class ClientConnector implements Runnable {
     private DatagramSocket socket;
     private boolean firstRun = true;
 
-    public ClientConnector(Client client, DatagramSocket socket) throws UnknownHostException, SocketException {
+    public ClientConnector(Client client, DatagramSocket socket) {
         this.client = client;
         this.port = client.getPort();
         this.ip = client.getIp();
         this.socket = socket;
-        this.socket.setBroadcast(true);
         System.out.println("Client connector has been created!");
     }
 

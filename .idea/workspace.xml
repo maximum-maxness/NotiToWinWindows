@@ -2,12 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Start of notification implementation on server side">
+      <change afterPath="$PROJECT_DIR$/src/server/CommunicationThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/ClientConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/ClientConnector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/ClientConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ClientConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/DiscoveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/DiscoveryThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/configureView.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,126 +77,144 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="39" column="58" selection-start-line="39" selection-start-column="58" selection-end-line="39" selection-end-column="58" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="631">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
-              <folding>
-                <element signature="e#1933#1934#0" expanded="true" />
-                <element signature="e#1972#1973#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="67" column="115" selection-start-line="67" selection-start-column="115" selection-end-line="67" selection-end-column="115" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/Notification.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="119" selection-start-line="119" selection-end-line="119" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/Client.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-              <folding>
-                <element signature="e#900#901#0" expanded="true" />
-                <element signature="e#932#933#0" expanded="true" />
-                <element signature="e#983#984#0" expanded="true" />
-                <element signature="e#1025#1026#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
-              <folding>
-                <element signature="e#3713#3714#0" expanded="true" />
-                <element signature="e#3771#3772#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/PacketType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
+              <provider editor-type-id="text-editor">
+                <state relative-caret-position="680">
+                  <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+                </state>
+              </provider>
+              <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="986">
+                  <caret line="71" selection-start-line="71" selection-end-line="71" />
+                  <folding>
+                    <element signature="e#1933#1934#0" expanded="true" />
+                    <element signature="e#1972#1973#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="2040">
+                  <caret line="129" column="57" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
+                  <folding>
+                    <element signature="e#6837#6838#0" expanded="true" />
+                    <element signature="e#6890#6891#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/controller/Notification.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1258">
+                  <caret line="119" selection-start-line="119" selection-end-line="119" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/controller/Client.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="255">
+                  <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="323">
+                  <caret line="26" selection-start-line="26" selection-end-line="26" />
+                  <folding>
+                    <element signature="e#3713#3714#0" expanded="true" />
+                    <element signature="e#3771#3772#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/controller/PacketType.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="459">
+                  <caret line="28" selection-start-line="28" selection-end-line="28" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1122">
+                  <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
+                </state>
+              </provider>
+              <provider editor-type-id="JavaFX-Scene-Builder" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1496">
+                  <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/server/CommunicationThread.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="272">
+                  <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1581">
+                  <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -223,20 +255,21 @@
         <option value="$PROJECT_DIR$/src/controller/NewDiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/server/NewDiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/controller/ConfigureViewController.java" />
-        <option value="$PROJECT_DIR$/src/ui/configureView.fxml" />
         <option value="$PROJECT_DIR$/src/controller/Client.java" />
-        <option value="$PROJECT_DIR$/src/server/DiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/controller/Notification.java" />
+        <option value="$PROJECT_DIR$/src/ui/configureView.fxml" />
         <option value="$PROJECT_DIR$/src/server/ClientConnector.java" />
+        <option value="$PROJECT_DIR$/src/server/DiscoveryThread.java" />
+        <option value="$PROJECT_DIR$/src/server/CommunicationThread.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1928" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1186" />
+    <option name="x" value="-4" />
+    <option name="y" value="-4" />
+    <option name="width" value="1928" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -247,50 +280,43 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="runner" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -312,9 +338,9 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550479084452" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551724182205" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GridWorld" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -398,6 +424,7 @@
       </method>
     </configuration>
     <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -452,6 +479,14 @@
       <workItem from="1550430023057" duration="3387000" />
       <workItem from="1550460765625" duration="1899000" />
       <workItem from="1550470649823" duration="4004000" />
+      <workItem from="1550605249563" duration="2578000" />
+      <workItem from="1550687274414" duration="91000" />
+      <workItem from="1551210002218" duration="2205000" />
+      <workItem from="1551384566083" duration="599000" />
+      <workItem from="1551722285078" duration="2290000" />
+      <workItem from="1551724852405" duration="1185000" />
+      <workItem from="1551733779549" duration="673000" />
+      <workItem from="1551735247853" duration="1089000" />
     </task>
     <task id="LOCAL-00001" summary="Properly implemented DiscoveryThread, can now start and stop without error.">
       <created>1547144786327</created>
@@ -471,13 +506,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56644000" />
+    <option name="totallyTimeSpent" value="67354000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1186" extended-state="6" />
+    <frame x="-4" y="-4" width="1928" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.26066098" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" side_tool="true" visible="true" weight="0.16577825" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -486,8 +521,8 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32974428" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23076923" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3988604" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23051947" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3982684" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -496,7 +531,7 @@
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
-      <window_info anchor="bottom" id="Event Log" order="12" weight="0.328585" />
+      <window_info anchor="bottom" id="Event Log" order="12" weight="0.32792208" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32900432" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
@@ -633,9 +668,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
-          <line>73</line>
+          <line>35</line>
           <properties />
-          <option name="timeStamp" value="42" />
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
+          <line>67</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
+          <line>42</line>
+          <properties />
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -695,12 +742,55 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="58" selection-start-line="39" selection-start-column="58" selection-end-line="39" selection-end-column="58" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
+          <folding>
+            <element signature="e#1933#1934#0" expanded="true" />
+            <element signature="e#1972#1973#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/Notification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="119" selection-start-line="119" selection-end-line="119" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#3713#3714#0" expanded="true" />
+            <element signature="e#3771#3772#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/PacketType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
       <provider selected="true" editor-type-id="text-editor">
@@ -710,66 +800,31 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="631">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="e#1933#1934#0" expanded="true" />
-            <element signature="e#1972#1973#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/PacketType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-          <folding>
-            <element signature="e#900#901#0" expanded="true" />
-            <element signature="e#932#933#0" expanded="true" />
-            <element signature="e#983#984#0" expanded="true" />
-            <element signature="e#1025#1026#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="67" column="115" selection-start-line="67" selection-start-column="115" selection-end-line="67" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="2040">
+          <caret line="129" column="57" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
           <folding>
-            <element signature="e#3713#3714#0" expanded="true" />
-            <element signature="e#3771#3772#0" expanded="true" />
+            <element signature="e#6837#6838#0" expanded="true" />
+            <element signature="e#6890#6891#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Notification.java">
+    <entry file="file://$PROJECT_DIR$/src/server/CommunicationThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+        <state relative-caret-position="1581">
+          <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
