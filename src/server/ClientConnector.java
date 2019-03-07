@@ -1,9 +1,9 @@
 package server;
 
-import controller.Client;
-import controller.JSONConverter;
-import controller.Notification;
-import controller.PacketType;
+import backend.Client;
+import backend.JSONConverter;
+import backend.Notification;
+import backend.PacketType;
 import java.io.IOException;
 import java.net.*;
 
@@ -16,7 +16,6 @@ public class ClientConnector implements Runnable {
 
     public ClientConnector(Client client, DatagramSocket socket) {
         this.client = client;
-        this.port = client.getPort();
         this.ip = client.getIp();
         this.socket = socket;
         System.out.println("Client connector has been created!");
@@ -45,8 +44,8 @@ public class ClientConnector implements Runnable {
                             break;
                         case PacketType.UNPAIR_CMD:
                             System.out.println("Unpair Command!");
-                            DiscoveryThread.notifications.clear();
-                            DiscoveryThread.clients.remove(client);
+                            DiscoveryThreadOLD.notifications.clear();
+                            DiscoveryThreadOLD.clients.remove(client);
                             Thread.currentThread().interrupt();
                             break;
                         default:
@@ -70,7 +69,7 @@ public class ClientConnector implements Runnable {
         if(json.getType().equals(PacketType.NOTI_REQUEST)){
             System.out.println("JSON Type is Noti Request!");
             Notification noti = Notification.jsonToNoti(json);
-            DiscoveryThread.notifications.add(noti);
+            DiscoveryThreadOLD.notifications.add(noti);
         } else {
             System.err.println("Json type: " + json.getType() + "is unrecognized.");
         }

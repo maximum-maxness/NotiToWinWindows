@@ -2,26 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Start of notification implementation on server side">
-      <change afterPath="$PROJECT_DIR$/src/server/CommunicationThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/backend/DataLoad.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Console.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/Notification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/PacketType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/runner/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/ClientConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/ClientConnector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/JSONConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/JSONConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/PacketType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/PacketType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/ClientConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ClientConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/CommunicationThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/CommunicationThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/DiscoveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/DiscoveryThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/configureView.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -103,42 +93,29 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2040">
-                  <caret line="129" column="57" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
-                  <folding>
-                    <element signature="e#6837#6838#0" expanded="true" />
-                    <element signature="e#6890#6891#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="68">
+                  <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/controller/Notification.java">
+            <entry file="file://$PROJECT_DIR$/src/backend/Client.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1258">
-                  <caret line="119" selection-start-line="119" selection-end-line="119" />
+                <state relative-caret-position="68">
+                  <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/controller/Client.java">
+            <entry file="file://$PROJECT_DIR$/src/backend/JSONConverter.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="26" selection-start-line="26" selection-end-line="26" />
+                <state relative-caret-position="85">
+                  <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
                   <folding>
                     <element signature="e#3713#3714#0" expanded="true" />
                     <element signature="e#3771#3772#0" expanded="true" />
@@ -148,10 +125,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/controller/PacketType.java">
+            <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="459">
-                  <caret line="28" selection-start-line="28" selection-end-line="28" />
+                <state relative-caret-position="68">
+                  <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -166,14 +143,23 @@
               <provider editor-type-id="JavaFX-Scene-Builder" />
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1496">
-                  <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+                <state relative-caret-position="680">
+                  <caret line="73" column="38" selection-start-line="73" selection-start-column="38" selection-end-line="73" selection-end-column="38" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1989">
+                  <caret line="126" selection-start-line="126" selection-end-line="134" selection-end-column="5" />
                 </state>
               </provider>
             </entry>
@@ -185,8 +171,23 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/server/CommunicationThread.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="272">
-                  <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+                <state relative-caret-position="453">
+                  <caret line="49" selection-start-line="49" selection-end-line="49" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#1641#1642#0" expanded="true" />
+                    <element signature="e#1659#1660#0" expanded="true" />
+                    <element signature="e#1712#1713#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/backend/DataLoad.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="17">
+                  <caret line="1" selection-start-line="1" selection-end-line="1" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -195,10 +196,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
+            <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1581">
-                  <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+                <state relative-caret-position="833">
+                  <caret line="57" column="108" selection-start-line="57" selection-start-column="108" selection-end-line="57" selection-end-column="108" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -255,12 +256,14 @@
         <option value="$PROJECT_DIR$/src/controller/NewDiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/server/NewDiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/controller/ConfigureViewController.java" />
-        <option value="$PROJECT_DIR$/src/controller/Client.java" />
         <option value="$PROJECT_DIR$/src/controller/Notification.java" />
         <option value="$PROJECT_DIR$/src/ui/configureView.fxml" />
-        <option value="$PROJECT_DIR$/src/server/ClientConnector.java" />
+        <option value="$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java" />
+        <option value="$PROJECT_DIR$/src/controller/Client.java" />
         <option value="$PROJECT_DIR$/src/server/DiscoveryThread.java" />
+        <option value="$PROJECT_DIR$/src/backend/DataLoad.java" />
         <option value="$PROJECT_DIR$/src/server/CommunicationThread.java" />
+        <option value="$PROJECT_DIR$/src/server/ClientConnector.java" />
       </list>
     </option>
   </component>
@@ -281,7 +284,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -293,6 +295,12 @@
               <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
               <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
@@ -318,10 +326,18 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -338,7 +354,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551724182205" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551911050895" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../GridWorld" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -353,11 +369,12 @@
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="controller" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows1\src\controller" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Max Ritchie\IdeaProjects\NotiToWinWindows1\src\ui" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows2\src\backend" />
+      <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows1\src\controller" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -487,6 +504,9 @@
       <workItem from="1551724852405" duration="1185000" />
       <workItem from="1551733779549" duration="673000" />
       <workItem from="1551735247853" duration="1089000" />
+      <workItem from="1551816819267" duration="4333000" />
+      <workItem from="1551895970633" duration="309000" />
+      <workItem from="1551910007303" duration="1052000" />
     </task>
     <task id="LOCAL-00001" summary="Properly implemented DiscoveryThread, can now start and stop without error.">
       <created>1547144786327</created>
@@ -506,13 +526,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67354000" />
+    <option name="totallyTimeSpent" value="73048000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1928" height="1048" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" side_tool="true" visible="true" weight="0.16577825" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" side_tool="true" visible="true" weight="0.1705757" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -595,92 +614,92 @@
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>118</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>119</line>
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>119</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>120</line>
           <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>124</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>125</line>
           <properties />
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>127</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>128</line>
           <properties />
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>130</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>131</line>
           <properties />
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>133</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>134</line>
           <properties />
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>136</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>137</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>139</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>140</line>
           <properties />
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>142</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>143</line>
           <properties />
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>145</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>146</line>
           <properties />
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>148</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>149</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/Notification.java</url>
-          <line>151</line>
+          <url>file://$PROJECT_DIR$/src/backend/Notification.java</url>
+          <line>152</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
-          <line>35</line>
+          <line>34</line>
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
-          <line>67</line>
+          <line>66</line>
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
-          <line>42</line>
+          <line>41</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
@@ -760,38 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Notification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/JSONConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#3713#3714#0" expanded="true" />
-            <element signature="e#3771#3772#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/PacketType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1122">
@@ -800,31 +787,82 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
+    <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="129" column="57" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
-          <folding>
-            <element signature="e#6837#6838#0" expanded="true" />
-            <element signature="e#6890#6891#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1989">
+          <caret line="126" selection-start-line="126" selection-end-line="134" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/CommunicationThread.java">
+    <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="833">
+          <caret line="57" column="108" selection-start-line="57" selection-start-column="108" selection-end-line="57" selection-end-column="108" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/JSONConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="e#3713#3714#0" expanded="true" />
+            <element signature="e#3771#3772#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/DataLoad.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/CommunicationThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1712#1713#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+        <state relative-caret-position="680">
+          <caret line="73" column="38" selection-start-line="73" selection-start-column="38" selection-end-line="73" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

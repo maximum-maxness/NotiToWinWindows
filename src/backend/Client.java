@@ -1,4 +1,4 @@
-package controller;
+package backend;
 
 import java.net.InetAddress;
 
@@ -6,11 +6,9 @@ public class Client {
     private InetAddress ip;
     private boolean confirmed, hasThread;
     private String name;
-    private int port;
 
-    public Client(InetAddress ip, int port) {
+    public Client(InetAddress ip) {
         this.ip = ip;
-        this.port = port;
         this.confirmed = false;
         this.hasThread = false;
     }
@@ -31,14 +29,6 @@ public class Client {
         this.name = name;
     }
 
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public boolean isConfirmed() {
         return confirmed;
     }
@@ -54,4 +44,5 @@ public class Client {
     public void setHasThread(boolean hasThread) {
         this.hasThread = hasThread;
     }
+
 }
