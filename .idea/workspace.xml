@@ -2,16 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Start of notification implementation on server side">
-      <change afterPath="$PROJECT_DIR$/src/backend/DataLoad.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/NetworkThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/JSONConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/JSONConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/PacketType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/PacketType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ClientConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ClientConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotiToWinWindows1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/NotiToWinWindows1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/META-INF/NotiToWinWindows1.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/ConfigureViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/controller/JSONViewerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/ClientConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/CommunicationThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/CommunicationThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/server/DiscoveryThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/JSONViewerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/JSONViewerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ClientConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/old/ClientConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/CommunicationThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/CommunicationThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/DiscoveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/DiscoveryThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/old/DiscoveryThreadOLD.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,21 +77,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
-              <provider editor-type-id="text-editor">
-                <state relative-caret-position="680">
-                  <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
-                </state>
-              </provider>
-              <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="986">
-                  <caret line="71" selection-start-line="71" selection-end-line="71" />
+                <state relative-caret-position="30">
+                  <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
                   <folding>
                     <element signature="e#1933#1934#0" expanded="true" />
                     <element signature="e#1972#1973#0" expanded="true" />
@@ -94,9 +91,21 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="180">
+                  <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
+                <state relative-caret-position="60">
                   <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
                 </state>
               </provider>
@@ -105,7 +114,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/backend/Client.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
+                <state relative-caret-position="60">
                   <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
                 </state>
               </provider>
@@ -114,12 +123,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/backend/JSONConverter.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
+                <state relative-caret-position="75">
                   <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-                  <folding>
-                    <element signature="e#3713#3714#0" expanded="true" />
-                    <element signature="e#3771#3772#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -127,7 +132,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
+                <state relative-caret-position="60">
                   <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
                 </state>
               </provider>
@@ -135,19 +140,19 @@
           </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
+              <provider editor-type-id="JavaFX-Scene-Builder" />
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1122">
+                <state relative-caret-position="990">
                   <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
                 </state>
               </provider>
-              <provider editor-type-id="JavaFX-Scene-Builder" />
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/server/NetworkThread.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="680">
-                  <caret line="73" column="38" selection-start-line="73" selection-start-column="38" selection-end-line="73" selection-end-column="38" />
+                <state relative-caret-position="135">
+                  <caret line="10" column="66" selection-start-line="10" selection-start-column="66" selection-end-line="10" selection-end-column="66" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -156,10 +161,22 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java">
+            <entry file="file://$PROJECT_DIR$/src/server/old/ClientConnector.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1989">
-                  <caret line="126" selection-start-line="126" selection-end-line="134" selection-end-column="5" />
+                <state relative-caret-position="60">
+                  <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/server/old/DiscoveryThreadOLD.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-1280">
+                  <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -168,16 +185,14 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/server/CommunicationThread.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="453">
-                  <caret line="49" selection-start-line="49" selection-end-line="49" />
+                <state relative-caret-position="15">
+                  <caret line="3" selection-start-line="3" selection-end-line="3" />
                   <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1641#1642#0" expanded="true" />
-                    <element signature="e#1659#1660#0" expanded="true" />
-                    <element signature="e#1712#1713#0" expanded="true" />
+                    <element signature="e#3158#3159#0" expanded="true" />
+                    <element signature="e#3192#3193#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -186,7 +201,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/backend/DataLoad.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
+                <state relative-caret-position="15">
                   <caret line="1" selection-start-line="1" selection-end-line="1" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -195,11 +210,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="833">
-                  <caret line="57" column="108" selection-start-line="57" selection-start-column="108" selection-end-line="57" selection-end-column="108" />
+                <state relative-caret-position="384">
+                  <caret line="142" column="86" selection-start-line="142" selection-start-column="86" selection-end-line="142" selection-end-column="86" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -214,8 +229,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -249,21 +264,22 @@
         <option value="$PROJECT_DIR$/src/runner/Main.java" />
         <option value="$PROJECT_DIR$/src/controller/JSONConverter.java" />
         <option value="$PROJECT_DIR$/src/controller/ServerListener.java" />
-        <option value="$PROJECT_DIR$/src/controller/JSONViewerController.java" />
         <option value="$PROJECT_DIR$/src/controller/DiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/controller/ClientConnector.java" />
         <option value="$PROJECT_DIR$/src/controller/PacketType.java" />
         <option value="$PROJECT_DIR$/src/controller/NewDiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/server/NewDiscoveryThread.java" />
-        <option value="$PROJECT_DIR$/src/controller/ConfigureViewController.java" />
         <option value="$PROJECT_DIR$/src/controller/Notification.java" />
         <option value="$PROJECT_DIR$/src/ui/configureView.fxml" />
         <option value="$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java" />
         <option value="$PROJECT_DIR$/src/controller/Client.java" />
-        <option value="$PROJECT_DIR$/src/server/DiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/backend/DataLoad.java" />
-        <option value="$PROJECT_DIR$/src/server/CommunicationThread.java" />
         <option value="$PROJECT_DIR$/src/server/ClientConnector.java" />
+        <option value="$PROJECT_DIR$/src/server/NetworkThread.java" />
+        <option value="$PROJECT_DIR$/src/server/CommunicationThread.java" />
+        <option value="$PROJECT_DIR$/src/controller/JSONViewerController.java" />
+        <option value="$PROJECT_DIR$/src/server/DiscoveryThread.java" />
+        <option value="$PROJECT_DIR$/src/controller/ConfigureViewController.java" />
       </list>
     </option>
   </component>
@@ -283,65 +299,87 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="javafx-11.0.2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="javafx-11.0.2" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="runner" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -354,16 +392,16 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551911050895" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552115901537" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GridWorld" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/javafx-11.0.2/lib" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -409,12 +447,13 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="runner.Main" />
       <module name="NotiToWinWindows1" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="server.*" />
+          <option name="PATTERN" value="server.old.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -507,6 +546,9 @@
       <workItem from="1551816819267" duration="4333000" />
       <workItem from="1551895970633" duration="309000" />
       <workItem from="1551910007303" duration="1052000" />
+      <workItem from="1551950192627" duration="59000" />
+      <workItem from="1552072320968" duration="5470000" />
+      <workItem from="1552114373508" duration="1403000" />
     </task>
     <task id="LOCAL-00001" summary="Properly implemented DiscoveryThread, can now start and stop without error.">
       <created>1547144786327</created>
@@ -526,12 +568,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73048000" />
+    <option name="totallyTimeSpent" value="79980000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" side_tool="true" visible="true" weight="0.1705757" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" side_tool="true" visible="true" weight="0.17609392" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -540,7 +582,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32974428" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23051947" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23034935" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3982684" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -551,7 +593,7 @@
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" weight="0.32792208" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32900432" />
+      <window_info anchor="bottom" id="Messages" order="13" visible="true" weight="0.3286026" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="16" />
@@ -685,24 +727,6 @@
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
-          <line>34</line>
-          <properties />
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
-          <line>66</line>
-          <properties />
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/server/ClientConnector.java</url>
-          <line>41</line>
-          <properties />
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -750,96 +774,125 @@
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/net/DualStackPlainDatagramSocketImpl.java" />
-    <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="680">
+        <state relative-caret-position="600">
           <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="e#1933#1934#0" expanded="true" />
-            <element signature="e#1972#1973#0" expanded="true" />
-          </folding>
+    <entry file="uml://JAVA/server.DiscoveryThread">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>server.DiscoveryThread</OriginalElement>
+          <nodes>
+            <node x="" y="">java.lang.FunctionalInterface</node>
+            <node x="" y="">server.DiscoveryThread</node>
+            <node x="" y="">java.lang.Runnable</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="82.0" y="97.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
+    <entry file="uml://JAVA/server.CommunicationThread">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>server.CommunicationThread</OriginalElement>
+          <nodes>
+            <node x="" y="">java.lang.FunctionalInterface</node>
+            <node x="" y="">server.CommunicationThread</node>
+            <node x="" y="">server.NetworkThread</node>
+            <node x="" y="">java.lang.Runnable</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="149.0" y="97.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThreadOLD.java">
+    <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="126" selection-start-line="126" selection-end-line="134" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="57" column="108" selection-start-line="57" selection-start-column="108" selection-end-line="57" selection-end-column="108" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
+        <state relative-caret-position="60">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/JSONConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="75">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#3713#3714#0" expanded="true" />
-            <element signature="e#3771#3772#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
+        <state relative-caret-position="60">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="66" column="105" selection-start-line="66" selection-start-column="105" selection-end-line="66" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/NetworkThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="66" selection-start-line="10" selection-start-column="66" selection-end-line="10" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/old/ClientConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/DataLoad.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="15">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -848,23 +901,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/CommunicationThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="15">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1641#1642#0" expanded="true" />
-            <element signature="e#1659#1660#0" expanded="true" />
-            <element signature="e#1712#1713#0" expanded="true" />
+            <element signature="e#3158#3159#0" expanded="true" />
+            <element signature="e#3192#3193#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/ClientConnector.java">
+    <entry file="file://$PROJECT_DIR$/src/server/DiscoveryThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="73" column="38" selection-start-line="73" selection-start-column="38" selection-end-line="73" selection-end-column="38" />
+        <state relative-caret-position="384">
+          <caret line="142" column="86" selection-start-line="142" selection-start-column="86" selection-end-line="142" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/old/DiscoveryThreadOLD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1280">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+          <folding>
+            <element signature="e#1933#1934#0" expanded="true" />
+            <element signature="e#1972#1973#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -909,7 +978,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.8.0_181</last-edited>
+          <last-edited>11</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -934,7 +1003,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>org.json:json:20180813</last-edited>
+          <last-edited>lib</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

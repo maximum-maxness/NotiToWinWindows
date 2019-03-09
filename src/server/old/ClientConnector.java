@@ -1,4 +1,4 @@
-package server;
+package server.old;
 
 import backend.Client;
 import backend.JSONConverter;
@@ -32,30 +32,7 @@ public class ClientConnector implements Runnable {
                         firstRun = false;
                     }
                     String message = recievePacket();
-                    switch(message){
-                        case PacketType.NOTI_REQUEST:
-                            System.out.println("Noti Request!");
-                            Thread.sleep(100);
-                            sendReady();
-                            sendReady();
 
-                            sendReady();
-
-                            break;
-                        case PacketType.UNPAIR_CMD:
-                            System.out.println("Unpair Command!");
-                            DiscoveryThreadOLD.notifications.clear();
-                            DiscoveryThreadOLD.clients.remove(client);
-                            Thread.currentThread().interrupt();
-                            break;
-                        default:
-                            if(message.endsWith("}")){
-                                processJson(message);
-                                sendReady();
-                            } else {
-                                System.err.println("Packet: " + message + " is invalid.");
-                            }
-                    }
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -63,18 +40,7 @@ public class ClientConnector implements Runnable {
         }
     }
 
-    private void processJson(String jsonString){
-        System.out.println("JSON Detected!");
-        JSONConverter json = JSONConverter.unserialize(jsonString);
-        if(json.getType().equals(PacketType.NOTI_REQUEST)){
-            System.out.println("JSON Type is Noti Request!");
-            Notification noti = Notification.jsonToNoti(json);
-            DiscoveryThreadOLD.notifications.add(noti);
-        } else {
-            System.err.println("Json type: " + json.getType() + "is unrecognized.");
-        }
 
-    }
 
     private void sendReady() throws IOException {
         byte[] sendData = PacketType.READY_RESPONSE.getBytes();

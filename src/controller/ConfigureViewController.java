@@ -62,7 +62,11 @@ public class ConfigureViewController {
 
     @FXML
     private void stopServer() {
-        discovery.stop();
+        try {
+            discovery.stop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         startServerButton.setDisable(false);
         stopServerButton.setDisable(true);
         serverStatusLabel.setText("Stopped");

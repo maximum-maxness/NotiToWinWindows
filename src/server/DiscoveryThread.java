@@ -10,21 +10,47 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class DiscoveryThread implements Runnable{
+public class DiscoveryThread implements NetworkThread, Runnable {
 
-    final static int port = 8657;
+
+    private InetAddress ip;
     final AtomicBoolean running = new AtomicBoolean(false);
     public static ArrayList<Client> clients = new ArrayList<>();
     public static Executor notiThreadPool = Executors.newWorkStealingPool();
     DatagramSocket socket;
     InetAddress receivedIP;
 
+    public DiscoveryThread() {
+        try {
+            setIP(InetAddress.getByName("0.0.0.0"));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        setPort(NetworkThread.DISCOVERY_PORT);
+    }
+
+    public static DiscoveryThread getInstance() {
+        return DiscoveryThreadHolder.INSTANCE;
+    }
+
+    private void checkClientList(Client client1) throws IOException {
+        boolean b = false;
+        for (Client client : clients) {
+            if (client.getIp().equals(client1.getIp())) { //Check if the client has already
+                b = true;                                       //been added to the list
+            }
+        }
+        if (!b) {
+            clients.add(client1); //if the client isn't isn't on the list, add it
+        }
+        System.out.println("Client is on list? " + b);
+    }
 
     @Override
     public void run() {
         running.set(true);
         try{
-            socket = new DatagramSocket((8657, InetAddress.getByName("0.0.0.0"));
+            socket = new DatagramSocket(getPort(), getIP());
             socket.setBroadcast(true);
 
             while(running.get()){
@@ -38,7 +64,7 @@ public class DiscoveryThread implements Runnable{
                     case PacketType.CLIENT_PAIR_REQUEST:
                         Client client = new Client(receivePacket.getAddress());
                         checkClientList(client);
-                        sendMessage(PacketType.SERVER_PAIR_RESPONSE, port);
+                        sendMessage(PacketType.SERVER_PAIR_RESPONSE, getPort());
                         break;
                     case PacketType.CLIENT_PAIR_CONFIRM:
                         int index = findIndxClient(receivePacket);
@@ -68,24 +94,32 @@ public class DiscoveryThread implements Runnable{
         }
     }
 
-    private void checkClientList(Client client1) throws IOException {
-        boolean b = false;
-        for (Client client : clients) {
-            if (client.getIp().equals(client1.getIp())) { //Check if the client has already
-                b = true;                                       //been added to the list
-            }
-        }
-        if (!b) {
-            clients.add(client1); //if the client isn't isn't on the list, add it
-        }
-        System.out.println("Client is on list? " + b);
-    }
-
-    private void sendMessage(String packetType, int port1) throws IOException {
+    @Override
+    public void sendMessage(String packetType, int port1) throws IOException {
         byte[] sendData = packetType.getBytes(); //Turn the string into a byte array
         DatagramPacket packet = new DatagramPacket(sendData, sendData.length, this.receivedIP, port1);
         socket.send(packet); //put into a packet and send
         System.out.println("Sent: " + packetType);
+    }
+
+    @Override
+    public String recieveMessage() {
+        return null;
+    }
+
+    @Override
+    public InetAddress getIP() {
+        return null;
+    }
+
+    @Override
+    public void setIP(InetAddress ip) {
+
+    }
+
+    @Override
+    public int getPort() {
+        return 0;
     }
 
     private int findIndxClient(DatagramPacket packet) {
@@ -96,5 +130,20 @@ public class DiscoveryThread implements Runnable{
             }
         }
         return 0;
+    }
+
+    @Override
+    public void setPort(int port) {
+
+    }
+
+    @Override
+    public void stop() throws IOException {
+        running.set(false);
+        socket.close();
+    }
+
+    public static class DiscoveryThreadHolder {
+        private static final DiscoveryThread INSTANCE = new DiscoveryThread();
     }
 }

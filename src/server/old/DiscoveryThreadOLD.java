@@ -1,8 +1,10 @@
-package server;
+package server.old;
 
 import backend.Client;
 import backend.Notification;
 import backend.PacketType;
+import server.DiscoveryThread;
+import server.old.ClientConnector;
 
 import java.io.IOException;
 import java.net.*;
