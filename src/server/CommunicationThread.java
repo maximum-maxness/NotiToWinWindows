@@ -1,112 +1,77 @@
 package server;
 
-import backend.*;
+import backend.Client;
+import backend.DataLoad;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CommunicationThread implements NetworkThread, Runnable {
+public abstract class CommunicationThread implements NetworkThread, Runnable {
 
-    final AtomicBoolean running = new AtomicBoolean(false);
     private Socket socket;
-    private Client client;
     private InputStream inputStream;
     private OutputStream outputStream;
-    private InputStreamReader inputStreamReader;
-    private OutputStreamWriter outputStreamWriter;
+
+
+    private BufferedReader bufferedReader;
+    private PrintWriter printWriter;
 
     private InetAddress ip;
     private int port;
 
-    public CommunicationThread(Client client) {
-        this.client = client;
+    CommunicationThread(@NotNull Client client) {
         setIP(client.getIp());
-        setPort(NetworkThread.COMMNICATION_PORT);
+        setPort(NetworkThread.COMMUNICATION_PORT);
     }
 
-
-    @Override
-    public void run() {
-        try {
-            ServerSocket ss = new ServerSocket(getPort());
-            System.out.println("Wating for client to connect to socket...");
-            this.socket = ss.accept();
-            ss.close();
-            System.out.println("Connection from IP: \"" + this.socket.getInetAddress() + "\"");
-            if (this.socket.getInetAddress().toString().equals(getIP().toString())) {
-                System.out.println("IP Matches set IP!");
-                this.running.set(true);
-                openStreams();
-                while (running.get()) {
-                    String message = recieveMessage();
-                    switch (message) {
-                        case PacketType.NOTI_REQUEST:
-                            System.out.println("Noti Request!");
-                            sendMessage(PacketType.READY_RESPONSE, getPort());
-                            break;
-                        case PacketType.UNPAIR_CMD:
-                            System.out.println("Unpair Command!");
-
-                            Thread.currentThread().interrupt();
-                            break;
-                        default:
-                            if (message.endsWith("}")) {
-                                processJson(message);
-                                sendMessage(PacketType.READY_RESPONSE, getPort());
-                            } else {
-                                System.err.println("Packet: " + message + " is invalid.");
-                            }
-                    }
-                }
-            } else {
-                System.err.println("Connection from IP: \"" + this.socket.getInetAddress() + "\" Does not match set IP: \"" + getIP() + "\" Trying Again...");
-                this.run();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    void waitForConnection() throws IOException {
+        ServerSocket ss = new ServerSocket(this.getPort());
+        System.out.println("Wating for client to connect to socket...");
+        this.socket = ss.accept();
+        ss.close();
     }
 
-    private void processJson(String jsonString) {
-        System.out.println("JSON Detected!");
-        JSONConverter json = JSONConverter.unserialize(jsonString);
-        if (json.getType().equals(PacketType.NOTI_REQUEST)) {
-            System.out.println("JSON Type is Noti Request!");
-            Notification noti = Notification.jsonToNoti(json);
-        } else {
-            System.err.println("Json type: " + json.getType() + "is unrecognized.");
-        }
-
-    }
-
-    private DataLoad recieveDataLoad() { //TODO
+    public DataLoad recieveDataLoad() { //TODO
         return null;
     }
 
     @Override
     public void sendMessage(String message, int port) throws IOException {
-        openWriter();
-        this.outputStreamWriter.write(message);
-        closeWriter();
+        this.printWriter.write(message);
     }
 
     @Override
-    public String recieveMessage() throws IOException {
-        openReader();
-        BufferedReader br = new BufferedReader(this.inputStreamReader);
-        String message = br.readLine();
-        br.close();
-        closeReader();
+    public String receiveMessage() throws IOException {
+        String message = this.bufferedReader.readLine();
         return message;
     }
 
     @Override
     public InetAddress getIP() {
         return this.ip;
+    }
+
+    Socket getSocket() {
+        return this.socket;
+    }
+
+    public BufferedReader getBufferedReader() {
+        return bufferedReader;
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public OutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    public PrintWriter getPrintWriter() {
+        return printWriter;
     }
 
     @Override
@@ -124,6 +89,7 @@ public class CommunicationThread implements NetworkThread, Runnable {
         this.port = port;
     }
 
+    @Override
     public void stop() throws IOException {
         closeStreams();
         this.socket.close();
@@ -131,30 +97,32 @@ public class CommunicationThread implements NetworkThread, Runnable {
     }
 
     private void openReader() {
-        this.inputStreamReader = new InputStreamReader(this.inputStream);
+        this.bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
     }
 
     private void closeReader() throws IOException {
-        if (this.inputStreamReader != null)
-            this.inputStreamReader.close();
+        if (this.bufferedReader != null)
+            this.bufferedReader.close();
     }
 
     private void openWriter() {
-        this.outputStreamWriter = new OutputStreamWriter(this.outputStream);
+        this.printWriter = new PrintWriter(this.outputStream);
     }
 
     private void closeWriter() throws IOException {
-        if (this.outputStreamWriter != null)
-            this.outputStreamWriter.close();
+        if (this.printWriter != null)
+            this.printWriter.close();
 
     }
 
-    private void openStreams() throws IOException {
+    public void openStreams() throws IOException {
         this.inputStream = this.socket.getInputStream();
+        openReader();
         this.outputStream = this.socket.getOutputStream();
+        openWriter();
     }
 
-    private void closeStreams() throws IOException {
+    public void closeStreams() throws IOException {
         closeReader();
         this.inputStream.close();
         closeWriter();

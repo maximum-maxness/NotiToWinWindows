@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import runner.Main;
-import server.DiscoveryThread;
+import server.ClientDiscoverer;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 public class ConfigureViewController {
 
     private Executor discoveryThread;
-    private DiscoveryThread discovery;
+    private ClientDiscoverer discovery;
 
     @FXML
     private Button startServerButton, stopServerButton, toJSONButton, sendReadyButton;
@@ -42,7 +42,7 @@ public class ConfigureViewController {
 
     @FXML
     private void initialize() {
-        discovery = DiscoveryThread.getInstance();
+        discovery = ClientDiscoverer.getInstance();
         discoveryThread = Executors.newFixedThreadPool(1);
         Console console = new Console(logOutput);
         PrintStream ps = new PrintStream(console, true);

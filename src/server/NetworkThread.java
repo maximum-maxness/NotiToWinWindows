@@ -6,11 +6,11 @@ import java.net.InetAddress;
 public interface NetworkThread {
 
     int DISCOVERY_PORT = 8657;
-    int COMMNICATION_PORT = 9856;
+    int COMMUNICATION_PORT = 9856;
 
     void sendMessage(String message, int port) throws IOException;
 
-    String recieveMessage() throws IOException;
+    String receiveMessage() throws IOException;
 
     InetAddress getIP();
 
