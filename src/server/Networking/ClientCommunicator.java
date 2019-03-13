@@ -1,9 +1,6 @@
-package server;
+package server.Networking;
 
-import backend.Client;
-import backend.JSONConverter;
-import backend.Notification;
-import backend.PacketType;
+import backend.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,7 +8,7 @@ import java.io.IOException;
 
 public class ClientCommunicator extends CommunicationThread {
 
-    public ClientCommunicator(@NotNull Client client) {
+    ClientCommunicator(@NotNull Client client) {
         super(client);
     }
 
@@ -23,6 +20,7 @@ public class ClientCommunicator extends CommunicationThread {
             if (getSocket().getInetAddress().toString().equals(getIP().toString())) {
                 System.out.println("IP Matches set IP!");
                 openStreams();
+                getClient().setConfirmed(true);
                 String message;
                 while ((message = receiveMessage()) != null) {
                     if (!processMessage(message)) break;
@@ -38,7 +36,8 @@ public class ClientCommunicator extends CommunicationThread {
 
     }
 
-    private boolean processMessage(@NotNull String message) throws IOException {
+    @Override
+    public boolean processMessage(@NotNull String message) throws IOException {
         switch (message) {
             case PacketType.UNPAIR_CMD:
                 System.out.println("Unpair Command!");
@@ -49,7 +48,8 @@ public class ClientCommunicator extends CommunicationThread {
                 return true;
             default:
                 if (message.endsWith("}")) {
-                    processJson(message);
+                    Notification noti = processJson(message);
+                    getClient().addNoti(noti);
                     sendReady();
                 } else {
                     System.err.println("Packet: " + message + " is invalid.");
@@ -58,14 +58,17 @@ public class ClientCommunicator extends CommunicationThread {
         }
     }
 
+    public DataLoad recieveDataLoad() { //TODO
+        return null;
+    }
+
     @Nullable
     private Notification processJson(String jsonString) {
         System.out.println("JSON Detected!");
         JSONConverter json = JSONConverter.unserialize(jsonString);
         if (json.getType().equals(PacketType.NOTI_REQUEST)) {
             System.out.println("JSON Type is Noti Request!");
-            Notification noti = Notification.jsonToNoti(json);
-            return noti;
+            return Notification.jsonToNoti(json);
         } else {
             System.err.println("Json type: " + json.getType() + "is unrecognized.");
             return null;

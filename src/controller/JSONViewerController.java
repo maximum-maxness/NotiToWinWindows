@@ -12,6 +12,10 @@ public class JSONViewerController {
     @FXML
     private TreeView jsonTree;
 
+//    JSONViewerController(){
+//
+//    }
+
     @FXML
     private void changeViewToConfig() {
         Main.changeViewToConfig();

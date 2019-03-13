@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class Notification {
 
@@ -111,7 +112,27 @@ public class Notification {
     }
 
     public boolean isValidNoti() {
-        return this.id != "" && this.appName != "" && this.title != "" && this.timeStamp != 0L;
+        return !Objects.equals(this.id, "") && !Objects.equals(this.appName, "") && !Objects.equals(this.title, "") && this.timeStamp != 0L;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder();
+        returnString.append("Notification is Valid? ").append(isValidNoti()).append("\n");
+        if (isValidNoti()) {
+            returnString.append("Notification ID: ").append(getId()).append("\n");
+            returnString.append("Notification TimeStamp: ").append(getTimeStamp()).append("\n");
+            returnString.append("Notification AppName: ").append(getAppName()).append("\n");
+            returnString.append("Notification Title: ").append(getTitle()).append("\n");
+            returnString.append("Notification Text: ").append(getText()).append("\n");
+            returnString.append("Notification is Clearable: ").append(isClearable()).append("\n");
+            returnString.append("Notification is Repliable: ").append(isRepliable()).append("\n");
+            if (isRepliable()) returnString.append("Notification Reply ID: ").append(getRequestReplyId()).append("\n");
+            returnString.append("Notification has DataLoad: ").append(isHasDataLoad()).append("\n");
+            if (isHasDataLoad())
+                returnString.append("Notification DataLoad Hash: ").append(getDataLoadHash()).append("\n");
+        }
+        return returnString.toString();
     }
 
     public static Notification jsonToNoti(JSONConverter json){

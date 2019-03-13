@@ -1,12 +1,13 @@
 package controller;
 
+import backend.Client;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import runner.Main;
-import server.ClientDiscoverer;
+import server.Networking.ClientDiscoverer;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -19,10 +20,10 @@ import java.util.concurrent.Executors;
 public class ConfigureViewController {
 
     private Executor discoveryThread;
-    private ClientDiscoverer discovery;
+    static ClientDiscoverer discovery;
 
     @FXML
-    private Button startServerButton, stopServerButton, toJSONButton, sendReadyButton;
+    private Button startServerButton, stopServerButton, toJSONButton, printClients;
 
     @FXML
     private Label serverStatusLabel;
@@ -79,13 +80,11 @@ public class ConfigureViewController {
         Main.changeViewToJSON();
     }
 
-//    @FXML
-//    private void sendReady(){
-//        try {
-//            discovery.sendReadyPacket();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @FXML
+    private void printClients() {
+        for (Client client : discovery.clients) {
+            System.out.println(client);
+        }
+    }
 
 }

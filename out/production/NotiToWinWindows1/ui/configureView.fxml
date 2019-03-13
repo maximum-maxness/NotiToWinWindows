@@ -46,19 +46,18 @@
                 </HBox>
                 <HBox prefHeight="17.0" prefWidth="670.0">
                     <Pane prefWidth="8.0" />
-                    <Label prefHeight="17.0" prefWidth="75.0" text="Server Status:" textFill="#545454" />
+                    <Label prefHeight="17.0" prefWidth="100.0" text="Server Status:" textFill="#545454" />
                     <Label fx:id="serverStatusLabel" text="Stopped" textFill="RED">
                         <font>
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Label>
                 </HBox>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="294.0">
-               <children>
-                  <ListView fx:id="clientList" layoutY="-1.0" prefHeight="158.0" prefWidth="331.0" />
-               </children>
-            </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="294.0">
+                    <ListView fx:id="clientList" layoutY="-1.0" prefHeight="158.0" prefWidth="331.0"/>
+                </AnchorPane>
             <Label text="Clients" textFill="#9f9f9f" />
+            <Button fx:id="printClients" mnemonicParsing="false" onAction="#printClients" prefHeight="49.0" prefWidth="176.0" text="Print out all Clients" />
             </VBox>
         </AnchorPane>
     </SplitPane>

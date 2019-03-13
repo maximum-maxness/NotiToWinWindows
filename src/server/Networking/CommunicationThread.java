@@ -1,7 +1,6 @@
-package server;
+package server.Networking;
 
 import backend.Client;
-import backend.DataLoad;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -9,7 +8,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public abstract class CommunicationThread implements NetworkThread, Runnable {
+public abstract class CommunicationThread implements NetworkThread {
 
     private Socket socket;
     private InputStream inputStream;
@@ -18,11 +17,12 @@ public abstract class CommunicationThread implements NetworkThread, Runnable {
 
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
-
+    private Client client;
     private InetAddress ip;
     private int port;
 
     CommunicationThread(@NotNull Client client) {
+        setClient(client);
         setIP(client.getIp());
         setPort(NetworkThread.COMMUNICATION_PORT);
     }
@@ -34,10 +34,6 @@ public abstract class CommunicationThread implements NetworkThread, Runnable {
         ss.close();
     }
 
-    public DataLoad recieveDataLoad() { //TODO
-        return null;
-    }
-
     @Override
     public void sendMessage(String message, int port) throws IOException {
         this.printWriter.write(message);
@@ -45,8 +41,7 @@ public abstract class CommunicationThread implements NetworkThread, Runnable {
 
     @Override
     public String receiveMessage() throws IOException {
-        String message = this.bufferedReader.readLine();
-        return message;
+        return this.bufferedReader.readLine();
     }
 
     @Override
@@ -129,4 +124,11 @@ public abstract class CommunicationThread implements NetworkThread, Runnable {
         this.outputStream.close();
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }

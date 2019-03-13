@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigureViewController">
     <stylesheets>
         <URL value="@css/configureView.css" />
@@ -46,19 +38,19 @@
                 </HBox>
                 <HBox prefHeight="17.0" prefWidth="670.0">
                     <Pane prefWidth="8.0" />
-                    <Label prefHeight="17.0" prefWidth="75.0" text="Server Status:" textFill="#545454" />
+                    <Label prefHeight="17.0" prefWidth="100.0" text="Server Status:" textFill="#545454"/>
                     <Label fx:id="serverStatusLabel" text="Stopped" textFill="RED">
                         <font>
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Label>
                 </HBox>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="294.0">
-               <children>
-                  <ListView fx:id="clientList" layoutY="-1.0" prefHeight="158.0" prefWidth="331.0" />
-               </children>
-            </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="294.0">
+                    <ListView fx:id="clientList" layoutY="-1.0" prefHeight="158.0" prefWidth="331.0"/>
+                </AnchorPane>
             <Label text="Clients" textFill="#9f9f9f" />
+                <Button fx:id="printClients" mnemonicParsing="false" onAction="#printClients" prefHeight="49.0"
+                        prefWidth="176.0" text="Print out all Clients"/>
             </VBox>
         </AnchorPane>
     </SplitPane>

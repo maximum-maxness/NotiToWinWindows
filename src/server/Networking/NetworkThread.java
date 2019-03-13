@@ -1,12 +1,14 @@
-package server;
+package server.Networking;
 
 import java.io.IOException;
 import java.net.InetAddress;
 
-public interface NetworkThread {
+public interface NetworkThread extends Runnable {
 
     int DISCOVERY_PORT = 8657;
     int COMMUNICATION_PORT = 9856;
+
+    boolean processMessage(String message) throws IOException;
 
     void sendMessage(String message, int port) throws IOException;
 

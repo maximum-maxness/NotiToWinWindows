@@ -11,7 +11,6 @@ public class Main extends Application {
     private final static int STAGE_WIDTH = 900;
     private final static int STAGE_HEIGHT = 600;
 
-    private static Parent configureView, jsonViewer;
     private static Scene configureScene, JSONScene;
     private static Stage primaryStage;
 
@@ -40,8 +39,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStageIn) throws Exception {
         primaryStage = primaryStageIn;
-        configureView = FXMLLoader.load(getClass().getResource("../ui/configureView.fxml"));
-        jsonViewer = FXMLLoader.load(getClass().getResource("../ui/jsonviewer.fxml"));
+        Parent configureView = FXMLLoader.load(getClass().getResource("../ui/configureView.fxml"));
+        Parent jsonViewer = FXMLLoader.load(getClass().getResource("../ui/jsonviewer.fxml"));
         configureScene = new Scene(configureView, STAGE_WIDTH, STAGE_HEIGHT);
         JSONScene = new Scene(jsonViewer, STAGE_WIDTH, STAGE_HEIGHT);
         primaryStage.setTitle("NotiToWin");
