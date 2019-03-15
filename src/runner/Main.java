@@ -1,17 +1,24 @@
 package runner;
 
+import backend.Client;
 import javafx.application.Application;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Main extends Application {
     private final static int STAGE_WIDTH = 900;
     private final static int STAGE_HEIGHT = 600;
 
-    private static Scene configureScene, JSONScene;
+    public static Scene configureScene, JSONScene;
     private static Stage primaryStage;
 
     public static void changeViewToJSON() {
@@ -20,6 +27,13 @@ public class Main extends Application {
 
     public static void changeViewToConfig() {
         primaryStage.setScene(configureScene);
+    }
+
+    public static void updateClientList(ArrayList<Client> clientList) {
+        ListView clientView = (ListView) configureScene.lookup("#clientList");
+        ListProperty clientProperty = new SimpleListProperty();
+        clientView.setItems(clientProperty);
+        clientProperty.set(FXCollections.observableArrayList(clientList));
     }
 
     public static void updateServerConnectionStatus(boolean b) {

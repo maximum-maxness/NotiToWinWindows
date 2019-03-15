@@ -21,6 +21,9 @@ public class ClientCommunicator extends CommunicationThread {
                 System.out.println("IP Matches set IP!");
                 openStreams();
                 getClient().setConfirmed(true);
+                System.out.println("Sending Ready...");
+                sendReady();
+                System.out.println("Sent Ready!");
                 String message;
                 while ((message = receiveMessage()) != null) {
                     if (!processMessage(message)) break;
@@ -28,6 +31,7 @@ public class ClientCommunicator extends CommunicationThread {
                 stop();
             } else {
                 System.err.println("Connection from IP: \"" + getSocket().getInetAddress() + "\" Does not match set IP: \"" + getIP() + "\" Trying Again...");
+                getSocket().close();
                 this.run();
             }
         } catch (IOException e) {
@@ -77,7 +81,7 @@ public class ClientCommunicator extends CommunicationThread {
     }
 
 
-    private void sendReady() throws IOException {
+    public void sendReady() throws IOException {
         sendMessage(PacketType.READY_RESPONSE, getPort());
     }
 }

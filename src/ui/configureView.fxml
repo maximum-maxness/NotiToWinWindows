@@ -49,8 +49,14 @@
                     <ListView fx:id="clientList" layoutY="-1.0" prefHeight="158.0" prefWidth="331.0"/>
                 </AnchorPane>
             <Label text="Clients" textFill="#9f9f9f" />
-                <Button fx:id="printClients" mnemonicParsing="false" onAction="#printClients" prefHeight="49.0"
-                        prefWidth="176.0" text="Print out all Clients"/>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="printClients" mnemonicParsing="false" onAction="#printClients" prefHeight="49.0"
+                                prefWidth="176.0" text="Print out Selected Client"/>
+                        <Button fx:id="sendReadyButton" mnemonicParsing="false" onAction="#sendReady" prefHeight="49.0"
+                                prefWidth="236.0" text="Send Ready to Selected Client"/>
+                    </children>
+                </HBox>
             </VBox>
         </AnchorPane>
     </SplitPane>

@@ -3,6 +3,7 @@ package server.Networking;
 
 import backend.Client;
 import backend.PacketType;
+import runner.Main;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -33,7 +34,8 @@ public class ClientDiscoverer extends DiscoveryThread {
             Client client = new Client(getIP());
             client.setName(name);
             checkClientList(client);
-            sendMessage(PacketType.SERVER_PAIR_RESPONSE, getPort());
+            for (int i = 0; i < 2; i++)
+                sendMessage(PacketType.SERVER_PAIR_RESPONSE, getPort());
         } else if (PacketType.CLIENT_PAIR_CONFIRM.equals(message)) {
             int index = findIndxClient(getCurrentPacket());
             if (index != 0) {
@@ -46,8 +48,9 @@ public class ClientDiscoverer extends DiscoveryThread {
             } else {
                 System.err.println("Client is not Confirmed!");
             }
+        } else {
+            System.err.println("Packet: " + message + " is not recognized on this port.");
         }
-        System.err.println("Packet: " + message + " is not recognized on this port.");
         return true;
     }
 
@@ -60,6 +63,7 @@ public class ClientDiscoverer extends DiscoveryThread {
         }
         if (!b) {
             clients.add(client1); //if the client isn't isn't on the list, add it
+            Main.updateClientList(this.clients);
         }
         System.out.println("Client is on list? " + b);
     }

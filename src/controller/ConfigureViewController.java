@@ -1,11 +1,13 @@
 package controller;
 
 import backend.Client;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
+import javafx.util.Callback;
 import runner.Main;
 import server.Networking.ClientDiscoverer;
 
@@ -21,9 +23,13 @@ public class ConfigureViewController {
 
     private Executor discoveryThread;
     static ClientDiscoverer discovery;
+    private ListProperty<Client> clientProperty = new SimpleListProperty<>();
 
     @FXML
-    private Button startServerButton, stopServerButton, toJSONButton, printClients;
+    private Button startServerButton, stopServerButton, toJSONButton, printClients, sendReadyButton;
+
+    @FXML
+    private ListView<Client> clientList;
 
     @FXML
     private Label serverStatusLabel;
@@ -45,6 +51,26 @@ public class ConfigureViewController {
     private void initialize() {
         discovery = ClientDiscoverer.getInstance();
         discoveryThread = Executors.newFixedThreadPool(1);
+        clientList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        clientList.setCellFactory(new Callback<ListView<Client>, ListCell<Client>>() {
+            @Override
+            public ListCell<Client> call(ListView param) {
+                ListCell<Client> cell = new ListCell<Client>() {
+                    @Override
+                    protected void updateItem(Client item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getName());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+        clientList.setItems(clientProperty);
+        clientProperty.set(FXCollections.observableArrayList(discovery.clients));
         Console console = new Console(logOutput);
         PrintStream ps = new PrintStream(console, true);
         System.setOut(ps);
@@ -82,9 +108,18 @@ public class ConfigureViewController {
 
     @FXML
     private void printClients() {
-        for (Client client : discovery.clients) {
-            System.out.println(client);
-        }
+        int index = clientList.getSelectionModel().getSelectedIndex();
+        if (index != -1)
+            System.out.println(discovery.clients.get(index));
+        else System.out.println("Nothing Selected!");
+    }
+
+    @FXML
+    private void sendReady() throws IOException {
+        int index = clientList.getSelectionModel().getSelectedIndex();
+        if (index != -1)
+            discovery.clients.get(index).getClientCommunicator().sendReady();
+        else System.out.println("Nothing Selected!");
     }
 
 }

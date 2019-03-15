@@ -12,11 +12,10 @@ public abstract class CommunicationThread implements NetworkThread {
 
     private Socket socket;
     private InputStream inputStream;
+    private DataInputStream dataInputStream;
     private OutputStream outputStream;
+    private DataOutputStream dataOutputStream;
 
-
-    private BufferedReader bufferedReader;
-    private PrintWriter printWriter;
     private Client client;
     private InetAddress ip;
     private int port;
@@ -36,12 +35,17 @@ public abstract class CommunicationThread implements NetworkThread {
 
     @Override
     public void sendMessage(String message, int port) throws IOException {
-        this.printWriter.write(message);
+        this.dataOutputStream.writeUTF(message);
+        this.dataOutputStream.flush();
+        System.out.println("Wrote message: " + message + " to outputstream!");
     }
 
     @Override
     public String receiveMessage() throws IOException {
-        return this.bufferedReader.readLine();
+        System.out.println("Waiting for packet...");
+        String message = this.dataInputStream.readUTF();
+        System.out.println("Received Message: " + message);
+        return message;
     }
 
     @Override
@@ -53,20 +57,12 @@ public abstract class CommunicationThread implements NetworkThread {
         return this.socket;
     }
 
-    public BufferedReader getBufferedReader() {
-        return bufferedReader;
-    }
-
     public InputStream getInputStream() {
         return inputStream;
     }
 
     public OutputStream getOutputStream() {
         return outputStream;
-    }
-
-    public PrintWriter getPrintWriter() {
-        return printWriter;
     }
 
     @Override
@@ -91,36 +87,17 @@ public abstract class CommunicationThread implements NetworkThread {
         Thread.currentThread().interrupt();
     }
 
-    private void openReader() {
-        this.bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
-    }
-
-    private void closeReader() throws IOException {
-        if (this.bufferedReader != null)
-            this.bufferedReader.close();
-    }
-
-    private void openWriter() {
-        this.printWriter = new PrintWriter(this.outputStream);
-    }
-
-    private void closeWriter() throws IOException {
-        if (this.printWriter != null)
-            this.printWriter.close();
-
-    }
-
     public void openStreams() throws IOException {
         this.inputStream = this.socket.getInputStream();
-        openReader();
         this.outputStream = this.socket.getOutputStream();
-        openWriter();
+        this.dataInputStream = new DataInputStream((this.inputStream));
+        this.dataOutputStream = new DataOutputStream(this.outputStream);
     }
 
     public void closeStreams() throws IOException {
-        closeReader();
+        this.dataInputStream.close();
+        this.dataOutputStream.close();
         this.inputStream.close();
-        closeWriter();
         this.outputStream.close();
     }
 
