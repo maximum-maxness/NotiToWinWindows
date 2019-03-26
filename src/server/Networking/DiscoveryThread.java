@@ -34,7 +34,9 @@ public abstract class DiscoveryThread implements NetworkThread {
     }
 
     void initializeSocket() throws SocketException {
-        socket = new DatagramSocket(getPort(), getIP());
+        socket = new DatagramSocket(null);
+        socket.setReuseAddress(true);
+        socket.bind(new InetSocketAddress(getIP(), getPort()));
         socket.setBroadcast(true);
     }
 
@@ -89,7 +91,9 @@ public abstract class DiscoveryThread implements NetworkThread {
     @Override
     public void stop() throws IOException {
         running.set(false);
-        socket.close();
+        if (!socket.isClosed())
+            socket.close();
+//        System.err.println("Socket is Bound? " + socket.isBound());
     }
 
     public AtomicBoolean isRunning() {

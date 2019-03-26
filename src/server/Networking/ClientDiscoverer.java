@@ -2,11 +2,13 @@ package server.Networking;
 
 
 import backend.Client;
+import backend.JSONConverter;
 import backend.PacketType;
 import runner.Main;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.SocketException;
 
 public class ClientDiscoverer extends DiscoveryThread {
     public static ClientDiscoverer getInstance() {
@@ -19,9 +21,16 @@ public class ClientDiscoverer extends DiscoveryThread {
         try {
             initializeSocket();
             while (running.get()) {
-                String packetMessage = receiveMessage();
-                processMessage(packetMessage);
+                try {
+                    String packetMessage = receiveMessage();
+                    System.out.println("Got message: " + packetMessage);
+                    processMessage(packetMessage);
+                } catch (SocketException e) {
+                    System.err.println("Socket Closed!");
+                    break;
+                }
             }
+            stop();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,29 +38,47 @@ public class ClientDiscoverer extends DiscoveryThread {
 
     @Override
     public boolean processMessage(String message) throws IOException {
-        if (message.startsWith(PacketType.CLIENT_PAIR_REQUEST)) {
-            String name = message.split(PacketType.CLIENT_PAIR_REQUEST)[1];
-            Client client = new Client(getIP());
-            client.setName(name);
-            checkClientList(client);
-            for (int i = 0; i < 2; i++)
-                sendMessage(PacketType.SERVER_PAIR_RESPONSE, getPort());
-        } else if (PacketType.CLIENT_PAIR_CONFIRM.equals(message)) {
-            int index = findIndxClient(getCurrentPacket());
-            if (index != 0) {
-                Client client1 = clients.get(index - 1);
-                if (!client1.isHasThread()) {
-                    client1.setClientCommunicator(new ClientCommunicator(client1));
-                    notiThreadPool.execute(client1.getClientCommunicator());
-                    client1.setHasThread(true);
-                }
-            } else {
-                System.err.println("Client is not Confirmed!");
-            }
+        JSONConverter json = JSONConverter.unserialize(message);
+        if (json.getType().equals(PacketType.CLIENT_PAIR_REQUEST)) {
+            initialPair(json, true);
+        } else if (json.getType().equals(PacketType.CLIENT_PAIR_CONFIRM)) {
+            confirmPair(json);
         } else {
             System.err.println("Packet: " + message + " is not recognized on this port.");
         }
         return true;
+    }
+
+    private void confirmPair(JSONConverter json) throws IOException {
+        int index = findIndxClient(getCurrentPacket());
+        if (index != 0) {
+            Client client1 = clients.get(index - 1);
+            if (!client1.isHasThread()) {
+                client1.setClientCommunicator(new ClientCommunicator(client1));
+                notiThreadPool.execute(client1.getClientCommunicator());
+                client1.setHasThread(true);
+            }
+        } else {
+            System.err.println("Client is not Confirmed!");
+            initialPair(json, false);
+            confirmPair(json);
+        }
+    }
+
+    private void initialPair(JSONConverter json, boolean initial) throws IOException {
+        Client client = new Client(getIP());
+        if (initial) {
+            String name = json.getMainBody().getString("deviceName");
+            client.setName(name);
+        } else {
+            String name = "<no name>";
+            client.setName(name);
+        }
+        checkClientList(client);
+        if (initial) {
+            JSONConverter readyJSON = PacketType.makeIdentityPacket();
+            sendMessage(readyJSON.serialize(), getPort());
+        }
     }
 
     private void checkClientList(Client client1) throws IOException {

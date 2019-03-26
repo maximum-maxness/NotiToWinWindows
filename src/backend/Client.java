@@ -1,53 +1,79 @@
 package backend;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import server.Networking.ClientCommunicator;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Client {
-    private InetAddress ip;
-    private boolean confirmed, hasThread;
-    private String name;
+    private SimpleObjectProperty<InetAddress> ip;
+    private SimpleBooleanProperty confirmed, hasThread;
+    private SimpleStringProperty name;
+    private List<Notification> notifications;
     private ClientCommunicator clientCommunicator;
-    private Notification[] notifications;
 
     public Client(InetAddress ip) {
-        this.ip = ip;
-        this.confirmed = false;
-        this.hasThread = false;
-        this.notifications = new Notification[1];
+        this.ip = new SimpleObjectProperty<InetAddress>(ip);
+        this.confirmed = new SimpleBooleanProperty(false);
+        this.hasThread = new SimpleBooleanProperty(false);
+        this.notifications = new ArrayList<Notification>();
     }
 
-    public InetAddress getIp() {
+    public SimpleObjectProperty<InetAddress> ipProperty() {
         return ip;
     }
 
-    public void setIp(InetAddress ip) {
-        this.ip = ip;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isConfirmed() {
+    public SimpleBooleanProperty confirmedProperty() {
         return confirmed;
     }
 
-    public void setConfirmed(boolean confirmed) {
-        this.confirmed = confirmed;
-    }
-
-    public boolean isHasThread() {
+    public SimpleBooleanProperty hasThreadProperty() {
         return hasThread;
     }
 
+    public SimpleStringProperty nameProperty() {
+        return name;
+    }
+
+    public InetAddress getIp() {
+        return ip.getValue();
+    }
+
+    public void setIp(InetAddress ip) {
+        this.ip.set(ip);
+    }
+
+    public String getName() {
+        return name.getValue();
+    }
+
+    public void setName(String name) {
+        if (this.name != null) {
+            this.name.set(name);
+        } else {
+            this.name = new SimpleStringProperty(name);
+        }
+    }
+
+    public boolean isConfirmed() {
+        return confirmed.get();
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed.set(confirmed);
+    }
+
+    public boolean isHasThread() {
+        return hasThread.get();
+    }
+
     public void setHasThread(boolean hasThread) {
-        this.hasThread = hasThread;
+        this.hasThread.set(hasThread);
     }
 
     public ClientCommunicator getClientCommunicator() {
@@ -59,20 +85,34 @@ public class Client {
     }
 
     public Notification[] getNotifications() {
-        return notifications;
+        return (Notification[]) notifications.toArray();
     }
 
     public void setNotifications(Notification[] notifications) {
-        this.notifications = notifications;
+        this.notifications.clear();
+        this.notifications.addAll(Arrays.asList(notifications));
+    }
+
+    public List<Notification> getNotificationList() {
+        return notifications;
     }
 
     public void addNoti(Notification noti) {
-        Notification[] newArr = new Notification[getNotifications().length + 1];
-        for (int i = 0; i < getNotifications().length; i++) {
-            newArr[i] = getNotifications()[i];
+        boolean match = false;
+        for (Notification notification : notifications) {
+            if (notification.getId().equals(noti.getId())) {
+                match = true;
+            }
         }
-        newArr[getNotifications().length] = noti;
-        setNotifications(newArr);
+        if (!match)
+            notifications.add(noti);
+        else {
+            System.out.println("Already Have that Notification!");
+        }
+    }
+
+    public void clearNotifications() {
+        notifications.clear();
     }
 
     @Override

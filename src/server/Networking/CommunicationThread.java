@@ -84,6 +84,9 @@ public abstract class CommunicationThread implements NetworkThread {
     public void stop() throws IOException {
         closeStreams();
         this.socket.close();
+        this.client.setConfirmed(false);
+        this.client.setHasThread(false);
+        this.client.clearNotifications();
         Thread.currentThread().interrupt();
     }
 

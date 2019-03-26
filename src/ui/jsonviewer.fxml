@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -12,7 +11,7 @@
     <stylesheets>
         <URL value="@css/jsonviewer.css"/>
     </stylesheets>
-    <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2516703786191537, 0.5389755011135857" focusTraversable="true" VBox.vgrow="ALWAYS">
         <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="222.0">
             <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" style="&#10;" text="NOTITOWIN"
                    textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
@@ -30,20 +29,16 @@
                 <Button disable="true" mnemonicParsing="false" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer"/>
             </VBox>
         </AnchorPane>
-        <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="218.0">
+        <AnchorPane maxWidth="-Infinity" prefHeight="578.0" prefWidth="236.0">
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="JSON Viewer"
                    textAlignment="CENTER" textFill="$x2" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0"/>
-            <ChoiceBox layoutY="85.0" prefHeight="46.0" prefWidth="218.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
-                <effect>
-                    <ColorAdjust brightness="0.34" contrast="1.0" hue="-1.0" saturation="-1.0"/>
-                </effect>
-            </ChoiceBox>
-            <Label layoutX="8.0" layoutY="68.0" prefHeight="17.0" prefWidth="155.0" text="Select Received Notification:"
-                   textFill="#9f9f9f" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="68.0"/>
+            <Label layoutY="240.0" prefHeight="17.0" prefWidth="215.0" text="Select Received Notification:"
+                   textFill="#9f9f9f" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="240.0"/>
+            <ListView fx:id="notiList" layoutY="257.0" prefHeight="318.0" prefWidth="250.0"/>
+            <ChoiceBox fx:id="clientList" layoutY="72.0" prefHeight="58.0" prefWidth="250.0"/>
         </AnchorPane>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <TreeView fx:id="jsonTree" prefHeight="578.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0"
+        <AnchorPane prefHeight="578.0" prefWidth="425.0">
+            <TreeView fx:id="jsonTree" prefHeight="578.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
     </SplitPane>

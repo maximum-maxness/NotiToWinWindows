@@ -8,8 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -30,9 +31,13 @@ public class Main extends Application {
     }
 
     public static void updateClientList(ArrayList<Client> clientList) {
-        ListView clientView = (ListView) configureScene.lookup("#clientList");
+        TableView clientView = (TableView) configureScene.lookup("#clientList");
+        ChoiceBox<Client> clientBox = (ChoiceBox<Client>) JSONScene.lookup("#clientList");
         ListProperty clientProperty = new SimpleListProperty();
-        clientView.setItems(clientProperty);
+        if (clientBox != null)
+            clientBox.setItems(clientProperty);
+        if (clientView != null)
+            clientView.setItems(clientProperty);
         clientProperty.set(FXCollections.observableArrayList(clientList));
     }
 
@@ -58,6 +63,8 @@ public class Main extends Application {
         configureScene = new Scene(configureView, STAGE_WIDTH, STAGE_HEIGHT);
         JSONScene = new Scene(jsonViewer, STAGE_WIDTH, STAGE_HEIGHT);
         primaryStage.setTitle("NotiToWin");
+        primaryStage.setScene(configureScene);
+        primaryStage.setScene(JSONScene);
         primaryStage.setScene(configureScene);
         primaryStage.show();
     }

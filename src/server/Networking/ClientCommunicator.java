@@ -2,8 +2,8 @@ package server.Networking;
 
 import backend.*;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.io.EOFException;
 import java.io.IOException;
 
 public class ClientCommunicator extends CommunicationThread {
@@ -25,8 +25,16 @@ public class ClientCommunicator extends CommunicationThread {
                 sendReady();
                 System.out.println("Sent Ready!");
                 String message;
-                while ((message = receiveMessage()) != null) {
-                    if (!processMessage(message)) break;
+                try {
+                    while ((message = receiveMessage()) != null) {
+                        if (!processMessage(message)) break;
+                    }
+                } catch (EOFException e) {
+                    System.err.println("Client Disconnected Unexpectedly!");
+                } finally {
+                    getSocket().close();
+                    getClient().setConfirmed(false);
+                    this.run();
                 }
                 stop();
             } else {
@@ -42,7 +50,8 @@ public class ClientCommunicator extends CommunicationThread {
 
     @Override
     public boolean processMessage(@NotNull String message) throws IOException {
-        switch (message) {
+        JSONConverter json = JSONConverter.unserialize(message);
+        switch (json.getType()) {
             case PacketType.UNPAIR_CMD:
                 System.out.println("Unpair Command!");
                 return false;
@@ -50,14 +59,14 @@ public class ClientCommunicator extends CommunicationThread {
                 System.out.println("Noti Request!");
                 sendReady();
                 return true;
+            case PacketType.NOTIFICATION:
+                Notification noti = Notification.jsonToNoti(json);
+                getClient().addNoti(noti);
+                sendReady();
+                return true;
             default:
-                if (message.endsWith("}")) {
-                    Notification noti = processJson(message);
-                    getClient().addNoti(noti);
-                    sendReady();
-                } else {
-                    System.err.println("Packet: " + message + " is invalid.");
-                }
+                System.err.println("Packet: " + message + " is invalid.");
+                System.err.println("JSON Type of: " + json.getType());
                 return true;
         }
     }
@@ -66,22 +75,7 @@ public class ClientCommunicator extends CommunicationThread {
         return null;
     }
 
-    @Nullable
-    private Notification processJson(String jsonString) {
-        System.out.println("JSON Detected!");
-        JSONConverter json = JSONConverter.unserialize(jsonString);
-        if (json.getType().equals(PacketType.NOTI_REQUEST)) {
-            System.out.println("JSON Type is Noti Request!");
-            return Notification.jsonToNoti(json);
-        } else {
-            System.err.println("Json type: " + json.getType() + "is unrecognized.");
-            return null;
-        }
-
-    }
-
-
     public void sendReady() throws IOException {
-        sendMessage(PacketType.READY_RESPONSE, getPort());
+        sendMessage(new JSONConverter(PacketType.READY_RESPONSE).serialize(), getPort());
     }
 }

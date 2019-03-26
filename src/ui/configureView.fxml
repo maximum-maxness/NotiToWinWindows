@@ -46,7 +46,11 @@
                     </Label>
                 </HBox>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="294.0">
-                    <ListView fx:id="clientList" layoutY="-1.0" prefHeight="158.0" prefWidth="331.0"/>
+                    <TableView fx:id="clientList" layoutY="-1.0" prefHeight="158.0" prefWidth="414.0">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
                 </AnchorPane>
             <Label text="Clients" textFill="#9f9f9f" />
                 <HBox prefHeight="100.0" prefWidth="200.0">

@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="added print client and notification button to ui">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="implemented client list view and selection model">
+      <change afterPath="$PROJECT_DIR$/src/server/Processing/NotiToTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotiToWin.uml" beforeDir="false" afterPath="$PROJECT_DIR$/NotiToWin.uml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotiToWinWindows1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/NotiToWinWindows1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/configureView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/jsonviewer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NotiToWinWindows1/ui/jsonviewer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/PacketType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/PacketType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/JSONViewerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/JSONViewerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/runner/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/runner/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/Networking/CommunicationThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Networking/CommunicationThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/configureView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/jsonviewer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/jsonviewer.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,78 +90,58 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+        <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1009">
+              <caret line="139" column="13" selection-start-line="139" selection-start-column="13" selection-end-line="139" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="39" column="27" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/backend/JSONConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2181">
+              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="413">
+              <caret line="79" selection-start-line="79" selection-end-line="79" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#887#888#0" expanded="true" />
+                <element signature="e#946#947#0" expanded="true" />
+                <element signature="e#1007#1008#0" expanded="true" />
+                <element signature="e#1050#1051#0" expanded="true" />
+                <element signature="e#713#1147#0" expanded="true" />
+                <element signature="e#1146#1147#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="121" column="53" selection-start-line="121" selection-start-column="53" selection-end-line="121" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1508#1916#0" expanded="true" />
-                <element signature="e#1915#1916#0" expanded="true" />
-                <element signature="e#3222#3223#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/runner/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="930">
-              <caret line="62" column="105" selection-start-line="62" selection-start-column="105" selection-end-line="62" selection-end-column="105" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/Networking/CommunicationThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+            <state relative-caret-position="435">
+              <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1530#1531#0" expanded="true" />
@@ -180,34 +168,82 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="46" column="6" lean-forward="true" selection-start-line="46" selection-start-column="6" selection-end-line="46" selection-end-column="6" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
+            <state relative-caret-position="-456">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2004#2005#0" expanded="true" />
+                <element signature="e#2121#2122#0" expanded="true" />
+                <element signature="e#2207#2208#0" expanded="true" />
+                <element signature="e#2298#2299#0" expanded="true" />
+                <element signature="e#2372#2373#0" expanded="true" />
+                <element signature="e#2457#2458#0" expanded="true" />
+                <element signature="e#2745#2746#0" expanded="true" />
+                <element signature="e#2815#2816#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controller/Console.java">
+        <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+            <state relative-caret-position="1110">
+              <caret line="76" selection-start-line="76" selection-end-line="76" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2923#2924#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
+        <entry file="file://$PROJECT_DIR$/src/backend/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1320">
-              <caret line="134" column="39" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
+            <state relative-caret-position="395">
+              <caret line="94" column="64" selection-start-line="94" selection-start-column="64" selection-end-line="94" selection-end-column="64" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1646#1647#0" expanded="true" />
+                <element signature="e#1684#1685#0" expanded="true" />
+                <element signature="e#1735#1736#0" expanded="true" />
+                <element signature="e#1780#1781#0" expanded="true" />
+                <element signature="e#1816#1817#0" expanded="true" />
+                <element signature="e#1854#1855#0" expanded="true" />
+                <element signature="e#1905#1906#0" expanded="true" />
+                <element signature="e#1950#1951#0" expanded="true" />
+                <element signature="e#2007#2008#0" expanded="true" />
+                <element signature="e#2048#2049#0" expanded="true" />
+                <element signature="e#2236#2237#0" expanded="true" />
+                <element signature="e#2299#2300#0" expanded="true" />
+                <element signature="e#2354#2355#0" expanded="true" />
+                <element signature="e#2390#2391#0" expanded="true" />
+                <element signature="e#3048#3049#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/net/AbstractPlainDatagramSocketImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="92" selection-start-line="92" selection-end-line="92" />
             </state>
           </provider>
         </entry>
@@ -221,6 +257,11 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>[0]</find>
+    </findStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -267,17 +308,20 @@
         <option value="$PROJECT_DIR$/src/server/CommunicationThread.java" />
         <option value="$PROJECT_DIR$/src/server/DiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/server/Networking/NetworkThread.java" />
-        <option value="$PROJECT_DIR$/src/controller/JSONViewerController.java" />
-        <option value="$PROJECT_DIR$/src/ui/jsonviewer.fxml" />
         <option value="$PROJECT_DIR$/src/backend/Notification.java" />
-        <option value="$PROJECT_DIR$/src/backend/Client.java" />
-        <option value="$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java" />
-        <option value="$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java" />
-        <option value="$PROJECT_DIR$/src/server/Networking/CommunicationThread.java" />
-        <option value="$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java" />
-        <option value="$PROJECT_DIR$/src/runner/Main.java" />
         <option value="$PROJECT_DIR$/src/ui/configureView.fxml" />
+        <option value="$PROJECT_DIR$/src/ui/jsonviewer.fxml" />
+        <option value="$PROJECT_DIR$/src/runner/Main.java" />
+        <option value="$PROJECT_DIR$/src/server/Processing/NotiToTree.java" />
+        <option value="$PROJECT_DIR$/src/server/Networking/CommunicationThread.java" />
+        <option value="$PROJECT_DIR$/src/controller/JSONViewerController.java" />
+        <option value="$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java" />
         <option value="$PROJECT_DIR$/src/controller/ConfigureViewController.java" />
+        <option value="$PROJECT_DIR$/src/backend/JSONConverter.java" />
+        <option value="$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java" />
+        <option value="$PROJECT_DIR$/src/backend/Client.java" />
+        <option value="$PROJECT_DIR$/src/backend/PacketType.java" />
+        <option value="$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java" />
       </list>
     </option>
   </component>
@@ -302,7 +346,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -325,18 +368,6 @@
               <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
               <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="runner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -348,29 +379,17 @@
             </path>
             <path>
               <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NotiToWinWindows1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NotiToWinWindows1" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -383,10 +402,10 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552593481554" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553639920384" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/StudioProjects/NotiToWinAndroid" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -546,7 +565,8 @@
       <workItem from="1552508309293" duration="4283000" />
       <workItem from="1552588620306" duration="4097000" />
       <workItem from="1552598347128" duration="614000" />
-      <workItem from="1552673547595" duration="3322000" />
+      <workItem from="1552673547595" duration="3361000" />
+      <workItem from="1552939815225" duration="28321000" />
     </task>
     <task id="LOCAL-00001" summary="Properly implemented DiscoveryThread, can now start and stop without error.">
       <created>1547144786327</created>
@@ -583,17 +603,33 @@
       <option name="project" value="LOCAL" />
       <updated>1552443481749</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="implemented client list view and selection model">
+      <created>1552676887171</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1552676887171</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113748000" />
+    <option name="totallyTimeSpent" value="142108000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" side_tool="true" visible="true" weight="0.14621131" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" side_tool="true" visible="true" weight="0.14781217" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -602,11 +638,11 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32974428" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22925764" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.22925764" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3973799" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32969433" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Problems" order="9" />
@@ -646,7 +682,8 @@
     <MESSAGE value="split to udp and tcp with interface" />
     <MESSAGE value="splitting discovery and communications to properly implement OOD + added UML diagram" />
     <MESSAGE value="added print client and notification button to ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="added print client and notification button to ui" />
+    <MESSAGE value="implemented client list view and selection model" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented client list view and selection model" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -656,13 +693,13 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/controller/ConfigureViewController.java</url>
-          <line>91</line>
+          <line>133</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/runner/Main.java</url>
-          <line>24</line>
+          <line>27</line>
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
@@ -751,22 +788,25 @@
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java</url>
-          <line>33</line>
-          <properties />
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java</url>
-          <line>34</line>
-          <properties />
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java</url>
-          <line>52</line>
+          <line>54</line>
           <properties />
           <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java</url>
+          <line>53</line>
+          <properties>
+            <option name="count-filter" value="2" />
+            <option name="count-filter-enabled" value="true" />
+          </properties>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java</url>
+          <line>76</line>
+          <properties />
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1019,13 +1059,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/old/ClientConnector.java" />
     <entry file="file://$PROJECT_DIR$/src/server/old/DiscoveryThreadOLD.java" />
-    <entry file="file://$PROJECT_DIR$/src/backend/JSONConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/server/Networking/NetworkThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1036,13 +1069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-23226" />
@@ -1050,206 +1076,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NotiToWinWindows1.iml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NotiToWin.uml">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>server.ClientCommunicator</OriginalElement>
-          <nodes>
-            <node x="0.0" y="619.0">controller.Console</node>
-            <node x="861.0097222222222" y="210.0">backend.Client</node>
-            <node x="315.0722222222222" y="724.0">controller.ConfigureViewController</node>
-            <node x="109.7275735294117" y="117.0">java.lang.Runnable</node>
-            <node x="156.75972222222214" y="222.0">server.Networking.NetworkThread</node>
-            <node x="392.3222222222222" y="631.0">server.Networking.ClientDiscoverer</node>
-            <node x="80.22757352941176" y="12.0">java.lang.FunctionalInterface</node>
-            <node x="846.0097222222221" y="105.0">backend.Notification</node>
-            <node x="0.0" y="824.0">controller.JSONViewerController</node>
-            <node x="361.0902777777777" y="496.0">server.Networking.ClientDiscoverer.ClientDiscovererHolder</node>
-            <node x="588.0097222222222" y="357.0">server.Networking.CommunicationThread</node>
-            <node x="320.0097222222222" y="345.0">backend.DataLoad</node>
-            <node x="658.9956290849673" y="0.0">backend.JSONConverter</node>
-            <node x="692.3862745098039" y="484.0">server.Networking.ClientCommunicator</node>
-            <node x="120.00972222222214" y="357.0">server.Networking.DiscoveryThread</node>
-          </nodes>
-          <notes />
-          <edges>
-            <edge source="server.Networking.ClientDiscoverer" target="server.Networking.DiscoveryThread">
-              <point x="-48.33333333333337" y="-15.5" />
-              <point x="416.4888888888888" y="589.0" />
-              <point x="218.13627450980385" y="589.0" />
-              <point x="218.13627450980385" y="464.0" />
-              <point x="255.00972222222214" y="464.0" />
-              <point x="45.0" y="27.5" />
-            </edge>
-            <edge source="controller.ConfigureViewController" target="controller.Console">
-              <point x="-90.80000000000007" y="-27.5" />
-              <point x="337.7722222222221" y="704.0" />
-              <point x="45.25" y="704.0" />
-              <point x="-45.25" y="27.5" />
-            </edge>
-            <edge source="backend.Notification" target="backend.JSONConverter">
-              <point x="0.0" y="-27.5" />
-              <point x="921.0097222222221" y="80.0" />
-              <point x="814.2456290849673" y="80.0" />
-              <point x="51.75" y="27.5" />
-            </edge>
-            <edge source="server.Networking.ClientCommunicator" target="backend.Client">
-              <point x="74.37500000000003" y="-27.5" />
-              <point x="885.7612745098039" y="454.0" />
-              <point x="968.5097222222221" y="454.0" />
-              <point x="968.5097222222221" y="325.0" />
-              <point x="954.0097222222222" y="325.0" />
-              <point x="0.0" y="27.5" />
-            </edge>
-            <edge source="server.Networking.ClientDiscoverer.ClientDiscovererHolder" target="server.Networking.ClientDiscoverer">
-              <point x="69.75" y="15.5" />
-              <point x="523.8402777777777" y="569.0" />
-              <point x="480.9333333333333" y="569.0" />
-              <point x="16.111111111111086" y="-15.5" />
-            </edge>
-            <edge source="server.Networking.ClientDiscoverer" target="server.Networking.ClientCommunicator">
-              <point x="32.22222222222223" y="-15.5" />
-              <point x="497.04444444444437" y="579.0" />
-              <point x="811.3862745098039" y="579.0" />
-              <point x="0.0" y="27.5" />
-            </edge>
-            <edge source="controller.Console" target="java.lang.Runnable">
-              <point x="0.0" y="-27.5" />
-              <point x="90.5" y="185.0" />
-              <point x="135.9775735294117" y="185.0" />
-              <point x="-26.25" y="15.5" />
-            </edge>
-            <edge source="backend.Client" target="backend.Notification">
-              <point x="-5.6843418860808015E-14" y="-27.5" />
-              <point x="954.0097222222221" y="185.0" />
-              <point x="939.7597222222221" y="185.0" />
-              <point x="18.75" y="27.5" />
-            </edge>
-            <edge source="backend.Client" target="server.Networking.ClientCommunicator">
-              <point x="-20.666666666666686" y="27.5" />
-              <point x="934.1111111111111" y="444.0" />
-              <point x="856.0112745098039" y="444.0" />
-              <point x="44.625" y="-27.5" />
-            </edge>
-            <edge source="server.Networking.ClientCommunicator" target="backend.Notification">
-              <point x="14.875" y="-27.5" />
-              <point x="826.2612745098039" y="464.0" />
-              <point x="850.5097222222222" y="464.0" />
-              <point x="850.5097222222222" y="185.0" />
-              <point x="864.7597222222221" y="185.0" />
-              <point x="-56.25" y="27.5" />
-            </edge>
-            <edge source="java.lang.Runnable" target="java.lang.FunctionalInterface">
-              <point x="0.0" y="-15.5" />
-              <point x="0.0" y="15.5" />
-            </edge>
-            <edge source="server.Networking.CommunicationThread" target="server.Networking.NetworkThread">
-              <point x="-94.5" y="-27.5" />
-              <point x="619.5097222222222" y="295.0" />
-              <point x="245.50972222222214" y="295.0" />
-              <point x="17.75" y="15.5" />
-            </edge>
-            <edge source="controller.ConfigureViewController" target="server.Networking.ClientDiscoverer">
-              <point x="0.0" y="-27.5" />
-              <point x="-36.25" y="15.5" />
-            </edge>
-            <edge source="server.Networking.ClientCommunicator" target="server.Networking.CommunicationThread">
-              <point x="-44.625" y="-27.5" />
-              <point x="766.7612745098039" y="444.0" />
-              <point x="651.0097222222222" y="444.0" />
-              <point x="-63.0" y="27.5" />
-            </edge>
-            <edge source="server.Networking.ClientCommunicator" target="backend.JSONConverter">
-              <point x="-74.375" y="-27.5" />
-              <point x="737.0112745098039" y="454.0" />
-              <point x="577.5097222222222" y="454.0" />
-              <point x="577.5097222222222" y="80.0" />
-              <point x="710.7456290849673" y="80.0" />
-              <point x="-51.75" y="27.5" />
-            </edge>
-            <edge source="server.Networking.DiscoveryThread" target="server.Networking.NetworkThread">
-              <point x="0.0" y="-27.5" />
-              <point x="-17.75" y="15.5" />
-            </edge>
-            <edge source="server.Networking.DiscoveryThread" target="backend.Client">
-              <point x="60.0" y="-27.5" />
-              <point x="270.00972222222214" y="305.0" />
-              <point x="871.3430555555556" y="305.0" />
-              <point x="-82.66666666666669" y="27.5" />
-            </edge>
-            <edge source="server.Networking.NetworkThread" target="java.lang.Runnable">
-              <point x="0.0" y="-15.5" />
-              <point x="227.75972222222214" y="185.0" />
-              <point x="188.4775735294117" y="185.0" />
-              <point x="26.25" y="15.5" />
-            </edge>
-            <edge source="server.Networking.CommunicationThread" target="backend.Client">
-              <point x="31.5" y="-27.5" />
-              <point x="745.5097222222222" y="315.0" />
-              <point x="892.0097222222222" y="315.0" />
-              <point x="-62.0" y="27.5" />
-            </edge>
-            <edge source="server.Networking.ClientDiscoverer" target="server.Networking.ClientDiscoverer.ClientDiscovererHolder">
-              <point x="-32.22222222222223" y="-15.5" />
-              <point x="432.5999999999999" y="579.0" />
-              <point x="384.3402777777777" y="579.0" />
-              <point x="-69.75" y="15.5" />
-            </edge>
-            <edge source="server.Networking.ClientCommunicator" target="backend.DataLoad">
-              <point x="-104.125" y="-27.5" />
-              <point x="707.2612745098039" y="464.0" />
-              <point x="443.5097222222222" y="464.0" />
-              <point x="0.0" y="39.5" />
-            </edge>
-            <edge source="controller.ConfigureViewController" target="backend.Client">
-              <point x="90.79999999999995" y="-27.5" />
-              <point x="519.3722222222221" y="704.0" />
-              <point x="1012.5097222222221" y="704.0" />
-              <point x="1012.5097222222221" y="325.0" />
-              <point x="1036.6763888888888" y="325.0" />
-              <point x="82.66666666666669" y="27.5" />
-            </edge>
-            <edge source="server.Networking.ClientDiscoverer" target="backend.Client">
-              <point x="48.333333333333314" y="-15.5" />
-              <point x="513.1555555555555" y="589.0" />
-              <point x="990.5097222222221" y="589.0" />
-              <point x="990.5097222222221" y="325.0" />
-              <point x="995.3430555555556" y="325.0" />
-              <point x="41.33333333333343" y="27.5" />
-            </edge>
-          </edges>
-          <settings layout="Hierarchic Group" zoom="1.0" x="-163.0" y="220.0" />
-          <SelectedNodes />
-          <Categories>
-            <Category>Constructors</Category>
-            <Category>Inner Classes</Category>
-          </Categories>
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/DataLoad.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1264,18 +1090,359 @@
     <entry file="file://$PROJECT_DIR$/src/ui/css/configureView.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+    <entry file="file://$PROJECT_DIR$/src/controller/Console.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="62" column="105" selection-start-line="62" selection-start-column="105" selection-end-line="62" selection-end-column="105" />
+        <state relative-caret-position="390">
+          <caret line="59" column="39" selection-start-line="59" selection-start-column="39" selection-end-line="59" selection-end-column="39" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NotiToWin.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement />
+          <nodes>
+            <node x="0.0" y="751.0">controller.Console</node>
+            <node x="677.4375" y="521.0">backend.Client</node>
+            <node x="196.25" y="866.0">controller.ConfigureViewController</node>
+            <node x="329.8534407665504" y="81.0">java.lang.Runnable</node>
+            <node x="311.3534407665504" y="174.0">server.Networking.NetworkThread</node>
+            <node x="869.0" y="279.0">backend.Notification</node>
+            <node x="201.0" y="763.0">server.Networking.ClientDiscoverer</node>
+            <node x="300.3534407665504" y="0.0">java.lang.FunctionalInterface</node>
+            <node x="878.0" y="638.0">controller.JSONViewerController</node>
+            <node x="22.5" y="638.0">server.Networking.ClientDiscoverer.ClientDiscovererHolder</node>
+            <node x="601.0" y="267.0">backend.DataLoad</node>
+            <node x="329.0" y="279.0">server.Networking.CommunicationThread</node>
+            <node x="797.75" y="162.0">backend.JSONConverter</node>
+            <node x="622.5856465350367" y="396.0">server.Networking.ClientCommunicator</node>
+            <node x="228.5" y="626.0">server.Networking.DiscoveryThread</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="controller.ConfigureViewController" target="controller.Console">
+              <point x="-64.85714285714278" y="-27.5" />
+              <point x="244.89285714285722" y="836.0" />
+              <point x="135.75" y="836.0" />
+              <point x="45.25" y="27.5" />
+            </edge>
+            <edge source="server.Networking.ClientDiscoverer" target="server.Networking.DiscoveryThread">
+              <point x="-5.6843418860808015E-14" y="-15.5" />
+              <point x="-45.0" y="27.5" />
+            </edge>
+            <edge source="backend.Notification" target="backend.JSONConverter">
+              <point x="0.0" y="-27.5" />
+              <point x="944.0" y="247.0" />
+              <point x="953.0" y="247.0" />
+              <point x="51.75" y="27.5" />
+            </edge>
+            <edge source="server.Networking.ClientCommunicator" target="backend.Client">
+              <point x="89.25" y="27.5" />
+              <point x="830.8356465350367" y="471.0" />
+              <point x="782.0625" y="471.0" />
+              <point x="11.625" y="-27.5" />
+            </edge>
+            <edge source="server.Networking.ClientDiscoverer.ClientDiscovererHolder" target="server.Networking.ClientDiscoverer">
+              <point x="23.25" y="15.5" />
+              <point x="138.75" y="711.0" />
+              <point x="241.27777777777771" y="711.0" />
+              <point x="-32.222222222222285" y="-15.5" />
+            </edge>
+            <edge source="server.Networking.ClientDiscoverer" target="server.Networking.ClientCommunicator">
+              <point x="32.22222222222217" y="-15.5" />
+              <point x="305.7222222222222" y="711.0" />
+              <point x="666.9375" y="711.0" />
+              <point x="666.9375" y="501.0" />
+              <point x="652.3356465350367" y="501.0" />
+              <point x="-89.25" y="27.5" />
+            </edge>
+            <edge source="backend.Client" target="backend.Notification">
+              <point x="58.125" y="-27.5" />
+              <point x="828.5625" y="491.0" />
+              <point x="945.5" y="491.0" />
+              <point x="945.5" y="366.0" />
+              <point x="931.5" y="366.0" />
+              <point x="-12.5" y="27.5" />
+            </edge>
+            <edge source="controller.JSONViewerController" target="backend.Client">
+              <point x="-59.66666666666663" y="-15.5" />
+              <point x="907.8333333333334" y="606.0" />
+              <point x="850.1517857142858" y="606.0" />
+              <point x="79.71428571428578" y="27.5" />
+            </edge>
+            <edge source="backend.Client" target="server.Networking.ClientCommunicator">
+              <point x="-34.875" y="-27.5" />
+              <point x="735.5625" y="471.0" />
+              <point x="711.8356465350367" y="471.0" />
+              <point x="-29.75" y="27.5" />
+            </edge>
+            <edge source="server.Networking.ClientCommunicator" target="backend.Notification">
+              <point x="95.20000000000005" y="-27.5" />
+              <point x="836.7856465350368" y="376.0" />
+              <point x="881.5" y="376.0" />
+              <point x="-62.5" y="27.5" />
+            </edge>
+            <edge source="java.lang.Runnable" target="java.lang.FunctionalInterface">
+              <point x="0.0" y="-15.5" />
+              <point x="0.0" y="15.5" />
+            </edge>
+            <edge source="server.Networking.CommunicationThread" target="server.Networking.NetworkThread">
+              <point x="63.0" y="-27.5" />
+              <point x="518.0" y="247.0" />
+              <point x="435.6034407665504" y="247.0" />
+              <point x="53.25" y="15.5" />
+            </edge>
+            <edge source="controller.ConfigureViewController" target="server.Networking.ClientDiscoverer">
+              <point x="0.0" y="-27.5" />
+              <point x="36.25" y="15.5" />
+            </edge>
+            <edge source="server.Networking.ClientCommunicator" target="server.Networking.CommunicationThread">
+              <point x="-95.19999999999993" y="-27.5" />
+              <point x="646.3856465350368" y="376.0" />
+              <point x="486.5" y="376.0" />
+              <point x="31.5" y="27.5" />
+            </edge>
+            <edge source="server.Networking.ClientCommunicator" target="backend.JSONConverter">
+              <point x="47.60000000000002" y="-27.5" />
+              <point x="789.1856465350368" y="366.0" />
+              <point x="858.5" y="366.0" />
+              <point x="858.5" y="247.0" />
+              <point x="849.5" y="247.0" />
+              <point x="-51.75" y="27.5" />
+            </edge>
+            <edge source="server.Networking.DiscoveryThread" target="backend.Client">
+              <point x="60.0" y="-27.5" />
+              <point x="378.5" y="606.0" />
+              <point x="690.7232142857142" y="606.0" />
+              <point x="-79.71428571428578" y="27.5" />
+            </edge>
+            <edge source="server.Networking.DiscoveryThread" target="server.Networking.NetworkThread">
+              <point x="-60.0" y="-27.5" />
+              <point x="258.5" y="606.0" />
+              <point x="307.5" y="606.0" />
+              <point x="307.5" y="237.0" />
+              <point x="329.1034407665504" y="237.0" />
+              <point x="-53.25" y="15.5" />
+            </edge>
+            <edge source="server.Networking.NetworkThread" target="java.lang.Runnable">
+              <point x="0.0" y="-15.5" />
+              <point x="0.0" y="15.5" />
+            </edge>
+            <edge source="server.Networking.CommunicationThread" target="backend.Client">
+              <point x="-94.5" y="27.5" />
+              <point x="360.5" y="376.0" />
+              <point x="386.5" y="376.0" />
+              <point x="386.5" y="491.0" />
+              <point x="689.0625" y="491.0" />
+              <point x="-81.375" y="-27.5" />
+            </edge>
+            <edge source="server.Networking.ClientCommunicator" target="backend.DataLoad">
+              <point x="0.0" y="-27.5" />
+              <point x="741.5856465350367" y="376.0" />
+              <point x="724.5" y="376.0" />
+              <point x="0.0" y="39.5" />
+            </edge>
+            <edge source="server.Networking.ClientDiscoverer" target="server.Networking.ClientDiscoverer.ClientDiscovererHolder">
+              <point x="-64.44444444444451" y="-15.5" />
+              <point x="209.0555555555555" y="731.0" />
+              <point x="45.75" y="731.0" />
+              <point x="-69.75" y="15.5" />
+            </edge>
+            <edge source="controller.JSONViewerController" target="backend.Notification">
+              <point x="0.0" y="-15.5" />
+              <point x="967.5" y="606.0" />
+              <point x="972.5862272551296" y="606.0" />
+              <point x="972.5862272551296" y="366.0" />
+              <point x="981.5" y="366.0" />
+              <point x="37.5" y="27.5" />
+            </edge>
+            <edge source="controller.ConfigureViewController" target="backend.Client">
+              <point x="64.85714285714289" y="-27.5" />
+              <point x="374.6071428571429" y="836.0" />
+              <point x="779.2017179636082" y="836.0" />
+              <point x="779.2017179636082" y="596.0" />
+              <point x="797.0089285714286" y="596.0" />
+              <point x="26.571428571428555" y="27.5" />
+            </edge>
+            <edge source="server.Networking.ClientDiscoverer" target="backend.Client">
+              <point x="48.333333333333314" y="-15.5" />
+              <point x="321.8333333333333" y="721.0" />
+              <point x="742.4239401858304" y="721.0" />
+              <point x="742.4239401858304" y="606.0" />
+              <point x="717.2946428571429" y="606.0" />
+              <point x="-53.14285714285711" y="27.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-1.5" y="338.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Constructors</Category>
+            <Category>Inner Classes</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="134" column="39" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/jsonviewer.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="40" column="90" selection-start-line="40" selection-start-column="90" selection-end-line="40" selection-end-column="90" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Processing/NotiToTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/runner/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/JSONViewerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#887#888#0" expanded="true" />
+            <element signature="e#946#947#0" expanded="true" />
+            <element signature="e#1007#1008#0" expanded="true" />
+            <element signature="e#1050#1051#0" expanded="true" />
+            <element signature="e#713#1147#0" expanded="true" />
+            <element signature="e#1146#1147#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/net/AbstractPlainDatagramSocketImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1009">
+          <caret line="139" column="13" selection-start-line="139" selection-start-column="13" selection-end-line="139" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/JSONConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2181">
+          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-456">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2004#2005#0" expanded="true" />
+            <element signature="e#2121#2122#0" expanded="true" />
+            <element signature="e#2207#2208#0" expanded="true" />
+            <element signature="e#2298#2299#0" expanded="true" />
+            <element signature="e#2372#2373#0" expanded="true" />
+            <element signature="e#2457#2458#0" expanded="true" />
+            <element signature="e#2745#2746#0" expanded="true" />
+            <element signature="e#2815#2816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="94" column="64" selection-start-line="94" selection-start-column="64" selection-end-line="94" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1646#1647#0" expanded="true" />
+            <element signature="e#1684#1685#0" expanded="true" />
+            <element signature="e#1735#1736#0" expanded="true" />
+            <element signature="e#1780#1781#0" expanded="true" />
+            <element signature="e#1816#1817#0" expanded="true" />
+            <element signature="e#1854#1855#0" expanded="true" />
+            <element signature="e#1905#1906#0" expanded="true" />
+            <element signature="e#1950#1951#0" expanded="true" />
+            <element signature="e#2007#2008#0" expanded="true" />
+            <element signature="e#2048#2049#0" expanded="true" />
+            <element signature="e#2236#2237#0" expanded="true" />
+            <element signature="e#2299#2300#0" expanded="true" />
+            <element signature="e#2354#2355#0" expanded="true" />
+            <element signature="e#2390#2391#0" expanded="true" />
+            <element signature="e#3048#3049#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="39" column="27" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="46" column="6" lean-forward="true" selection-start-line="46" selection-start-column="6" selection-end-line="46" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2923#2924#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/Networking/CommunicationThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        <state relative-caret-position="435">
+          <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1530#1531#0" expanded="true" />
@@ -1296,81 +1463,6 @@
             <element signature="e#2765#2766#0" expanded="true" />
             <element signature="e#2809#2810#0" expanded="true" />
             <element signature="e#2845#2846#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/Networking/DiscoveryThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Console.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/Notification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="134" column="39" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientCommunicator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/Networking/ClientDiscoverer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/runner/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/configureView.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/ConfigureViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="121" column="53" selection-start-line="121" selection-start-column="53" selection-end-line="121" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1508#1916#0" expanded="true" />
-            <element signature="e#1915#1916#0" expanded="true" />
-            <element signature="e#3222#3223#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1440,7 +1532,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>org.json:json:20180813</last-edited>
+          <last-edited>org.ocpsoft.prettytime:prettytime:4.0.2.Final</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
