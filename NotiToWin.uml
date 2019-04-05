@@ -8,9 +8,9 @@
     <node x="0.0" y="529.0">controller.ConfigureViewController</node>
     <node x="158.5" y="81.0">java.lang.Runnable</node>
     <node x="140.0" y="162.0">server.Networking.NetworkThread</node>
-    <node x="226.0" y="629.0">backend.Notification</node>
-    <node x="20.5" y="360.0">server.Networking.ClientDiscoverer</node>
     <node x="129.0" y="0.0">java.lang.FunctionalInterface</node>
+    <node x="20.5" y="360.0">server.Networking.ClientDiscoverer</node>
+    <node x="226.0" y="629.0">backend.Notification</node>
     <node x="421.0" y="629.0">controller.JSONViewerController</node>
     <node x="0.0" y="453.0">server.Networking.ClientDiscoverer.ClientDiscovererHolder</node>
     <node x="500.0" y="0.0">backend.DataLoad</node>
@@ -55,7 +55,9 @@
     </edge>
   </edges>
   <settings layout="Hierarchic Group" zoom="1.0" x="557.0" y="435.0" />
-  <SelectedNodes />
+  <SelectedNodes>
+    <node>controller.Console</node>
+  </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
     <Category>Inner Classes</Category>
