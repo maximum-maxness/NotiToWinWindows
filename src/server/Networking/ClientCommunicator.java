@@ -29,6 +29,7 @@ public class ClientCommunicator extends CommunicationThread {
                     while ((message = receiveMessage()) != null) {
                         if (!processMessage(message)) break;
                     }
+                    System.err.println("Error message null!");
                 } catch (EOFException e) {
                     System.err.println("Client Disconnected Unexpectedly!");
                 } finally {

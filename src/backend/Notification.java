@@ -11,7 +11,7 @@ public class Notification {
     private boolean isClearable, isRepliable, hasDataLoad;
     private String id, appName, title, text, dataLoadHash, requestReplyId;
     private Icon ico; //TODO Proper Icon integration
-    private long timeStamp;
+    private long timeStamp, dataLoadSize;
 
 
     public Notification() {
@@ -172,10 +172,20 @@ public class Notification {
                 case "dataLoadHash":
                     noti.setDataLoadHash((String) jsonOb.get(key));
                     break;
+                case "dataLoadSize":
+                    noti.setDataLoadSize((long) jsonOb.get(key));
                 default:
                     System.err.println("Key: \"" + key + "\" isn't a notification key.");
             }
         }
         return noti;
+    }
+
+    public long getDataLoadSize() {
+        return dataLoadSize;
+    }
+
+    public void setDataLoadSize(long dataLoadSize) {
+        this.dataLoadSize = dataLoadSize;
     }
 }

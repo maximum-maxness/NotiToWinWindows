@@ -57,7 +57,10 @@ public class NotiToTree {
                 TreeItem<String> dataHash = new TreeItem<>("DataLoad Hash");
                 TreeItem<String> dataHashStr = new TreeItem<>(notification.getDataLoadHash());
                 dataHash.getChildren().add(dataHashStr);
-                hasDataLoad.getChildren().addAll(dataBool, dataHash);
+                TreeItem<String> dataSize = new TreeItem<>("DataLoad Size:");
+                TreeItem<String> dataSizeStr = new TreeItem<>(Long.toString(notification.getDataLoadSize()));
+                dataSize.getChildren().add(dataSizeStr);
+                hasDataLoad.getChildren().addAll(dataBool, dataHash, dataSize);
             } else {
                 dataBool = new TreeItem<>("false");
                 hasDataLoad.getChildren().add(dataBool);
