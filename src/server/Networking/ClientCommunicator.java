@@ -1,12 +1,19 @@
 package server.Networking;
 
-import backend.*;
+import backend.Client;
+import backend.JSONConverter;
+import backend.Notification;
+import backend.PacketType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.EOFException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class ClientCommunicator extends CommunicationThread {
+    private static int MAX_FAILS = 5;
+    private int failCount = 0;
 
     ClientCommunicator(@NotNull Client client) {
         super(client);
@@ -14,39 +21,59 @@ public class ClientCommunicator extends CommunicationThread {
 
     @Override
     public void run() {
-        try {
-            waitForConnection();
-            System.out.println("Connection from IP: \"" + getSocket().getInetAddress() + "\"");
-            if (getSocket().getInetAddress().toString().equals(getIP().toString())) {
-                System.out.println("IP Matches set IP!");
-                openStreams();
-                getClient().setConfirmed(true);
-                System.out.println("Sending Ready...");
-                sendReady();
-                System.out.println("Sent Ready!");
-                String message;
-                try {
-                    while ((message = receiveMessage()) != null) {
-                        if (!processMessage(message)) break;
-                    }
-                    System.err.println("Error message null!");
-                } catch (EOFException e) {
-                    System.err.println("Client Disconnected Unexpectedly!");
-                } finally {
+        if (failCount < MAX_FAILS) {
+            try {
+                waitForConnection();
+                System.out.println("Connection from IP: \"" + getSocket().getInetAddress() + "\"");
+                if (getSocket().getInetAddress().toString().equals(getIP().toString())) {
+                    System.out.println("IP Matches set IP!");
+                    openStreams();
+                    getClient().setConfirmed(true);
+                    System.out.println("Sending Ready...");
+                    sendReady();
+                    System.out.println("Sent Ready!");
+                    messageScanner();
+                    stop();
+                } else {
+                    System.err.println("Connection from IP: \"" + getSocket().getInetAddress() + "\" Does not match set IP: \"" + getIP() + "\" Trying Again...");
                     getSocket().close();
-                    getClient().setConfirmed(false);
                     this.run();
                 }
-                stop();
-            } else {
-                System.err.println("Connection from IP: \"" + getSocket().getInetAddress() + "\" Does not match set IP: \"" + getIP() + "\" Trying Again...");
-                getSocket().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                try {
+                    getSocket().close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                getClient().setConfirmed(false);
+                failCount++;
                 this.run();
             }
+        } else {
+            System.err.println("Too many failed connections!");
+            try {
+                stop();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void messageScanner() {
+        String message;
+        try {
+            while ((message = receiveMessage()) != null) {
+                if (!processMessage(message)) break;
+            }
+            System.err.println("Error message null!");
+        } catch (EOFException e) {
+            System.err.println("Client Disconnected Unexpectedly!");
+            messageScanner();
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -72,11 +99,28 @@ public class ClientCommunicator extends CommunicationThread {
         }
     }
 
-    public DataLoad recieveDataLoad() { //TODO
-        return null;
+    public void recieveDataLoad(long size, String name) { //TODO
+        try {
+            int bytesRead;
+            OutputStream output = new FileOutputStream(name);
+            byte[] buffer = new byte[1024];
+            while (size > 0 && (bytesRead = getDataInputStream().read(buffer, 0, (int) Math.min(buffer.length, size))) != -1) {
+                output.write(buffer, 0, bytesRead);
+                size -= bytesRead;
+            }
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendReady() throws IOException {
         sendMessage(new JSONConverter(PacketType.READY_RESPONSE).serialize(), getPort());
+    }
+
+    public void sendChoice(boolean b) throws IOException {
+        JSONConverter json = new JSONConverter(PacketType.DATALOAD_REQUEST);
+        json.set("dataLoadRequest", b);
+        sendMessage(json.serialize(), getPort());
     }
 }

@@ -3,6 +3,10 @@ package backend;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -10,6 +14,63 @@ public class Notification {
 
     private boolean isClearable, isRepliable, hasDataLoad;
     private String id, appName, title, text, dataLoadHash, requestReplyId;
+
+    private File icon;
+
+    public static Notification jsonToNoti(JSONConverter json) {
+        Notification noti = new Notification();
+        JSONObject jsonOb = json.getMainBody();
+        Iterator<String> iter = jsonOb.keys();
+        while (iter.hasNext()) {
+            String key = iter.next();
+            switch (key) {
+                case "id":
+                    noti.setId((String) jsonOb.get(key));
+                    break;
+                case "isClearable":
+                    noti.setClearable((boolean) jsonOb.get(key));
+                    break;
+                case "appName":
+                    noti.setAppName((String) jsonOb.get(key));
+                    break;
+                case "time":
+                    noti.setTimeStamp((String) jsonOb.get(key));
+                    break;
+                case "title":
+                    noti.setTitle((String) jsonOb.get(key));
+                    break;
+                case "text":
+                    noti.setText((String) jsonOb.get(key));
+                    break;
+                case "isRepliable":
+                    noti.setRepliable((boolean) jsonOb.get(key));
+                    break;
+                case "requestReplyId":
+                    noti.setRequestReplyId((String) jsonOb.get(key));
+                    break;
+                case "hasDataLoad":
+                    noti.setHasDataLoad((boolean) jsonOb.get(key));
+                    break;
+                case "dataLoadHash":
+                    noti.setDataLoadHash((String) jsonOb.get(key));
+                    break;
+                case "dataLoadSize":
+                    noti.setDataLoadSize(Integer.toUnsignedLong((int) jsonOb.get(key)));
+                    break;
+                default:
+                    System.err.println("Key: \"" + key + "\" isn't a notification key.");
+            }
+        }
+        return noti;
+    }
+
+    public InputStream getIconInputStream() throws FileNotFoundException {
+        return new FileInputStream(icon);
+    }
+
+    public File getIcon() {
+        return icon;
+    }
     private Icon ico; //TODO Proper Icon integration
     private long timeStamp, dataLoadSize;
 
@@ -135,50 +196,8 @@ public class Notification {
         return returnString.toString();
     }
 
-    public static Notification jsonToNoti(JSONConverter json){
-        Notification noti = new Notification();
-        JSONObject jsonOb = json.getMainBody();
-        Iterator<String> iter = jsonOb.keys();
-        while (iter.hasNext()) {
-            String key = iter.next();
-            switch (key) {
-                case "id":
-                    noti.setId((String) jsonOb.get(key));
-                    break;
-                case "isClearable":
-                    noti.setClearable((boolean) jsonOb.get(key));
-                    break;
-                case "appName":
-                    noti.setAppName((String) jsonOb.get(key));
-                    break;
-                case "time":
-                    noti.setTimeStamp((String) jsonOb.get(key));
-                    break;
-                case "title":
-                    noti.setTitle((String) jsonOb.get(key));
-                    break;
-                case "text":
-                    noti.setText((String) jsonOb.get(key));
-                    break;
-                case "isRepliable":
-                    noti.setRepliable((boolean) jsonOb.get(key));
-                    break;
-                case "requestReplyId":
-                    noti.setRequestReplyId((String) jsonOb.get(key));
-                    break;
-                case "hasDataLoad":
-                    noti.setHasDataLoad((boolean) jsonOb.get(key));
-                    break;
-                case "dataLoadHash":
-                    noti.setDataLoadHash((String) jsonOb.get(key));
-                    break;
-                case "dataLoadSize":
-                    noti.setDataLoadSize((long) jsonOb.get(key));
-                default:
-                    System.err.println("Key: \"" + key + "\" isn't a notification key.");
-            }
-        }
-        return noti;
+    public void setIcon(File icon) {
+        this.icon = icon;
     }
 
     public long getDataLoadSize() {

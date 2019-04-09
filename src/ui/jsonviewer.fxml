@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -36,6 +37,13 @@
                    textFill="#9f9f9f" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="240.0"/>
             <ListView fx:id="notiList" layoutY="257.0" prefHeight="318.0" prefWidth="250.0"/>
             <ChoiceBox fx:id="clientList" layoutY="72.0" prefHeight="58.0" prefWidth="250.0"/>
+            <AnchorPane id="iconView" layoutY="130.0" prefHeight="110.0" prefWidth="250.0"
+                        style="-fx-background-color: #424242;" stylesheets="@css/jsonviewer.css">
+                <children>
+                    <ImageView fx:id="iconView" fitHeight="110.0" fitWidth="110.0" layoutX="70.0" pickOnBounds="true"
+                               preserveRatio="true"/>
+                </children>
+            </AnchorPane>
         </AnchorPane>
         <AnchorPane prefHeight="578.0" prefWidth="425.0">
             <TreeView fx:id="jsonTree" prefHeight="578.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0"

@@ -14,6 +14,15 @@ public abstract class CommunicationThread implements NetworkThread {
     private InputStream inputStream;
     private DataInputStream dataInputStream;
     private OutputStream outputStream;
+
+    public DataInputStream getDataInputStream() {
+        return dataInputStream;
+    }
+
+    public DataOutputStream getDataOutputStream() {
+        return dataOutputStream;
+    }
+
     private DataOutputStream dataOutputStream;
 
     private Client client;

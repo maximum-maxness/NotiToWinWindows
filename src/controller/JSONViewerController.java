@@ -7,12 +7,15 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.ocpsoft.prettytime.PrettyTime;
 import runner.Main;
 import server.Processing.NotiToTree;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 import static controller.ConfigureViewController.discovery;
@@ -33,6 +36,9 @@ public class JSONViewerController {
 
     @FXML
     private TreeView<String> jsonTree;
+
+    @FXML
+    private ImageView iconView;
 //
 //    JSONViewerController(){
 //
@@ -88,6 +94,11 @@ public class JSONViewerController {
 
     private void getSelectedNoti(Notification noti) {
         if (noti != null) {
+            try {
+                iconView.setImage(new Image(noti.getIconInputStream()));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             TreeItem<String> root = NotiToTree.convert(noti);
             NotiToTree.expandTreeView(root);
             jsonTree.setRoot(root);

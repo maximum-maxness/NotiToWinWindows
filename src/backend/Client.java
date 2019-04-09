@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import server.Networking.ClientCommunicator;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,12 +106,45 @@ public class Client {
                 match = true;
             }
         }
-        if (!match)
+        try {
+            clientCommunicator.sendChoice(!match);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (!match) {
+            try {
+                getIconFromNetwork(noti);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             notifications.add(noti);
-        else {
+        } else {
             System.out.println("Already Have that Notification!");
         }
     }
+
+//    private int timesFailed = 0;
+
+    private void getIconFromNetwork(Notification noti) throws IOException {
+        String name = "tmp/" + noti.getAppName() + noti.getTimeStamp() + ".bmp";
+        clientCommunicator.recieveDataLoad(noti.getDataLoadSize(), name);
+        noti.setIcon(new File(name));
+//        String hash = DataLoad.getChecksum(noti.getIconInputStream().readAllBytes());
+//        if (!noti.getDataLoadHash().equals(hash) && timesFailed < 5) {
+//            clientCommunicator.sendChoice(true);
+//            timesFailed++;
+//            System.out.println("Hashes don't match, trying again!");
+//            getIconFromNetwork(noti);
+//        } else if (timesFailed >= 5) {
+//            noti.setIcon(new File("src/ui/res/x.png"));
+//        } else {
+//            timesFailed = 0;
+//            System.out.println("Hashes Match!");
+//            clientCommunicator.sendChoice(false);
+//        }
+    }
+
+
 
     public void clearNotifications() {
         notifications.clear();
