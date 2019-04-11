@@ -12,15 +12,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ClientCommunicator extends CommunicationThread {
-    private static int MAX_FAILS = 5;
     private int failCount = 0;
 
     ClientCommunicator(@NotNull Client client) {
         super(client);
     }
 
+    private int errorCount = 0;
+
     @Override
     public void run() {
+        int MAX_FAILS = 5;
         if (failCount < MAX_FAILS) {
             try {
                 waitForConnection();
@@ -69,7 +71,13 @@ public class ClientCommunicator extends CommunicationThread {
             System.err.println("Error message null!");
         } catch (EOFException e) {
             System.err.println("Client Disconnected Unexpectedly!");
-            messageScanner();
+            int MAX_ERROR_COUNT = 5;
+            if (errorCount < MAX_ERROR_COUNT) {
+                messageScanner();
+            } else {
+                errorCount = 0;
+                return;
+            }
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

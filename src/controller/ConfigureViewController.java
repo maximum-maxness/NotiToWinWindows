@@ -67,51 +67,35 @@ public class ConfigureViewController {
         clientList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
-        nameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Client, String>, ObservableValue<String>>() {
-
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Client, String> param) {
-                if (param.getValue() != null) {
-                    return param.getValue().nameProperty();
-                } else {
-                    return new SimpleStringProperty("<no name>");
-                }
+        nameCol.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Client, String>, ObservableValue<String>>) param -> {
+            if (param.getValue() != null) {
+                return param.getValue().nameProperty();
+            } else {
+                return new SimpleStringProperty("<no name>");
             }
         });
-        ipCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Client, InetAddress>, ObservableValue<InetAddress>>() {
-
-            @Override
-            public ObservableValue<InetAddress> call(TableColumn.CellDataFeatures<Client, InetAddress> param) {
-                if (param.getValue() != null) {
-                    return param.getValue().ipProperty();
-                } else {
-                    return new SimpleObjectProperty<InetAddress>(InetAddress.getLoopbackAddress());
-                }
+        ipCol.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Client, InetAddress>, ObservableValue<InetAddress>>) param -> {
+            if (param.getValue() != null) {
+                return param.getValue().ipProperty();
+            } else {
+                return new SimpleObjectProperty<InetAddress>(InetAddress.getLoopbackAddress());
             }
         });
 //
-        confirmedCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>() {
-
-            @Override
-            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Client, Boolean> param) {
-                if (param.getValue() != null) {
-                    return param.getValue().confirmedProperty();
-                } else {
-                    return new SimpleBooleanProperty(false);
-                }
+        confirmedCol.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>) param -> {
+            if (param.getValue() != null) {
+                return param.getValue().confirmedProperty();
+            } else {
+                return new SimpleBooleanProperty(false);
             }
         });
 
 //
-        hasThreadCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>() {
-
-            @Override
-            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Client, Boolean> param) {
-                if (param.getValue() != null) {
-                    return param.getValue().hasThreadProperty();
-                } else {
-                    return new SimpleBooleanProperty(false);
-                }
+        hasThreadCol.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>) param -> {
+            if (param.getValue() != null) {
+                return param.getValue().hasThreadProperty();
+            } else {
+                return new SimpleBooleanProperty(false);
             }
         });
         clientList.setItems(clientProperty);

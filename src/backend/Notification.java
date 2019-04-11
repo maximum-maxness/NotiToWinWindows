@@ -1,7 +1,7 @@
 package backend;
 
-import controller.NotiCardHelper;
 import org.json.JSONObject;
+import runner.NotiCardHelper;
 
 import javax.swing.*;
 import java.io.File;
@@ -67,7 +67,7 @@ public class Notification {
 
     public InputStream getIconInputStream() {
         try {
-            return new FileInputStream(icon);
+            return (icon == null) ? new FileInputStream(new File("src/ui/res/x.png")) : new FileInputStream(icon);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;

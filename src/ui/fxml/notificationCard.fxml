@@ -4,12 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="1.7976931348623157E308"
-            prefHeight="135.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.172-ea" fx:id="mainPane">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="1.7976931348623157E308"
+            prefHeight="130.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.172-ea">
     <children>
-        <VBox maxWidth="1.7976931348623157E308" prefHeight="135.0" prefWidth="350.0" fx:id="vBox1">
+        <VBox fx:id="vBox1" maxWidth="1.7976931348623157E308" prefHeight="130.0" prefWidth="350.0">
             <children>
-                <HBox maxWidth="1.7976931348623157E308" prefHeight="16.0" prefWidth="281.0" fx:id="hBox2">
+                <HBox fx:id="hBox2" maxWidth="1.7976931348623157E308" prefHeight="16.0" prefWidth="281.0">
                     <children>
                         <Label fx:id="appName" text="AppName">
                             <HBox.margin>
@@ -29,11 +29,11 @@
                         </Label>
                     </children>
                 </HBox>
-                <HBox maxWidth="1.7976931348623157E308" fx:id="hBox3">
+                <HBox fx:id="hBox3" maxWidth="1.7976931348623157E308">
                     <children>
                         <ImageView fx:id="icon" fitHeight="94.0" fitWidth="94.0" pickOnBounds="true"
                                    preserveRatio="true"/>
-                        <VBox maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="250.0" fx:id="vBox4">
+                        <VBox fx:id="vBox4" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="250.0">
                             <children>
                                 <Label fx:id="title" maxWidth="1.7976931348623157E308" text="Noti Title" wrapText="true"
                                        VBox.vgrow="ALWAYS"/>
@@ -47,7 +47,7 @@
                         </VBox>
                     </children>
                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets left="5.0" right="5.0" top="10.0"/>
                     </VBox.margin>
                 </HBox>
             </children>

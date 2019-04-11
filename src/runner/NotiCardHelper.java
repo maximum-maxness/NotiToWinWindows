@@ -1,7 +1,8 @@
-package controller;
+package runner;
 
 import backend.Notification;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -10,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.ocpsoft.prettytime.PrettyTime;
-import runner.Main;
 
 import java.awt.*;
 import java.util.List;
@@ -19,6 +19,8 @@ import java.util.*;
 public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSUES) Look at https://github.com/goxr3plus/FX-BorderlessScene ?
     private static final int CARD_WIDTH = 350;
     private static final int CARD_HEIGHT = 135;
+    private static final int DISTANCE_FROM_SIDES = 25;
+    private static final int DISTANCE_FROM_BOTTOM = 45;
     private static Stage tempStage = new Stage(StageStyle.UTILITY);
     private static Stage notiStage;
     //    private static Popup popup;
@@ -28,7 +30,7 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
     private static boolean hasQueue = false;
     private static Timer timer = new Timer();
 
-    public static void initialize(Parent notiParent) {
+    static void initialize(Parent notiParent) {
 //        tempStage.initOwner(Main.primaryStage);
         tempStage.setOpacity(0);
         notiStage = new Stage(StageStyle.UNDECORATED);
@@ -37,20 +39,16 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
         notiStage.setScene(notiScene);
         notiStage.setAlwaysOnTop(false);
         notiStage.setResizable(true);
-        tempStage.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            Runnable r = () -> {
-                if (Main.secondaryStage.isShowing() && !Main.secondaryStage.isIconified())
-                    Main.secondaryStage.requestFocus();
-            };
-            Platform.runLater(r);
-        });
-        notiStage.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            Runnable r = () -> {
-                if (Main.secondaryStage.isShowing() && !Main.secondaryStage.isIconified())
-                    Main.secondaryStage.requestFocus();
-            };
-            Platform.runLater(r);
-        });
+        tempStage.focusedProperty().addListener(NotiCardHelper::changed);
+        notiStage.focusedProperty().addListener(NotiCardHelper::changed);
+    }
+
+    private static void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+        Runnable r = () -> {
+            if (Main.secondaryStage.isShowing() && !Main.secondaryStage.isIconified())
+                Main.secondaryStage.requestFocus();
+        };
+        Platform.runLater(r);
     }
 
     public static void showNotification(Notification noti) {
@@ -68,8 +66,8 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
 //        popup = card.getCard();
 //        popup.show();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //TODO Multiple Monitor Option for Notifications
-        notiStage.setX(screenSize.getWidth() - (CARD_WIDTH + 15));
-        notiStage.setY(screenSize.getHeight() - (CARD_HEIGHT + 15));
+        notiStage.setX(screenSize.getWidth() - (CARD_WIDTH + DISTANCE_FROM_SIDES));
+        notiStage.setY(screenSize.getHeight() - (CARD_HEIGHT + DISTANCE_FROM_BOTTOM));
         tempStage.show();
         notiStage.show();
         if (hasQueue && !lastInQueue) {
@@ -122,6 +120,7 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
             }
         }
     }
+
 
     static class NotificationCard {
         private Label text, title, appName, time;

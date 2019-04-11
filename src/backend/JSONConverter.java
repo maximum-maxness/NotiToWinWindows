@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@SuppressWarnings("Duplicates")
 public class JSONConverter extends JSONObject {
     private long id;
     private String type;

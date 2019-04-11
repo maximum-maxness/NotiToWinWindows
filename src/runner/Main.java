@@ -1,7 +1,6 @@
 package runner;
 
 import backend.Client;
-import controller.NotiCardHelper;
 import javafx.application.Application;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -20,8 +19,8 @@ public class Main extends Application {
     private final static int STAGE_WIDTH = 900;
     private final static int STAGE_HEIGHT = 600;
 
-    public static Scene configureScene, JSONScene;
-    public static Stage primaryStage, secondaryStage;
+    static Stage secondaryStage;
+    private static Scene configureScene, JSONScene;
 
     public static void changeViewToJSON() {
         secondaryStage.setScene(JSONScene);
@@ -58,7 +57,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStageIn) throws Exception {
-        primaryStage = primaryStageIn;
         secondaryStage = new Stage();
         Parent configureView = FXMLLoader.load(getClass().getResource("../ui/fxml/configureView.fxml"));
         Parent jsonViewer = FXMLLoader.load(getClass().getResource("../ui/fxml/jsonviewer.fxml"));
@@ -70,7 +68,7 @@ public class Main extends Application {
         secondaryStage.setScene(configureScene);
         secondaryStage.show();
         secondaryStage.requestFocus();
-        primaryStage.hide();
+        primaryStageIn.hide();
         Parent notiParent = FXMLLoader.load(getClass().getResource("../ui/fxml/notificationCard.fxml"));
         NotiCardHelper.initialize(notiParent);
     }

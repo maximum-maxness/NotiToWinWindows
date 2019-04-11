@@ -103,8 +103,9 @@ public class Client {
     public void addNoti(Notification noti) {
         boolean match = false;
         for (Notification notification : notifications) {
-            if (notification.getId().equals(noti.getId())) {
+            if (notification.getId().equals(noti.getId()) && notification.getText().equals(noti.getText())) {
                 match = true;
+                noti.setIcon(notification.getIcon());
             }
         }
         try {
@@ -119,16 +120,11 @@ public class Client {
                 e.printStackTrace();
             }
             notifications.add(noti);
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    noti.display();
-                }
-            };
-            Platform.runLater(r);
         } else {
             System.out.println("Already Have that Notification!");
         }
+        Runnable r = noti::display;
+        Platform.runLater(r);
     }
 
 //    private int timesFailed = 0;
