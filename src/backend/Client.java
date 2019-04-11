@@ -1,5 +1,6 @@
 package backend;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -118,6 +119,13 @@ public class Client {
                 e.printStackTrace();
             }
             notifications.add(noti);
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    noti.display();
+                }
+            };
+            Platform.runLater(r);
         } else {
             System.out.println("Already Have that Notification!");
         }
@@ -126,9 +134,9 @@ public class Client {
 //    private int timesFailed = 0;
 
     private void getIconFromNetwork(Notification noti) throws IOException {
-        String name = "tmp/" + noti.getAppName() + noti.getTimeStamp() + ".bmp";
-        clientCommunicator.recieveDataLoad(noti.getDataLoadSize(), name);
-        noti.setIcon(new File(name));
+        String name = noti.getAppName() + noti.getTimeStamp();
+        File icon = clientCommunicator.recieveDataLoad(noti.getDataLoadSize(), name);
+        noti.setIcon(icon);
 //        String hash = DataLoad.getChecksum(noti.getIconInputStream().readAllBytes());
 //        if (!noti.getDataLoadHash().equals(hash) && timesFailed < 5) {
 //            clientCommunicator.sendChoice(true);

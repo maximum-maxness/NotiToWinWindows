@@ -8,7 +8,7 @@
 <?import java.net.URL?>
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigureViewController">
     <stylesheets>
-        <URL value="@css/configureView.css" />
+        <URL value="@../css/configureView.css"/>
     </stylesheets>
     <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" VBox.vgrow="ALWAYS">
         <AnchorPane maxWidth="-Infinity" prefHeight="576.0" prefWidth="222.0">

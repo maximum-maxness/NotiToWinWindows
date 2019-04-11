@@ -1,6 +1,7 @@
 package runner;
 
 import backend.Client;
+import controller.NotiCardHelper;
 import javafx.application.Application;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -20,14 +21,14 @@ public class Main extends Application {
     private final static int STAGE_HEIGHT = 600;
 
     public static Scene configureScene, JSONScene;
-    private static Stage primaryStage;
+    public static Stage primaryStage, secondaryStage;
 
     public static void changeViewToJSON() {
-        primaryStage.setScene(JSONScene);
+        secondaryStage.setScene(JSONScene);
     }
 
     public static void changeViewToConfig() {
-        primaryStage.setScene(configureScene);
+        secondaryStage.setScene(configureScene);
     }
 
     public static void updateClientList(ArrayList<Client> clientList) {
@@ -58,15 +59,20 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStageIn) throws Exception {
         primaryStage = primaryStageIn;
-        Parent configureView = FXMLLoader.load(getClass().getResource("../ui/configureView.fxml"));
-        Parent jsonViewer = FXMLLoader.load(getClass().getResource("../ui/jsonviewer.fxml"));
+        secondaryStage = new Stage();
+        Parent configureView = FXMLLoader.load(getClass().getResource("../ui/fxml/configureView.fxml"));
+        Parent jsonViewer = FXMLLoader.load(getClass().getResource("../ui/fxml/jsonviewer.fxml"));
         configureScene = new Scene(configureView, STAGE_WIDTH, STAGE_HEIGHT);
         JSONScene = new Scene(jsonViewer, STAGE_WIDTH, STAGE_HEIGHT);
-        primaryStage.setTitle("NotiToWin");
-        primaryStage.setScene(configureScene);
-        primaryStage.setScene(JSONScene);
-        primaryStage.setScene(configureScene);
-        primaryStage.show();
+        secondaryStage.setTitle("NotiToWin");
+        secondaryStage.setScene(configureScene);
+        secondaryStage.setScene(JSONScene);
+        secondaryStage.setScene(configureScene);
+        secondaryStage.show();
+        secondaryStage.requestFocus();
+        primaryStage.hide();
+        Parent notiParent = FXMLLoader.load(getClass().getResource("../ui/fxml/notificationCard.fxml"));
+        NotiCardHelper.initialize(notiParent);
     }
 
     public static void main(String[] args) {

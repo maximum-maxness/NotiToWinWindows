@@ -7,9 +7,9 @@ import backend.PacketType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 public class ClientCommunicator extends CommunicationThread {
     private static int MAX_FAILS = 5;
@@ -99,19 +99,27 @@ public class ClientCommunicator extends CommunicationThread {
         }
     }
 
-    public void recieveDataLoad(long size, String name) { //TODO
+    public File recieveDataLoad(long size, String name) { //TODO
         try {
             int bytesRead;
-            OutputStream output = new FileOutputStream(name);
+
+            String tmpDirectoryOp = System.getProperty("java.io.tmpdir");
+            File tmpDirectory = new File(tmpDirectoryOp);
+            File fstream = File.createTempFile(name, ".bmp", tmpDirectory);
+            FileOutputStream output = new FileOutputStream(fstream);
+
             byte[] buffer = new byte[1024];
             while (size > 0 && (bytesRead = getDataInputStream().read(buffer, 0, (int) Math.min(buffer.length, size))) != -1) {
                 output.write(buffer, 0, bytesRead);
                 size -= bytesRead;
             }
             output.close();
+            fstream.deleteOnExit();
+            return fstream;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void sendReady() throws IOException {

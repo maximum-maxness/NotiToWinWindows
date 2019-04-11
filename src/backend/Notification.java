@@ -1,5 +1,6 @@
 package backend;
 
+import controller.NotiCardHelper;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -64,8 +65,13 @@ public class Notification {
         return noti;
     }
 
-    public InputStream getIconInputStream() throws FileNotFoundException {
-        return new FileInputStream(icon);
+    public InputStream getIconInputStream() {
+        try {
+            return new FileInputStream(icon);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public File getIcon() {
@@ -206,5 +212,9 @@ public class Notification {
 
     public void setDataLoadSize(long dataLoadSize) {
         this.dataLoadSize = dataLoadSize;
+    }
+
+    public void display() {
+        NotiCardHelper.showNotification(this);
     }
 }
