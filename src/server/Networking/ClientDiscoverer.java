@@ -38,6 +38,8 @@ public class ClientDiscoverer extends DiscoveryThread {
 
     @Override
     public boolean processMessage(String message) throws IOException {
+        if (!message.startsWith("{"))
+            return false;
         JSONConverter json = JSONConverter.unserialize(message);
         if (json.getType().equals(PacketType.CLIENT_PAIR_REQUEST)) {
             initialPair(json, true);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="1.7976931348623157E308"
@@ -27,6 +27,12 @@
                                 <Insets left="10.0" right="10.0"/>
                             </HBox.margin>
                         </Label>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="hideButton" mnemonicParsing="false" text="X">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Button>
                     </children>
                 </HBox>
                 <HBox fx:id="hBox3" maxWidth="1.7976931348623157E308">

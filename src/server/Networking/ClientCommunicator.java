@@ -73,6 +73,7 @@ public class ClientCommunicator extends CommunicationThread {
             System.err.println("Client Disconnected Unexpectedly!");
             int MAX_ERROR_COUNT = 5;
             if (errorCount < MAX_ERROR_COUNT) {
+                errorCount++;
                 messageScanner();
             } else {
                 errorCount = 0;

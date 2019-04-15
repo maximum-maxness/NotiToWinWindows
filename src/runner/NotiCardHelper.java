@@ -3,8 +3,11 @@ package runner;
 import backend.Notification;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -127,6 +130,7 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
         //        private VBox vBox1, vBox4;
 //        private HBox hBox2, hBox3;
         private ImageView icon;
+        private Button hideButton;
 
         NotificationCard(Scene notiCard) {
             text = (Label) notiCard.lookup("#text");
@@ -134,6 +138,13 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
             appName = (Label) notiCard.lookup("#appName");
             time = (Label) notiCard.lookup("#time");
             icon = (ImageView) notiCard.lookup("#icon");
+            hideButton = (Button) notiCard.lookup("#hideButton");
+            hideButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    notiStage.hide();
+                }
+            });
 //            vBox1 = (VBox) notiCard.lookup("#vBox1");
 //            vBox4 = (VBox) notiCard.lookup(("#vBox4"));
 //            hBox2 = (HBox) notiCard.lookup("#hBox2");
