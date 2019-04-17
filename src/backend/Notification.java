@@ -17,6 +17,21 @@ public class Notification {
     private String id, appName, title, text, dataLoadHash, requestReplyId;
 
     private File icon;
+    private Icon ico; // TODO Proper Icon integration
+    private long timeStamp, dataLoadSize;
+
+    public Notification() {
+        this.isClearable = false;
+        this.isRepliable = false;
+        this.hasDataLoad = false;
+        this.id = "";
+        this.appName = "";
+        this.title = "";
+        this.text = "";
+        this.dataLoadHash = "";
+        this.requestReplyId = "";
+        this.timeStamp = 0L;
+    }
 
     public static Notification jsonToNoti(JSONConverter json) {
         Notification noti = new Notification();
@@ -67,7 +82,9 @@ public class Notification {
 
     public InputStream getIconInputStream() {
         try {
-            return (icon == null) ? new FileInputStream(new File("src/ui/res/x.png")) : new FileInputStream(icon);
+            return (icon == null)
+                    ? new FileInputStream(new File("src/ui/res/x.png"))
+                    : new FileInputStream(icon);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -77,21 +94,9 @@ public class Notification {
     public File getIcon() {
         return icon;
     }
-    private Icon ico; //TODO Proper Icon integration
-    private long timeStamp, dataLoadSize;
 
-
-    public Notification() {
-        this.isClearable = false;
-        this.isRepliable = false;
-        this.hasDataLoad = false;
-        this.id = "";
-        this.appName = "";
-        this.title = "";
-        this.text = "";
-        this.dataLoadHash = "";
-        this.requestReplyId = "";
-        this.timeStamp = 0L;
+    public void setIcon(File icon) {
+        this.icon = icon;
     }
 
     public boolean isClearable() {
@@ -179,7 +184,10 @@ public class Notification {
     }
 
     public boolean isValidNoti() {
-        return !Objects.equals(this.id, "") && !Objects.equals(this.appName, "") && !Objects.equals(this.title, "") && this.timeStamp != 0L;
+        return !Objects.equals(this.id, "")
+                && !Objects.equals(this.appName, "")
+                && !Objects.equals(this.title, "")
+                && this.timeStamp != 0L;
     }
 
     @Override
@@ -194,16 +202,13 @@ public class Notification {
             returnString.append("Notification Text: ").append(getText()).append("\n");
             returnString.append("Notification is Clearable: ").append(isClearable()).append("\n");
             returnString.append("Notification is Repliable: ").append(isRepliable()).append("\n");
-            if (isRepliable()) returnString.append("Notification Reply ID: ").append(getRequestReplyId()).append("\n");
+            if (isRepliable())
+                returnString.append("Notification Reply ID: ").append(getRequestReplyId()).append("\n");
             returnString.append("Notification has DataLoad: ").append(isHasDataLoad()).append("\n");
             if (isHasDataLoad())
                 returnString.append("Notification DataLoad Hash: ").append(getDataLoadHash()).append("\n");
         }
         return returnString.toString();
-    }
-
-    public void setIcon(File icon) {
-        this.icon = icon;
     }
 
     public long getDataLoadSize() {

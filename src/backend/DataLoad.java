@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class DataLoad {
+    private static final String HEXES = "0123456789ABCDEF";
     private InputStream inputStream;
     private long size;
 
@@ -29,16 +30,6 @@ public class DataLoad {
         return null;
     }
 
-    public InputStream getInputStream() {
-        return this.inputStream;
-    }
-
-    public long getSize() {
-        return this.size;
-    }
-
-    private static final String    HEXES    = "0123456789ABCDEF";
-
     static String getHex(byte[] raw) {
         final StringBuilder hex = new StringBuilder(2 * raw.length);
         for (final byte b : raw) {
@@ -47,5 +38,11 @@ public class DataLoad {
         return hex.toString();
     }
 
+    public InputStream getInputStream() {
+        return this.inputStream;
+    }
 
+    public long getSize() {
+        return this.size;
+    }
 }

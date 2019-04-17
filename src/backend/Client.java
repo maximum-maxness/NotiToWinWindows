@@ -103,7 +103,8 @@ public class Client {
     public void addNoti(Notification noti) {
         boolean match = false;
         for (Notification notification : notifications) {
-            if (notification.getId().equals(noti.getId()) && notification.getText().equals(noti.getText())) {
+            if (notification.getId().equals(noti.getId())
+                    && notification.getText().equals(noti.getText())) {
                 match = true;
                 noti.setIcon(notification.getIcon());
             }
@@ -127,28 +128,26 @@ public class Client {
         Platform.runLater(r);
     }
 
-//    private int timesFailed = 0;
+    //    private int timesFailed = 0;
 
     private void getIconFromNetwork(Notification noti) throws IOException {
         String name = noti.getAppName() + noti.getTimeStamp();
         File icon = clientCommunicator.recieveDataLoad(noti.getDataLoadSize(), name);
         noti.setIcon(icon);
-//        String hash = DataLoad.getChecksum(noti.getIconInputStream().readAllBytes());
-//        if (!noti.getDataLoadHash().equals(hash) && timesFailed < 5) {
-//            clientCommunicator.sendChoice(true);
-//            timesFailed++;
-//            System.out.println("Hashes don't match, trying again!");
-//            getIconFromNetwork(noti);
-//        } else if (timesFailed >= 5) {
-//            noti.setIcon(new File("src/ui/res/x.png"));
-//        } else {
-//            timesFailed = 0;
-//            System.out.println("Hashes Match!");
-//            clientCommunicator.sendChoice(false);
-//        }
+        //        String hash = DataLoad.getChecksum(noti.getIconInputStream().readAllBytes());
+        //        if (!noti.getDataLoadHash().equals(hash) && timesFailed < 5) {
+        //            clientCommunicator.sendChoice(true);
+        //            timesFailed++;
+        //            System.out.println("Hashes don't match, trying again!");
+        //            getIconFromNetwork(noti);
+        //        } else if (timesFailed >= 5) {
+        //            noti.setIcon(new File("src/ui/res/x.png"));
+        //        } else {
+        //            timesFailed = 0;
+        //            System.out.println("Hashes Match!");
+        //            clientCommunicator.sendChoice(false);
+        //        }
     }
-
-
 
     public void clearNotifications() {
         notifications.clear();

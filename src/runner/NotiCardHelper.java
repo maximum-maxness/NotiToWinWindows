@@ -3,8 +3,6 @@ package runner;
 import backend.Notification;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,14 +17,15 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSUES) Look at https://github.com/goxr3plus/FX-BorderlessScene ?
+public
+class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSUES) Look at
+    // https://github.com/goxr3plus/FX-BorderlessScene ?
     private static final int CARD_WIDTH = 350;
     private static final int CARD_HEIGHT = 135;
     private static final int DISTANCE_FROM_SIDES = 25;
     private static final int DISTANCE_FROM_BOTTOM = 45;
     private static Stage tempStage = new Stage(StageStyle.UTILITY);
     private static Stage notiStage;
-    //    private static Popup popup;
     private static Scene notiScene;
     private static List<Notification> queue = new ArrayList<>();
     private static boolean timerGoing = false;
@@ -34,7 +33,7 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
     private static Timer timer = new Timer();
 
     static void initialize(Parent notiParent) {
-//        tempStage.initOwner(Main.primaryStage);
+        //        tempStage.initOwner(Main.primaryStage);
         tempStage.setOpacity(0);
         notiStage = new Stage(StageStyle.UNDECORATED);
         notiStage.initOwner(tempStage);
@@ -46,10 +45,12 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
         notiStage.focusedProperty().addListener(NotiCardHelper::changed);
     }
 
-    private static void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-        Runnable r = () -> {
-            if (Main.secondaryStage.isShowing() && !Main.secondaryStage.isIconified())
-                Main.secondaryStage.requestFocus();
+    private static void changed(
+            ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+        Runnable r =
+                () -> {
+                    if (Main.primaryStage.isShowing() && !Main.primaryStage.isIconified())
+                        Main.primaryStage.requestFocus();
         };
         Platform.runLater(r);
     }
@@ -66,9 +67,9 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
     private static void processNoti(Notification noti, boolean lastInQueue) {
         NotificationCard card = new NotificationCard(notiScene);
         card.setNotification(noti);
-//        popup = card.getCard();
-//        popup.show();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //TODO Multiple Monitor Option for Notifications
+        Dimension screenSize =
+                Toolkit.getDefaultToolkit()
+                        .getScreenSize(); // TODO Multiple Monitor Option for Notifications
         notiStage.setX(screenSize.getWidth() - (CARD_WIDTH + DISTANCE_FROM_SIDES));
         notiStage.setY(screenSize.getHeight() - (CARD_HEIGHT + DISTANCE_FROM_BOTTOM));
         tempStage.show();
@@ -80,28 +81,30 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
         }
     }
 
-
     private static void notiHideTimer(long ms) {
-        TimerTask tt = new TimerTask() {
-            @Override
-            public void run() {
-                notiStage.hide();
-                tempStage.hide();
-            }
+        TimerTask tt =
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        notiStage.hide();
+                        tempStage.hide();
+                    }
         };
-        TimerTask processQueue = new TimerTask() {
-            @Override
-            public void run() {
-                processQueue();
-            }
+        TimerTask processQueue =
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        processQueue();
+                    }
         };
-        TimerTask tt2 = new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(tt);
-                timerGoing = false;
-                Platform.runLater(processQueue);
-            }
+        TimerTask tt2 =
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(tt);
+                        timerGoing = false;
+                        Platform.runLater(processQueue);
+                    }
         };
         if (!timerGoing) {
             timer.schedule(tt2, ms);
@@ -124,11 +127,8 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
         }
     }
 
-
     static class NotificationCard {
         private Label text, title, appName, time;
-        //        private VBox vBox1, vBox4;
-//        private HBox hBox2, hBox3;
         private ImageView icon;
         private Button hideButton;
 
@@ -139,16 +139,21 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
             time = (Label) notiCard.lookup("#time");
             icon = (ImageView) notiCard.lookup("#icon");
             hideButton = (Button) notiCard.lookup("#hideButton");
-            hideButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    notiStage.hide();
-                }
-            });
-//            vBox1 = (VBox) notiCard.lookup("#vBox1");
-//            vBox4 = (VBox) notiCard.lookup(("#vBox4"));
-//            hBox2 = (HBox) notiCard.lookup("#hBox2");
-//            hBox3 = (HBox) notiCard.lookup("#hBox3");
+            TimerTask processQueue =
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            processQueue();
+                        }
+                    };
+            hideButton.setOnAction(
+                    actionEvent -> {
+                        timer.purge();
+                        notiStage.hide();
+                        tempStage.hide();
+                        timerGoing = false;
+                        Platform.runLater(processQueue);
+                    });
         }
 
         void setNotification(Notification noti) {
@@ -160,24 +165,5 @@ public class NotiCardHelper { //TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSU
             this.time.setText(time);
             icon.setImage(new Image(noti.getIconInputStream()));
         }
-
-//        public Popup getCard() {
-//            Popup popup = new Popup();
-//            popup.setWidth(CARD_WIDTH);
-//            popup.setHeight(CARD_HEIGHT);
-//            popup.setAutoFix(true);
-//            popup.setAutoHide(true);
-//            popup.setOnShown(new EventHandler<WindowEvent>() {
-//                @Override
-//                public void handle(WindowEvent windowEvent) {
-//                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//                    popup.setX(screenSize.getWidth() - (CARD_WIDTH + 15));
-//                    popup.setY(screenSize.getHeight() - (CARD_HEIGHT + 15));
-//                }
-//            });
-//            popup.getContent().addAll(vBox1, hBox2, appName, time, hBox3, icon, vBox4, text, title);
-//            return popup;
-//        }
-
     }
 }

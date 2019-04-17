@@ -10,21 +10,12 @@ import java.net.Socket;
 
 public abstract class CommunicationThread implements NetworkThread {
 
+    private final boolean showPrints = false;
     private Socket socket;
     private InputStream inputStream;
     private DataInputStream dataInputStream;
     private OutputStream outputStream;
-
-    public DataInputStream getDataInputStream() {
-        return dataInputStream;
-    }
-
-    public DataOutputStream getDataOutputStream() {
-        return dataOutputStream;
-    }
-
     private DataOutputStream dataOutputStream;
-
     private Client client;
     private InetAddress ip;
     private int port;
@@ -35,9 +26,17 @@ public abstract class CommunicationThread implements NetworkThread {
         setPort(NetworkThread.COMMUNICATION_PORT);
     }
 
+    public DataInputStream getDataInputStream() {
+        return dataInputStream;
+    }
+
+    public DataOutputStream getDataOutputStream() {
+        return dataOutputStream;
+    }
+
     void waitForConnection() throws IOException {
         ServerSocket ss = new ServerSocket(this.getPort());
-        System.out.println("Wating for client to connect to socket...");
+        if (showPrints) System.out.println("Wating for client to connect to socket...");
         this.socket = ss.accept();
         ss.close();
     }
@@ -46,20 +45,30 @@ public abstract class CommunicationThread implements NetworkThread {
     public void sendMessage(String message, int port) throws IOException {
         this.dataOutputStream.writeUTF(message);
         this.dataOutputStream.flush();
-        System.out.println("Wrote message: " + message + " to outputstream!");
+        if (showPrints) System.out.println("Wrote message: " + message + " to outputstream!");
     }
 
     @Override
     public String receiveMessage() throws IOException {
-        System.out.println("Waiting for packet...");
-        String message = this.dataInputStream.readUTF();
-        System.out.println("Received Message: " + message);
-        return message;
+        if (showPrints) System.out.println("Waiting for packet...");
+        try {
+            String message = this.dataInputStream.readUTF();
+            if (showPrints) System.out.println("Received Message: " + message);
+            return message;
+        } catch (EOFException e) {
+            stop();
+            return "";
+        }
     }
 
     @Override
     public InetAddress getIP() {
         return this.ip;
+    }
+
+    @Override
+    public void setIP(InetAddress ip) {
+        this.ip = ip;
     }
 
     Socket getSocket() {
@@ -72,11 +81,6 @@ public abstract class CommunicationThread implements NetworkThread {
 
     public OutputStream getOutputStream() {
         return outputStream;
-    }
-
-    @Override
-    public void setIP(InetAddress ip) {
-        this.ip = ip;
     }
 
     @Override

@@ -23,5 +23,4 @@ public interface NetworkThread extends Runnable {
     void setPort(int port);
 
     void stop() throws IOException;
-
 }

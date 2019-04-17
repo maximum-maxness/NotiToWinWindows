@@ -18,8 +18,8 @@ public class NotiToTree {
             TreeItem<String> hasDataLoad = new TreeItem<>("Has DataLoad?");
             TreeItem<String> timeStamp = new TreeItem<>("Time Stamp");
 
-
-            root.getChildren().addAll(isValid, appName, title, text, isClearable, isRepliable, hasDataLoad, timeStamp);
+            root.getChildren()
+                    .addAll(isValid, appName, title, text, isClearable, isRepliable, hasDataLoad, timeStamp);
 
             TreeItem<String> valiBool = new TreeItem<>("true");
             isValid.getChildren().add(valiBool);
@@ -30,7 +30,6 @@ public class NotiToTree {
             title.getChildren().add(titleStr);
             TreeItem<String> textStr = new TreeItem<>(notification.getText());
             text.getChildren().add(textStr);
-
 
             String s = "false";
             if (notification.isClearable()) {
@@ -58,7 +57,8 @@ public class NotiToTree {
                 TreeItem<String> dataHashStr = new TreeItem<>(notification.getDataLoadHash());
                 dataHash.getChildren().add(dataHashStr);
                 TreeItem<String> dataSize = new TreeItem<>("DataLoad Size:");
-                TreeItem<String> dataSizeStr = new TreeItem<>(Long.toString(notification.getDataLoadSize()));
+                TreeItem<String> dataSizeStr =
+                        new TreeItem<>(Long.toString(notification.getDataLoadSize()));
                 dataSize.getChildren().add(dataSizeStr);
                 hasDataLoad.getChildren().addAll(dataBool, dataHash, dataSize);
             } else {
@@ -68,7 +68,6 @@ public class NotiToTree {
 
             TreeItem<String> timeStampStr = new TreeItem<>(Long.toString(notification.getTimeStamp()));
             timeStamp.getChildren().add(timeStampStr);
-
 
             return root;
         } else {

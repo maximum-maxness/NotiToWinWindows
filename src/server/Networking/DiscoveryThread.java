@@ -11,17 +11,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class DiscoveryThread implements NetworkThread {
 
-
     final AtomicBoolean running = new AtomicBoolean(false);
+    private final boolean showPrints = false;
     public ArrayList<Client> clients = new ArrayList<>();
-
-
     Executor notiThreadPool = Executors.newWorkStealingPool();
     private DatagramSocket socket;
     private InetAddress receivedIP;
     private int port;
-
-
     private DatagramPacket currentPacket;
 
     DiscoveryThread() {
@@ -42,10 +38,10 @@ public abstract class DiscoveryThread implements NetworkThread {
 
     @Override
     public void sendMessage(String packetType, int port1) throws IOException {
-        byte[] sendData = packetType.getBytes(); //Turn the string into a byte array
+        byte[] sendData = packetType.getBytes(); // Turn the string into a byte array
         DatagramPacket packet = new DatagramPacket(sendData, sendData.length, this.receivedIP, port1);
-        socket.send(packet); //put into a packet and send
-        System.out.println("Sent: " + packetType);
+        socket.send(packet); // put into a packet and send
+        if (showPrints) System.out.println("Sent: " + packetType);
     }
 
     @Override
@@ -81,8 +77,6 @@ public abstract class DiscoveryThread implements NetworkThread {
         return this.port;
     }
 
-
-
     @Override
     public void setPort(int port) {
         this.port = port;
@@ -91,9 +85,8 @@ public abstract class DiscoveryThread implements NetworkThread {
     @Override
     public void stop() throws IOException {
         running.set(false);
-        if (!socket.isClosed())
-            socket.close();
-//        System.err.println("Socket is Bound? " + socket.isBound());
+        if (!socket.isClosed()) socket.close();
+        //        System.err.println("Socket is Bound? " + socket.isBound());
     }
 
     public AtomicBoolean isRunning() {

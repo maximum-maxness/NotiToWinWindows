@@ -21,7 +21,9 @@ public class JSONConverter extends JSONObject {
     }
 
     public static JSONConverter unserialize(String s) throws JSONException {
-
+        if (!s.startsWith("{")) {
+            return null;
+        }
         JSONObject jo = new JSONObject(s);
         JSONConverter json = new JSONConverter(jo.getString("type"));
         json.id = jo.getLong("id");
@@ -33,9 +35,9 @@ public class JSONConverter extends JSONObject {
         return mainBody;
     }
 
-    //================================================================================
+    // ================================================================================
     // Set Methods
-    //================================================================================
+    // ================================================================================
 
     public long getId() {
         return id;
@@ -102,9 +104,9 @@ public class JSONConverter extends JSONObject {
         }
     }
 
-    //================================================================================
+    // ================================================================================
     // Get Methods
-    //================================================================================
+    // ================================================================================
 
     public void set(String key, List<String> value) {
         try {
@@ -206,9 +208,9 @@ public class JSONConverter extends JSONObject {
         else return defaultValue;
     }
 
-    //================================================================================
+    // ================================================================================
     // Other Methods
-    //================================================================================
+    // ================================================================================
 
     public String getType() {
         return this.type;

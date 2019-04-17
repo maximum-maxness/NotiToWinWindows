@@ -38,38 +38,41 @@ public class JSONViewerController {
 
     @FXML
     private ImageView iconView;
-//
-//    JSONViewerController(){
-//
-//    }
+    //
+    //    JSONViewerController(){
+    //
+    //    }
 
     @FXML
     private void initialize() {
         initList();
         initChoiceBox();
-
     }
 
     private void initChoiceBox() {
-        clientList.setConverter(new StringConverter<Client>() {
-            @Override
-            public String toString(Client object) {
-                return object.getName();
-            }
+        clientList.setConverter(
+                new StringConverter<Client>() {
+                    @Override
+                    public String toString(Client object) {
+                        return object.getName();
+                    }
 
-            @Override
-            public Client fromString(String string) {
-                return null;
-            }
+                    @Override
+                    public Client fromString(String string) {
+                        return null;
+                    }
         });
         clientList.setItems(clientProperty);
         clientProperty.set(FXCollections.observableArrayList(discovery.clients));
 
-        clientList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.intValue() != -1)
-                updateNotiList(newValue.intValue());
-            System.err.println("Client at index: " + newValue.intValue() + " Selected!");
-        });
+        clientList
+                .getSelectionModel()
+                .selectedIndexProperty()
+                .addListener(
+                        (observable, oldValue, newValue) -> {
+                            if (newValue.intValue() != -1) updateNotiList(newValue.intValue());
+                            System.err.println("Client at index: " + newValue.intValue() + " Selected!");
+                        });
     }
 
     private void updateNotiList(int index) {
@@ -77,24 +80,29 @@ public class JSONViewerController {
         ListProperty notiListProp = new SimpleListProperty();
 
         notiList.setItems(notiListProp);
-        notiListProp.set(FXCollections.observableArrayList(discovery.clients.get(currentClient).getNotificationList()));
+        notiListProp.set(
+                FXCollections.observableArrayList(
+                        discovery.clients.get(currentClient).getNotificationList()));
 
         notiList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        notiList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            getSelectedNoti(newValue);
-        });
+        notiList
+                .getSelectionModel()
+                .selectedItemProperty()
+                .addListener(
+                        (observable, oldValue, newValue) -> {
+                            getSelectedNoti(newValue);
+                        });
     }
 
     public void refreshNotis() {
-        if (currentClient != -1)
-            updateNotiList(currentClient);
+        if (currentClient != -1) updateNotiList(currentClient);
     }
 
     private void getSelectedNoti(Notification noti) {
         if (noti != null) {
             iconView.setImage(new Image(noti.getIconInputStream()));
-//            noti.display();
+            //            noti.display();
             TreeItem<String> root = NotiToTree.convert(noti);
             NotiToTree.expandTreeView(root);
             jsonTree.setRoot(root);
@@ -103,37 +111,35 @@ public class JSONViewerController {
 
     private void initList() {
         notiList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        notiList.setCellFactory(new Callback<ListView<Notification>, ListCell<Notification>>() {
-            @Override
-            public ListCell<Notification> call(ListView param) {
-                ListCell<Notification> cell = new ListCell<Notification>() {
+        notiList.setCellFactory(
+                new Callback<ListView<Notification>, ListCell<Notification>>() {
                     @Override
-                    protected void updateItem(Notification item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            PrettyTime pt = new PrettyTime();
-                            setText(item.getAppName() + " - " + pt.format(new Date(item.getTimeStamp())));
-                        } else {
-                            setText("");
-                        }
-                    }
+                    public ListCell<Notification> call(ListView param) {
+                        ListCell<Notification> cell =
+                                new ListCell<Notification>() {
+                                    @Override
+                                    protected void updateItem(Notification item, boolean empty) {
+                                        super.updateItem(item, empty);
+                                        if (item != null) {
+                                            PrettyTime pt = new PrettyTime();
+                                            setText(item.getAppName() + " - " + pt.format(new Date(item.getTimeStamp())));
+                                        } else {
+                                            setText("");
+                                        }
+                                    }
                 };
-                return cell;
-            }
+                        return cell;
+                    }
         });
     }
 
     @FXML
     private void changeBoxSelection() {
-
     }
-
 
     @FXML
     private void changeViewToConfig() {
         Main.changeViewToConfig();
         notiList.setItems(FXCollections.emptyObservableList());
     }
-
-
 }

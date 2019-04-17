@@ -1,6 +1,5 @@
 package server.Networking;
 
-
 import backend.Client;
 import backend.JSONConverter;
 import backend.PacketType;
@@ -11,6 +10,9 @@ import java.net.DatagramPacket;
 import java.net.SocketException;
 
 public class ClientDiscoverer extends DiscoveryThread {
+
+    private final boolean showPrints = false;
+
     public static ClientDiscoverer getInstance() {
         return ClientDiscovererHolder.INSTANCE;
     }
@@ -23,7 +25,7 @@ public class ClientDiscoverer extends DiscoveryThread {
             while (running.get()) {
                 try {
                     String packetMessage = receiveMessage();
-                    System.out.println("Got message: " + packetMessage);
+                    if (showPrints) System.out.println("Got message: " + packetMessage);
                     processMessage(packetMessage);
                 } catch (SocketException e) {
                     System.err.println("Socket Closed!");
@@ -38,8 +40,7 @@ public class ClientDiscoverer extends DiscoveryThread {
 
     @Override
     public boolean processMessage(String message) throws IOException {
-        if (!message.startsWith("{"))
-            return false;
+        if (!message.startsWith("{")) return false;
         JSONConverter json = JSONConverter.unserialize(message);
         if (json.getType().equals(PacketType.CLIENT_PAIR_REQUEST)) {
             initialPair(json, true);
@@ -86,27 +87,29 @@ public class ClientDiscoverer extends DiscoveryThread {
     private void checkClientList(Client client1) throws IOException {
         boolean b = false;
         for (Client client : clients) {
-            if (client.getIp().equals(client1.getIp())) { //Check if the client has already
-                b = true;                                       //been added to the list
+            if (client.getIp().equals(client1.getIp())) { // Check if the client has already
+                b = true; // been added to the list
             }
         }
         if (!b) {
-            clients.add(client1); //if the client isn't isn't on the list, add it
+            clients.add(client1); // if the client isn't isn't on the list, add it
             Main.updateClientList(this.clients);
         }
-        System.out.println("Client is on list? " + b);
+        if (showPrints) System.out.println("Client is on list? " + b);
     }
 
     private int findIndxClient(DatagramPacket packet) {
         for (int count = 0; count < clients.size(); count++) {
-            if (clients.get(count).getIp().equals(packet.getAddress())) //if the ip and port match up to a client
-            {                                                           // on the client list, get the index of the
-                return count + 1;                                       // client
+            if (clients
+                    .get(count)
+                    .getIp()
+                    .equals(packet.getAddress())) // if the ip and port match up to a client
+            { // on the client list, get the index of the
+                return count + 1; // client
             }
         }
         return 0;
     }
-
 
     private static class ClientDiscovererHolder {
         private static final ClientDiscoverer INSTANCE = new ClientDiscoverer();
