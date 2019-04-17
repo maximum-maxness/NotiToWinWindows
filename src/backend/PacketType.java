@@ -37,7 +37,7 @@ public class PacketType {
         String osVer = System.getProperty("os.version");
         json.set("deviceName", deviceName);
         json.set("osName", osName);
-        json.set("osVersion", osVer);
+    json.set("osVersion", osVer);
         return json;
     }
 }

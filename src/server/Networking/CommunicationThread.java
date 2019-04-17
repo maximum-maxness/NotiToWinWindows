@@ -10,118 +10,118 @@ import java.net.Socket;
 
 public abstract class CommunicationThread implements NetworkThread {
 
-    private final boolean showPrints = false;
-    private Socket socket;
-    private InputStream inputStream;
-    private DataInputStream dataInputStream;
-    private OutputStream outputStream;
-    private DataOutputStream dataOutputStream;
-    private Client client;
-    private InetAddress ip;
-    private int port;
+  private final boolean showPrints = false;
+  private Socket socket;
+  private InputStream inputStream;
+  private DataInputStream dataInputStream;
+  private OutputStream outputStream;
+  private DataOutputStream dataOutputStream;
+  private Client client;
+  private InetAddress ip;
+  private int port;
 
-    CommunicationThread(@NotNull Client client) {
-        setClient(client);
-        setIP(client.getIp());
-        setPort(NetworkThread.COMMUNICATION_PORT);
-    }
+  CommunicationThread(@NotNull Client client) {
+    setClient(client);
+    setIP(client.getIp());
+    setPort(NetworkThread.COMMUNICATION_PORT);
+  }
 
-    public DataInputStream getDataInputStream() {
-        return dataInputStream;
-    }
+  public DataInputStream getDataInputStream() {
+    return dataInputStream;
+  }
 
-    public DataOutputStream getDataOutputStream() {
-        return dataOutputStream;
-    }
+  public DataOutputStream getDataOutputStream() {
+    return dataOutputStream;
+  }
 
-    void waitForConnection() throws IOException {
-        ServerSocket ss = new ServerSocket(this.getPort());
-        if (showPrints) System.out.println("Wating for client to connect to socket...");
-        this.socket = ss.accept();
-        ss.close();
-    }
+  void waitForConnection() throws IOException {
+    ServerSocket ss = new ServerSocket(this.getPort());
+    if (showPrints) System.out.println("Wating for client to connect to socket...");
+    this.socket = ss.accept();
+    ss.close();
+  }
 
-    @Override
-    public void sendMessage(String message, int port) throws IOException {
-        this.dataOutputStream.writeUTF(message);
-        this.dataOutputStream.flush();
-        if (showPrints) System.out.println("Wrote message: " + message + " to outputstream!");
-    }
+  @Override
+  public void sendMessage(String message, int port) throws IOException {
+    this.dataOutputStream.writeUTF(message);
+    this.dataOutputStream.flush();
+    if (showPrints) System.out.println("Wrote message: " + message + " to outputstream!");
+  }
 
-    @Override
-    public String receiveMessage() throws IOException {
-        if (showPrints) System.out.println("Waiting for packet...");
-        try {
-            String message = this.dataInputStream.readUTF();
-            if (showPrints) System.out.println("Received Message: " + message);
-            return message;
-        } catch (EOFException e) {
-            stop();
-            return "";
-        }
+  @Override
+  public String receiveMessage() throws IOException {
+    if (showPrints) System.out.println("Waiting for packet...");
+    try {
+      String message = this.dataInputStream.readUTF();
+      if (showPrints) System.out.println("Received Message: " + message);
+      return message;
+    } catch (EOFException e) {
+      stop();
+      return "";
     }
+  }
 
-    @Override
-    public InetAddress getIP() {
-        return this.ip;
-    }
+  @Override
+  public InetAddress getIP() {
+    return this.ip;
+  }
 
-    @Override
-    public void setIP(InetAddress ip) {
-        this.ip = ip;
-    }
+  @Override
+  public void setIP(InetAddress ip) {
+    this.ip = ip;
+  }
 
-    Socket getSocket() {
-        return this.socket;
-    }
+  Socket getSocket() {
+    return this.socket;
+  }
 
-    public InputStream getInputStream() {
-        return inputStream;
-    }
+  public InputStream getInputStream() {
+    return inputStream;
+  }
 
-    public OutputStream getOutputStream() {
-        return outputStream;
-    }
+  public OutputStream getOutputStream() {
+    return outputStream;
+  }
 
-    @Override
-    public int getPort() {
-        return this.port;
-    }
+  @Override
+  public int getPort() {
+    return this.port;
+  }
 
-    @Override
-    public void setPort(int port) {
-        this.port = port;
-    }
+  @Override
+  public void setPort(int port) {
+    this.port = port;
+  }
 
-    @Override
-    public void stop() throws IOException {
-        closeStreams();
-        this.socket.close();
-        this.client.setConfirmed(false);
-        this.client.setHasThread(false);
-        this.client.clearNotifications();
-        Thread.currentThread().interrupt();
-    }
+  @Override
+  public void stop() throws IOException {
+    closeStreams();
+    this.socket.close();
+    this.client.setConfirmed(false);
+    this.client.setHasThread(false);
+    this.client.clearNotifications();
+    Thread.currentThread().interrupt();
+  }
 
-    public void openStreams() throws IOException {
-        this.inputStream = this.socket.getInputStream();
-        this.outputStream = this.socket.getOutputStream();
-        this.dataInputStream = new DataInputStream((this.inputStream));
-        this.dataOutputStream = new DataOutputStream(this.outputStream);
-    }
+  public void openStreams() throws IOException {
+    this.inputStream = this.socket.getInputStream();
+    this.outputStream = this.socket.getOutputStream();
+    this.dataInputStream = new DataInputStream((this.inputStream));
+    this.dataOutputStream = new DataOutputStream(this.outputStream);
+  }
 
-    public void closeStreams() throws IOException {
-        this.dataInputStream.close();
-        this.dataOutputStream.close();
-        this.inputStream.close();
-        this.outputStream.close();
-    }
+  public void closeStreams() throws IOException {
+    this.dataInputStream.close();
+    this.dataOutputStream.close();
+    this.inputStream.close();
+    this.outputStream.close();
+  }
 
-    public Client getClient() {
-        return client;
-    }
+  public Client getClient() {
+    return client;
+  }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

@@ -18,120 +18,120 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    private static final int STAGE_WIDTH = 900;
-    private static final int STAGE_HEIGHT = 600;
+  private static final int STAGE_WIDTH = 900;
+  private static final int STAGE_HEIGHT = 600;
 
-    static Stage primaryStage;
-    private static Scene configureScene, JSONScene;
+  static Stage primaryStage;
+  private static Scene configureScene, JSONScene;
 
-    public static void changeViewToJSON() {
-        primaryStage.setScene(JSONScene);
+  public static void changeViewToJSON() {
+    primaryStage.setScene(JSONScene);
+  }
+
+  public static void changeViewToConfig() {
+    primaryStage.setScene(configureScene);
+  }
+
+  public static void updateClientList(ArrayList<Client> clientList) {
+    TableView clientView = (TableView) configureScene.lookup("#clientList");
+    ChoiceBox<Client> clientBox = (ChoiceBox<Client>) JSONScene.lookup("#clientList");
+    ListProperty clientProperty = new SimpleListProperty();
+    if (clientBox != null) clientBox.setItems(clientProperty);
+    if (clientView != null) clientView.setItems(clientProperty);
+    clientProperty.set(FXCollections.observableArrayList(clientList));
+  }
+
+  public static void updateServerConnectionStatus(boolean b) {
+    Label status1 = (Label) configureScene.lookup(("#serverStatusLabel"));
+    Label status2 = (Label) JSONScene.lookup("#serverStatusLabel2");
+    String connected = "Connected";
+    String disconnected = "Disconnected";
+    if (b) {
+      status1.setText(connected);
+      status2.setText(connected);
+    } else {
+      status1.setText(disconnected);
+      status2.setText(disconnected);
     }
+  }
 
-    public static void changeViewToConfig() {
-        primaryStage.setScene(configureScene);
+  private static void createTaskbarIcon() {
+    TrayIcon trayIcon;
+    if (SystemTray.isSupported()) {
+      SystemTray tray = SystemTray.getSystemTray();
+      Image image =
+          Toolkit.getDefaultToolkit()
+              .getImage("src/ui/res/x.png")
+              .getScaledInstance(tray.getTrayIconSize().width, tray.getTrayIconSize().height, 0);
+      PopupMenu popupMenu = new PopupMenu();
+      MenuItem defaultItem = new MenuItem("Show");
+      defaultItem.addActionListener(
+          e ->
+              Platform.runLater(
+                  () -> {
+                    if (primaryStage.isIconified()) primaryStage.setIconified(false);
+                    if (!primaryStage.isShowing()) primaryStage.show();
+                  }));
+      MenuItem quitItem = new MenuItem("Quit");
+      quitItem.addActionListener(e -> System.exit(0));
+      MenuItem hideItem = new MenuItem("Hide");
+      hideItem.addActionListener(
+          e ->
+              Platform.runLater(
+                  () -> {
+                    if (primaryStage.isShowing()) primaryStage.hide();
+                  }));
+      popupMenu.add(defaultItem);
+      popupMenu.add(hideItem);
+      popupMenu.add(quitItem);
+      trayIcon = new TrayIcon(image, "Test", popupMenu);
+      trayIcon.addActionListener(
+          e ->
+              Platform.runLater(
+                  () -> {
+                    if (!primaryStage.isShowing()) {
+                      primaryStage.show();
+                      primaryStage.toFront();
+                      primaryStage.requestFocus();
+                    } else if (primaryStage.isIconified()) {
+                      primaryStage.setIconified(false);
+                      primaryStage.toFront();
+                      primaryStage.requestFocus();
+                    } else {
+                      primaryStage.hide();
+                    }
+                  }));
+      try {
+        tray.add(trayIcon);
+      } catch (AWTException e) {
+        System.err.println("Couldn't add trayIcon. " + e.getLocalizedMessage());
+      }
+    } else {
+
     }
+  }
 
-    public static void updateClientList(ArrayList<Client> clientList) {
-        TableView clientView = (TableView) configureScene.lookup("#clientList");
-        ChoiceBox<Client> clientBox = (ChoiceBox<Client>) JSONScene.lookup("#clientList");
-        ListProperty clientProperty = new SimpleListProperty();
-        if (clientBox != null) clientBox.setItems(clientProperty);
-        if (clientView != null) clientView.setItems(clientProperty);
-        clientProperty.set(FXCollections.observableArrayList(clientList));
-    }
+  public static void main(String[] args) {
+    launch(args);
+  }
 
-    public static void updateServerConnectionStatus(boolean b) {
-        Label status1 = (Label) configureScene.lookup(("#serverStatusLabel"));
-        Label status2 = (Label) JSONScene.lookup("#serverStatusLabel2");
-        String connected = "Connected";
-        String disconnected = "Disconnected";
-        if (b) {
-            status1.setText(connected);
-            status2.setText(connected);
-        } else {
-            status1.setText(disconnected);
-            status2.setText(disconnected);
-        }
-    }
-
-    private static void createTaskbarIcon() {
-        TrayIcon trayIcon;
-        if (SystemTray.isSupported()) {
-            SystemTray tray = SystemTray.getSystemTray();
-            Image image =
-                    Toolkit.getDefaultToolkit()
-                            .getImage("src/ui/res/x.png")
-                            .getScaledInstance(tray.getTrayIconSize().width, tray.getTrayIconSize().height, 0);
-            PopupMenu popupMenu = new PopupMenu();
-            MenuItem defaultItem = new MenuItem("Show");
-            defaultItem.addActionListener(
-                    e ->
-                            Platform.runLater(
-                                    () -> {
-                                        if (primaryStage.isIconified()) primaryStage.setIconified(false);
-                                        if (!primaryStage.isShowing()) primaryStage.show();
-                                    }));
-            MenuItem quitItem = new MenuItem("Quit");
-            quitItem.addActionListener(e -> System.exit(0));
-            MenuItem hideItem = new MenuItem("Hide");
-            hideItem.addActionListener(
-                    e ->
-                            Platform.runLater(
-                                    () -> {
-                                        if (primaryStage.isShowing()) primaryStage.hide();
-                                    }));
-            popupMenu.add(defaultItem);
-            popupMenu.add(hideItem);
-            popupMenu.add(quitItem);
-            trayIcon = new TrayIcon(image, "Test", popupMenu);
-            trayIcon.addActionListener(
-                    e ->
-                            Platform.runLater(
-                                    () -> {
-                                        if (!primaryStage.isShowing()) {
-                                            primaryStage.show();
-                                            primaryStage.toFront();
-                                            primaryStage.requestFocus();
-                                        } else if (primaryStage.isIconified()) {
-                                            primaryStage.setIconified(false);
-                                            primaryStage.toFront();
-                                            primaryStage.requestFocus();
-                                        } else {
-                                            primaryStage.hide();
-                                        }
-                                    }));
-            try {
-                tray.add(trayIcon);
-            } catch (AWTException e) {
-                System.err.println("Couldn't add trayIcon. " + e.getLocalizedMessage());
-            }
-        } else {
-
-        }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStageIn) throws Exception {
-        primaryStage = primaryStageIn;
-        Platform.setImplicitExit(false);
-        Parent configureView = FXMLLoader.load(getClass().getResource("../ui/fxml/configureView.fxml"));
-        Parent jsonViewer = FXMLLoader.load(getClass().getResource("../ui/fxml/jsonviewer.fxml"));
-        configureScene = new Scene(configureView, STAGE_WIDTH, STAGE_HEIGHT);
-        JSONScene = new Scene(jsonViewer, STAGE_WIDTH, STAGE_HEIGHT);
-        primaryStage.setTitle("NotiToWin");
-        primaryStage.setScene(configureScene);
-        primaryStage.setScene(JSONScene);
-        primaryStage.setScene(configureScene);
-        primaryStage.show();
-        primaryStage.setOnCloseRequest(windowEvent -> primaryStage.hide());
-        primaryStage.requestFocus();
-        Parent notiParent = FXMLLoader.load(getClass().getResource("../ui/fxml/notificationCard.fxml"));
-        NotiCardHelper.initialize(notiParent);
-        createTaskbarIcon();
-    }
+  @Override
+  public void start(Stage primaryStageIn) throws Exception {
+    primaryStage = primaryStageIn;
+    Platform.setImplicitExit(false);
+    Parent configureView = FXMLLoader.load(getClass().getResource("../ui/fxml/configureView.fxml"));
+    Parent jsonViewer = FXMLLoader.load(getClass().getResource("../ui/fxml/jsonviewer.fxml"));
+    configureScene = new Scene(configureView, STAGE_WIDTH, STAGE_HEIGHT);
+    JSONScene = new Scene(jsonViewer, STAGE_WIDTH, STAGE_HEIGHT);
+    primaryStage.setTitle("NotiToWin");
+    primaryStage.setScene(configureScene);
+    primaryStage.setScene(JSONScene);
+    primaryStage.setScene(configureScene);
+    primaryStage.show();
+    primaryStage.setOnCloseRequest(windowEvent -> primaryStage.hide());
+    primaryStage.requestFocus();
+    Parent notiParent = FXMLLoader.load(getClass().getResource("../ui/fxml/notificationCard.fxml"));
+    NotiCardHelper.initialize(notiParent);
+    createTaskbarIcon();
+  }
 }
