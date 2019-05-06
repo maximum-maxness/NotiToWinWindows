@@ -1,6 +1,6 @@
 package controller;
 
-import backend.Client;
+import backend.ClientOLD;
 import backend.Notification;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -13,7 +13,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.ocpsoft.prettytime.PrettyTime;
 import runner.Main;
-import server.Processing.NotiToTree;
+import server.processing.NotiToTree;
 
 import java.util.Date;
 
@@ -21,14 +21,14 @@ import static controller.ConfigureViewController.discovery;
 
 public class JSONViewerController {
 
-  private ListProperty<Client> clientProperty = new SimpleListProperty<>();
+  private ListProperty<ClientOLD> clientProperty = new SimpleListProperty<>();
   private int currentClient;
 
   @FXML private Button toConfigButton;
 
   @FXML private ListView<Notification> notiList;
 
-  @FXML private ChoiceBox<Client> clientList;
+  @FXML private ChoiceBox<ClientOLD> clientList;
 
   @FXML private TreeView<String> jsonTree;
 
@@ -46,14 +46,14 @@ public class JSONViewerController {
 
   private void initChoiceBox() {
     clientList.setConverter(
-        new StringConverter<Client>() {
+        new StringConverter<ClientOLD>() {
           @Override
-          public String toString(Client object) {
+          public String toString(ClientOLD object) {
             return object.getName();
           }
 
           @Override
-          public Client fromString(String string) {
+          public ClientOLD fromString(String string) {
             return null;
           }
         });

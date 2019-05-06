@@ -1,4 +1,4 @@
-package server.Processing;
+package server.processing;
 
 import backend.Notification;
 import javafx.scene.control.TreeItem;

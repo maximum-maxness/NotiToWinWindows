@@ -10,12 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import server.networking.helpers.RSAHelper;
+import server.networking.helpers.SSLHelper;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.Collection;
 
 public class Main extends Application {
   private static final int STAGE_WIDTH = 900;
@@ -23,6 +24,7 @@ public class Main extends Application {
 
   static Stage primaryStage;
   private static Scene configureScene, JSONScene;
+  public static BackgroundThread backgroundThread;
 
   public static void changeViewToJSON() {
     primaryStage.setScene(JSONScene);
@@ -32,27 +34,13 @@ public class Main extends Application {
     primaryStage.setScene(configureScene);
   }
 
-  public static void updateClientList(ArrayList<Client> clientList) {
+  public static void updateClientList(Collection<Client> clientList) {
     TableView clientView = (TableView) configureScene.lookup("#clientList");
     ChoiceBox<Client> clientBox = (ChoiceBox<Client>) JSONScene.lookup("#clientList");
     ListProperty clientProperty = new SimpleListProperty();
     if (clientBox != null) clientBox.setItems(clientProperty);
     if (clientView != null) clientView.setItems(clientProperty);
     clientProperty.set(FXCollections.observableArrayList(clientList));
-  }
-
-  public static void updateServerConnectionStatus(boolean b) {
-    Label status1 = (Label) configureScene.lookup(("#serverStatusLabel"));
-    Label status2 = (Label) JSONScene.lookup("#serverStatusLabel2");
-    String connected = "Connected";
-    String disconnected = "Disconnected";
-    if (b) {
-      status1.setText(connected);
-      status2.setText(connected);
-    } else {
-      status1.setText(disconnected);
-      status2.setText(disconnected);
-    }
   }
 
   private static void createTaskbarIcon() {
@@ -111,7 +99,14 @@ public class Main extends Application {
     }
   }
 
+  public static void initSecurity() {
+    RSAHelper.initKeys();
+    SSLHelper.initCertificate();
+  }
+
   public static void main(String[] args) {
+    initSecurity();
+    backgroundThread = new BackgroundThread();
     launch(args);
   }
 

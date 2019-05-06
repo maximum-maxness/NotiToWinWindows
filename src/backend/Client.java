@@ -1,169 +1,327 @@
 package backend;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import server.Networking.ClientCommunicator;
+import server.networking.helpers.PacketType;
+import server.networking.helpers.RSAHelper;
+import server.networking.helpers.SSLHelper;
+import server.networking.linkHandlers.LANLink;
+import server.networking.linkHandlers.LANLinkHandler;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Client {
-  private SimpleObjectProperty<InetAddress> ip;
-  private SimpleBooleanProperty confirmed, hasThread;
-  private SimpleStringProperty name;
-  private List<Notification> notifications;
-  private ClientCommunicator clientCommunicator;
+public class Client implements LANLink.PacketReceiver {
 
-  public Client(InetAddress ip) {
-    this.ip = new SimpleObjectProperty<InetAddress>(ip);
-    this.confirmed = new SimpleBooleanProperty(false);
-    this.hasThread = new SimpleBooleanProperty(false);
-    this.notifications = new ArrayList<Notification>();
-  }
+    private final CopyOnWriteArrayList<LANLink> links = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<PairingCallback> pairingCallback = new CopyOnWriteArrayList<>();
+    private final Map<String, LANLinkHandler> pairingHandlers = new HashMap<>();
+    private final SendPacketStatusCallback defaultCallback =
+            new SendPacketStatusCallback() {
+                @Override
+                public void onSuccess() {
+                }
 
-  public SimpleObjectProperty<InetAddress> ipProperty() {
-    return ip;
-  }
+                @Override
+                public void onFailure(Throwable e) {
+                    e.printStackTrace();
+                }
+            };
+    private final String clientID;
+    public PublicKey publicKey;
+    public Certificate certificate;
+    public Thread requestThread = null;
+    private PairStatus pairStatus;
+    private SimpleStringProperty name;
+    private List<Notification> notifications;
 
-  public SimpleBooleanProperty confirmedProperty() {
-    return confirmed;
-  }
-
-  public SimpleBooleanProperty hasThreadProperty() {
-    return hasThread;
-  }
-
-  public SimpleStringProperty nameProperty() {
-    return name;
-  }
-
-  public InetAddress getIp() {
-    return ip.getValue();
-  }
-
-  public void setIp(InetAddress ip) {
-    this.ip.set(ip);
-  }
-
-  public String getName() {
-    return name.getValue();
-  }
-
-  public void setName(String name) {
-    if (this.name != null) {
-      this.name.set(name);
-    } else {
-      this.name = new SimpleStringProperty(name);
+    public Client(JSONConverter json, LANLink link) {
+        this.clientID = json.getString("clientID");
+        this.name = new SimpleStringProperty("Unknown");
+        this.pairStatus = PairStatus.NotPaired;
+        this.publicKey = null;
+        addLink(json, link);
     }
-  }
 
-  public boolean isConfirmed() {
-    return confirmed.get();
-  }
+//    public Client (String clientID){
+//        this.clientID = clientID;
+//        this.pairStatus = PairStatus.Paired;
+//    }
 
-  public void setConfirmed(boolean confirmed) {
-    this.confirmed.set(confirmed);
-  }
-
-  public boolean isHasThread() {
-    return hasThread.get();
-  }
-
-  public void setHasThread(boolean hasThread) {
-    this.hasThread.set(hasThread);
-  }
-
-  public ClientCommunicator getClientCommunicator() {
-    return clientCommunicator;
-  }
-
-  public void setClientCommunicator(ClientCommunicator clientCommunicator) {
-    this.clientCommunicator = clientCommunicator;
-  }
-
-  public Notification[] getNotifications() {
-    return (Notification[]) notifications.toArray();
-  }
-
-  public void setNotifications(Notification[] notifications) {
-    this.notifications.clear();
-    this.notifications.addAll(Arrays.asList(notifications));
-  }
-
-  public List<Notification> getNotificationList() {
-    return notifications;
-  }
-
-  public void addNoti(Notification noti) {
-    boolean match = false;
-    for (Notification notification : notifications) {
-      if (notification.getId().equals(noti.getId())
-          && notification.getText().equals(noti.getText())) {
-        match = true;
-        noti.setIcon(notification.getIcon());
-      }
+    public SimpleStringProperty nameProperty() {
+        return name;
     }
-    try {
-      clientCommunicator.sendChoice(!match);
-    } catch (IOException e) {
-      e.printStackTrace();
+
+    @Override
+    public void onPacketReceived(JSONConverter json) {
+        if (PacketType.PAIR_REQUEST.equals(json.getType())) {
+            System.out.println("Pair Packet!");
+            for (LANLinkHandler llh : pairingHandlers.values()) {
+                try {
+                    llh.packageReceived(json);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (isPaired()) {
+            //Case while paired, will implement later.
+        } else {
+            unpair();
+        }
     }
-    if (!match) {
-      try {
-        getIconFromNetwork(noti);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      notifications.add(noti);
-    } else {
-      System.out.println("Already Have that Notification!");
+
+    public String getClientID() {
+        return this.clientID;
     }
-    Runnable r = noti::display;
-    Platform.runLater(r);
-  }
 
-  //    private int timesFailed = 0;
-
-  private void getIconFromNetwork(Notification noti) throws IOException {
-    String name = noti.getAppName() + noti.getTimeStamp();
-    File icon = clientCommunicator.recieveDataLoad(noti.getDataLoadSize(), name);
-    noti.setIcon(icon);
-    //        String hash = DataLoad.getChecksum(noti.getIconInputStream().readAllBytes());
-    //        if (!noti.getDataLoadHash().equals(hash) && timesFailed < 5) {
-    //            clientCommunicator.sendChoice(true);
-    //            timesFailed++;
-    //            System.out.println("Hashes don't match, trying again!");
-    //            getIconFromNetwork(noti);
-    //        } else if (timesFailed >= 5) {
-    //            noti.setIcon(new File("src/ui/res/x.png"));
-    //        } else {
-    //            timesFailed = 0;
-    //            System.out.println("Hashes Match!");
-    //            clientCommunicator.sendChoice(false);
-    //        }
-  }
-
-  public void clearNotifications() {
-    notifications.clear();
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder returnString = new StringBuilder();
-    returnString.append("Client Name: ").append(getName()).append("\n");
-    returnString.append("Client IP: ").append(getIp()).append("\n");
-    returnString.append("Client is Confirmed? ").append(isConfirmed()).append("\n");
-    returnString.append("Client has thread? ").append(isHasThread()).append("\n");
-    returnString.append("Client Notifications:").append("\n");
-    for (Notification noti : this.notifications) {
-      if (noti != null) returnString.append(noti.toString()).append("\n");
+    public boolean isPaired() {
+        return this.pairStatus == PairStatus.Paired;
     }
-    return returnString.toString();
-  }
+
+    public boolean isReachable() {
+        return !links.isEmpty();
+    }
+
+    public void acceptPairing() {
+        for (LANLinkHandler llh : pairingHandlers.values()) {
+            llh.acceptPairing();
+        }
+    }
+
+    public void requestPairing() {
+
+
+        if (isPaired()) {
+            for (PairingCallback cb : pairingCallback) {
+                cb.pairingFailed("Already Paired!");
+            }
+            return;
+        }
+
+        if (!isReachable()) {
+            for (PairingCallback cb : pairingCallback) {
+                cb.pairingFailed("Not Reachable.");
+            }
+            return;
+        }
+
+        for (LANLinkHandler llh : pairingHandlers.values()) {
+            llh.requestPairing();
+        }
+
+    }
+
+    public void unpair() {
+
+        for (LANLinkHandler llh : pairingHandlers.values()) {
+            llh.unpair();
+        }
+        unpairInternal(); // Even if there are no pairing handlers, unpair
+    }
+
+    public void disconnect() {
+        for (LANLink link : links) {
+            link.disconnect();
+        }
+    }
+
+    public boolean deviceShouldBeKeptAlive() {
+        for (LANLink l : links) {
+            if (l.linkShouldBeKeptAlive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void addLink(JSONConverter identityPacket, LANLink link) {
+        System.out.println("Adding Link to Client ID: " + clientID);
+        if (identityPacket.has("clientName")) {
+            this.name = identityPacket.getString("clientName");
+        }
+        if (identityPacket.has("certificate")) {
+            System.out.println("Packet has a certificate!");
+            String certificateString = identityPacket.getString("certificate");
+            try {
+                System.out.println("Parsing Certificate...");
+                byte[] certificateBytes = Base64.getDecoder().decode(certificateString);
+                certificate = SSLHelper.parseCertificate(certificateBytes);
+            } catch (Exception e) {
+                System.err.println("Error Parsing Certificate.");
+                e.printStackTrace();
+            }
+        }
+
+        links.add(link);
+
+        try {
+            System.out.println("Setting Private Key..");
+            PrivateKey privateKey = RSAHelper.getPrivateKey();
+            link.setPrivateKey(privateKey);
+            System.out.println("Set Private Key Successfully!");
+        } catch (Exception e) {
+            System.err.println("Error setting private key!");
+            e.printStackTrace();
+        }
+
+        if (!pairingHandlers.containsKey(link.getName())) {
+            LANLinkHandler.PairingHandlerCallback callback =
+                    new LANLinkHandler.PairingHandlerCallback() {
+                        @Override
+                        public void incomingRequest() {
+                            for (PairingCallback pb : pairingCallback) {
+                                pb.incomingRequest();
+                            }
+                        }
+
+                        @Override
+                        public void pairingDone() {
+                            Client.this.pairingDone();
+                        }
+
+                        @Override
+                        public void pairingFailed(String error) {
+                            for (PairingCallback pb : pairingCallback) {
+                                pb.pairingFailed(error);
+                            }
+                        }
+
+                        @Override
+                        public void unpaired() {
+                            unpairInternal();
+                        }
+                    };
+            pairingHandlers.put(link.getName(), link.getPairingHandler(this, callback));
+        }
+
+//        link.addPacketReceiver(this);
+//        requestThread = new Thread(() -> {
+//            String sendTestString = Main.getDecision("Request Pairing? Y/N");
+//            sendTestString = sendTestString.toUpperCase();
+//            if (sendTestString.equals("Y")) {
+//                requestPairing();
+//            } else {
+//                unpair();
+//            }
+//        });
+//        requestThread.start();
+    }
+
+    public void removeLink(LANLink link) {
+        System.out.println("Removing link: " + link.getName());
+        boolean linkExists = false;
+        for (LANLink llink : links) {
+            if (llink.getName().equals(link.getName())) {
+                linkExists = true;
+                break;
+            }
+        }
+        if (!linkExists) {
+            pairingHandlers.remove(link.getName());
+        }
+
+        link.removePacketReceiver(this);
+        links.remove(link);
+    }
+
+    private void pairingDone() {
+        System.out.println("Pairing was a success!!!");
+        pairStatus = PairStatus.Paired;
+        for (PairingCallback pb : pairingCallback) {
+            pb.pairingSuccessful();
+        }
+    }
+
+    private void unpairInternal() {
+        System.out.println("Forcing an Unpair..");
+        pairStatus = PairStatus.NotPaired;
+        for (PairingCallback pb : pairingCallback) {
+            pb.unpaired();
+        }
+    }
+
+    public void sendPacket(JSONConverter json) {
+        sendPacket(json, defaultCallback);
+    }
+
+    public void sendPacket(final JSONConverter json, final SendPacketStatusCallback callback) {
+        new Thread(() -> sendPacketBlocking(json, callback)).start();
+    }
+
+    public boolean sendPacketBlocking(final JSONConverter json, final SendPacketStatusCallback callback) {
+        System.out.println("Sending Packet to all Applicable Links!");
+        boolean shouldUseEncryption = (!json.getType().equals(PacketType.PAIR_REQUEST) && isPaired());
+        boolean success = false;
+        for (final LANLink link : links) {
+            if (link == null) continue;
+            if (shouldUseEncryption) {
+                success = link.sendPacket(json, callback, publicKey);
+            } else {
+                success = link.sendPacket(json, callback);
+            }
+            if (success) break;
+        }
+        System.out.println("Packet send success? " + success);
+        return success;
+    }
+
+    public boolean isPairRequested() {
+        boolean pairRequested = false;
+        for (LANLinkHandler llh : pairingHandlers.values()) {
+            pairRequested = pairRequested || llh.isPairRequested();
+        }
+        System.out.println("Is pair Requested? " + pairRequested);
+        return pairRequested;
+    }
+
+    public boolean isPairRequestedByPeer() {
+        boolean pairRequestedByPeer = false;
+        boolean paired = false;
+        for (LANLinkHandler llh : pairingHandlers.values()) {
+            pairRequestedByPeer = pairRequestedByPeer || llh.isPairRequestedByPeer();
+            paired = paired || llh.isPaired();
+        }
+        System.out.println("Is pair requested by peer? " + pairRequestedByPeer + ", is Paired? " + paired);
+        return pairRequestedByPeer;
+    }
+
+    public void addPairingCallback(PairingCallback callback) {
+        pairingCallback.add(callback);
+    }
+
+    public void removePairingCallback(PairingCallback callback) {
+        pairingCallback.remove(callback);
+    }
+
+    public enum PairStatus {
+        NotPaired,
+        Paired
+    }
+
+    public interface PairingCallback {
+        void incomingRequest();
+
+        void pairingSuccessful();
+
+        void pairingFailed(String error);
+
+        void unpaired();
+    }
+
+    public abstract static class SendPacketStatusCallback {
+        public abstract void onSuccess();
+
+        public abstract void onFailure(Throwable e);
+
+        public void onProgressChanged(int percent) {
+        }
+    }
+
+
 }

@@ -1,7 +1,9 @@
 package controller;
 
 import backend.Client;
-import javafx.beans.property.*;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -9,25 +11,19 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 import runner.Main;
-import server.Networking.ClientDiscoverer;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.InetAddress;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 @SuppressWarnings("WeakerAccess")
 public class ConfigureViewController {
 
-  static ClientDiscoverer discovery;
-  private Executor discoveryThread;
   private TableColumn nameCol = new TableColumn("Name");
-  private TableColumn ipCol = new TableColumn("IP");
-  private TableColumn confirmedCol = new TableColumn("Is Confirmed?");
-  private TableColumn hasThreadCol = new TableColumn("Has Thread?");
+//  private TableColumn ipCol = new TableColumn("IP");
+//  private TableColumn confirmedCol = new TableColumn("Is Confirmed?");
+//  private TableColumn hasThreadCol = new TableColumn("Has Thread?");
   private ListProperty<Client> clientProperty = new SimpleListProperty<>();
 
   @FXML
@@ -47,8 +43,6 @@ public class ConfigureViewController {
 
   @FXML
   private void initialize() {
-    discovery = ClientDiscoverer.getInstance();
-    discoveryThread = Executors.newFixedThreadPool(1);
     initTable();
     Console console = new Console(logOutput);
     PrintStream ps = new PrintStream(console, true);
@@ -68,45 +62,44 @@ public class ConfigureViewController {
                 return new SimpleStringProperty("<no name>");
               }
             });
-    ipCol.setCellValueFactory(
-        (Callback<TableColumn.CellDataFeatures<Client, InetAddress>, ObservableValue<InetAddress>>)
-            param -> {
-              if (param.getValue() != null) {
-                return param.getValue().ipProperty();
-              } else {
-                return new SimpleObjectProperty<InetAddress>(InetAddress.getLoopbackAddress());
-              }
-            });
+//    ipCol.setCellValueFactory(
+//        (Callback<TableColumn.CellDataFeatures<Client, InetAddress>, ObservableValue<InetAddress>>)
+//            param -> {
+//              if (param.getValue() != null) {
+//                return param.getValue().ipProperty();
+//              } else {
+//                return new SimpleObjectProperty<InetAddress>(InetAddress.getLoopbackAddress());
+//              }
+//            });
     //
-    confirmedCol.setCellValueFactory(
-        (Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>)
-            param -> {
-              if (param.getValue() != null) {
-                return param.getValue().confirmedProperty();
-              } else {
-                return new SimpleBooleanProperty(false);
-              }
-            });
-
-    //
-    hasThreadCol.setCellValueFactory(
-        (Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>)
-            param -> {
-              if (param.getValue() != null) {
-                return param.getValue().hasThreadProperty();
-              } else {
-                return new SimpleBooleanProperty(false);
-              }
-            });
+//    confirmedCol.setCellValueFactory(
+//        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
+//            param -> {
+//              if (param.getValue() != null) {
+//                return param.getValue().confirmedProperty();
+//              } else {
+//                return new SimpleBooleanProperty(false);
+//              }
+//            });
+//
+//    //
+//    hasThreadCol.setCellValueFactory(
+//        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
+//            param -> {
+//              if (param.getValue() != null) {
+//                return param.getValue().hasThreadProperty();
+//              } else {
+//                return new SimpleBooleanProperty(false);
+//              }
+//            });
     clientList.setItems(clientProperty);
-    clientProperty.set(FXCollections.observableArrayList(discovery.clients));
-    clientList.getColumns().addAll(nameCol, ipCol, confirmedCol, hasThreadCol);
+    clientProperty.set(FXCollections.observableArrayList(Main.backgroundThread.getClients()));
+    clientList.getColumns().addAll(nameCol);
   }
 
   @FXML
   private void startServer() {
     System.out.println("Started the Server.");
-    discoveryThread.execute(discovery);
     startServerButton.setDisable(true);
     stopServerButton.setDisable(false);
     serverStatusLabel.setText("Started");
@@ -115,16 +108,7 @@ public class ConfigureViewController {
 
   @FXML
   private void stopServer() {
-    try {
-      discovery.stop();
-      for (Client client : discovery.clients) {
-        if (client.isHasThread()) {
-          client.getClientCommunicator().stop();
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+
     startServerButton.setDisable(false);
     stopServerButton.setDisable(true);
     serverStatusLabel.setText("Stopped");
@@ -135,13 +119,13 @@ public class ConfigureViewController {
   @FXML
   private void changeViewToJSON() {
     Main.changeViewToJSON();
-    Main.updateClientList(discovery.clients);
+    Main.updateClientList(Main.backgroundThread.getClients());
   }
 
   @FXML
   private void printClients() {
     int index = clientList.getSelectionModel().getSelectedIndex();
-    if (index != -1) System.out.println(discovery.clients.get(index));
+    if (index != -1) System.out.println(Main.backgroundThread.getClients().toArray()[index]);
     else System.out.println("Nothing Selected!");
   }
 
