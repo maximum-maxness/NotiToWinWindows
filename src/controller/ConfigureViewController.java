@@ -12,10 +12,11 @@ import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 import runner.Main;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @SuppressWarnings("WeakerAccess")
 public class ConfigureViewController {
@@ -25,6 +26,7 @@ public class ConfigureViewController {
 //  private TableColumn confirmedCol = new TableColumn("Is Confirmed?");
 //  private TableColumn hasThreadCol = new TableColumn("Has Thread?");
   private ListProperty<Client> clientProperty = new SimpleListProperty<>();
+  private Executor executor;
 
   @FXML
   private Button startServerButton, stopServerButton, toJSONButton, printClients, sendReadyButton;
@@ -46,6 +48,7 @@ public class ConfigureViewController {
     initTable();
     Console console = new Console(logOutput);
     PrintStream ps = new PrintStream(console, true);
+    executor = Executors.newSingleThreadExecutor();
     System.setOut(ps);
     //        System.setErr(ps);
   }
@@ -99,6 +102,7 @@ public class ConfigureViewController {
 
   @FXML
   private void startServer() {
+    executor.execute(Main.backgroundThread);
     System.out.println("Started the Server.");
     startServerButton.setDisable(true);
     stopServerButton.setDisable(false);
@@ -108,7 +112,7 @@ public class ConfigureViewController {
 
   @FXML
   private void stopServer() {
-
+    Main.backgroundThread.stop();
     startServerButton.setDisable(false);
     stopServerButton.setDisable(true);
     serverStatusLabel.setText("Stopped");
@@ -125,14 +129,7 @@ public class ConfigureViewController {
   @FXML
   private void printClients() {
     int index = clientList.getSelectionModel().getSelectedIndex();
-    if (index != -1) System.out.println(Main.backgroundThread.getClients().toArray()[index]);
-    else System.out.println("Nothing Selected!");
-  }
-
-  @FXML
-  private void sendReady() throws IOException {
-    int index = clientList.getSelectionModel().getSelectedIndex();
-    if (index != -1) discovery.clients.get(index).getClientCommunicator().sendReady();
+    if (index != -1) System.out.println(Main.backgroundThread.getClient(index));
     else System.out.println("Nothing Selected!");
   }
 }

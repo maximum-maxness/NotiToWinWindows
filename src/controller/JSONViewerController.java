@@ -1,6 +1,6 @@
 package controller;
 
-import backend.ClientOLD;
+import backend.Client;
 import backend.Notification;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -17,18 +17,16 @@ import server.processing.NotiToTree;
 
 import java.util.Date;
 
-import static controller.ConfigureViewController.discovery;
-
 public class JSONViewerController {
 
-  private ListProperty<ClientOLD> clientProperty = new SimpleListProperty<>();
+  private ListProperty<Client> clientProperty = new SimpleListProperty<>();
   private int currentClient;
 
   @FXML private Button toConfigButton;
 
   @FXML private ListView<Notification> notiList;
 
-  @FXML private ChoiceBox<ClientOLD> clientList;
+  @FXML private ChoiceBox<Client> clientList;
 
   @FXML private TreeView<String> jsonTree;
 
@@ -46,19 +44,19 @@ public class JSONViewerController {
 
   private void initChoiceBox() {
     clientList.setConverter(
-        new StringConverter<ClientOLD>() {
+        new StringConverter<Client>() {
           @Override
-          public String toString(ClientOLD object) {
+          public String toString(Client object) {
             return object.getName();
           }
 
           @Override
-          public ClientOLD fromString(String string) {
+          public Client fromString(String string) {
             return null;
           }
         });
     clientList.setItems(clientProperty);
-    clientProperty.set(FXCollections.observableArrayList(discovery.clients));
+    clientProperty.set(FXCollections.observableArrayList(Main.backgroundThread.getClients()));
 
     clientList
         .getSelectionModel()
@@ -77,7 +75,7 @@ public class JSONViewerController {
     notiList.setItems(notiListProp);
     notiListProp.set(
         FXCollections.observableArrayList(
-            discovery.clients.get(currentClient).getNotificationList()));
+            Main.backgroundThread.getClients()));
 
     notiList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 

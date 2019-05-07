@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BackgroundThread implements Runnable {
   private final ArrayList<LANLinkProvider> linkProviders = new ArrayList<>();
   private final ConcurrentHashMap<String, Client> clients = new ConcurrentHashMap<>();
+  private  final ConcurrentHashMap<Integer, String> clientIndexMap = new ConcurrentHashMap<>();
   private final ConcurrentHashMap<String, DeviceListChangedCallback> clientListChangedCallbacks =
       new ConcurrentHashMap<>();
   private final Client.PairingCallback devicePairingCallback =
@@ -66,6 +67,7 @@ public class BackgroundThread implements Runnable {
                 || client.isPairRequestedByPeer()
                 || link.linkShouldBeKeptAlive()) {
               clients.put(clientID, client);
+              clientIndexMap.put(clientIndexMap.size(), clientID);
               client.addPairingCallback(devicePairingCallback);
             } else {
               client
@@ -101,6 +103,10 @@ public class BackgroundThread implements Runnable {
 
   public Collection<Client> getClients() {
     return clients.values();
+  }
+
+  public Client getClient(int index){
+    return clients.get(clientIndexMap.get(index));
   }
 
   public void stop() {

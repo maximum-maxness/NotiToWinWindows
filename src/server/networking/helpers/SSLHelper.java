@@ -202,7 +202,8 @@ public class SSLHelper {
     private static X509Certificate readCertificate(String path) throws Exception {
         InputStream in = new FileInputStream(FileHelper.verifyFilePath(path).getAbsoluteFile());
         try (DataInputStream dis = new DataInputStream(new BufferedInputStream(in))) {
-            byte[] data = dis.readAllBytes();
+            byte[] data = new byte[64000];
+             dis.read(data);
             byte[] certBytes = Base64.getDecoder().decode(data);
             return (X509Certificate) parseCertificate(certBytes);
         } catch (Exception e) {

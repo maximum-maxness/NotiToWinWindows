@@ -2,9 +2,9 @@ package server.networking.linkHandlers;
 
 import backend.Client;
 import backend.JSONConverter;
-import networking.helpers.PacketType;
-import networking.helpers.SSLHelper;
 import runner.Main;
+import server.networking.helpers.PacketType;
+import server.networking.helpers.SSLHelper;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -161,7 +161,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
                 } catch (Exception e) {
                     System.err.println("Handshake as " + mode + " failed with " + json.getString("clientName"));
                     e.printStackTrace();
-                    Client client = Main.getClient(clientID);
+                    Client client = Main.backgroundThread.getClient(clientID);
                     if (client == null) return;
                     client.unpair();
                 }

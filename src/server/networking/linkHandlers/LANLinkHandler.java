@@ -2,8 +2,8 @@ package server.networking.linkHandlers;
 
 import backend.Client;
 import backend.JSONConverter;
-import networking.helpers.PacketType;
-import networking.helpers.RSAHelper;
+import server.networking.helpers.PacketType;
+import server.networking.helpers.RSAHelper;
 
 import java.security.KeyFactory;
 import java.security.PublicKey;

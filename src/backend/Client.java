@@ -1,5 +1,6 @@
 package backend;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import server.networking.helpers.PacketType;
 import server.networking.helpers.RSAHelper;
@@ -10,10 +11,7 @@ import server.networking.linkHandlers.LANLinkHandler;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Client implements LANLink.PacketReceiver {
@@ -37,6 +35,11 @@ public class Client implements LANLink.PacketReceiver {
     public Certificate certificate;
     public Thread requestThread = null;
     private PairStatus pairStatus;
+
+    public String getName() {
+        return name.get();
+    }
+
     private SimpleStringProperty name;
     private List<Notification> notifications;
 
@@ -143,7 +146,7 @@ public class Client implements LANLink.PacketReceiver {
     public void addLink(JSONConverter identityPacket, LANLink link) {
         System.out.println("Adding Link to Client ID: " + clientID);
         if (identityPacket.has("clientName")) {
-            this.name = identityPacket.getString("clientName");
+            this.name.set(identityPacket.getString("clientName"));
         }
         if (identityPacket.has("certificate")) {
             System.out.println("Packet has a certificate!");
@@ -323,5 +326,46 @@ public class Client implements LANLink.PacketReceiver {
         }
     }
 
+    public Notification[] getNotifications() {
+        return (Notification[]) notifications.toArray();
+    }
+
+    public void setNotifications(Notification[] notifications) {
+        this.notifications.clear();
+        this.notifications.addAll(Arrays.asList(notifications));
+    }
+
+    public List<Notification> getNotificationList() {
+        return notifications;
+    }
+
+    public void addNoti(Notification noti) {
+        boolean match = false;
+        for (Notification notification : notifications) {
+            if (notification.getId().equals(noti.getId())
+                    && notification.getText().equals(noti.getText())) {
+                match = true;
+                noti.setIcon(notification.getIcon());
+            }
+        }
+        if (!match) {
+            notifications.add(noti);
+        } else {
+            System.out.println("Already Have that Notification!");
+        }
+        Runnable r = noti::display;
+        Platform.runLater(r);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder();
+        returnString.append("Client Name: ").append(getName()).append("\n");
+        returnString.append("Client Notifications:").append("\n");
+        for (Notification noti : this.notifications) {
+            if (noti != null) returnString.append(noti.toString()).append("\n");
+        }
+        return returnString.toString();
+    }
 
 }
