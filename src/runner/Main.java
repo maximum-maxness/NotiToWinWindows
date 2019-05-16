@@ -49,7 +49,7 @@ public class Main extends Application {
       SystemTray tray = SystemTray.getSystemTray();
       Image image =
           Toolkit.getDefaultToolkit()
-              .getImage("src/ui/res/x.png")
+                  .getImage("/ui/res/x.png")
               .getScaledInstance(tray.getTrayIconSize().width, tray.getTrayIconSize().height, 0);
       PopupMenu popupMenu = new PopupMenu();
       MenuItem defaultItem = new MenuItem("Show");
@@ -114,8 +114,8 @@ public class Main extends Application {
   public void start(Stage primaryStageIn) throws Exception {
     primaryStage = primaryStageIn;
     Platform.setImplicitExit(false);
-    Parent configureView = FXMLLoader.load(getClass().getResource("../ui/fxml/configureView.fxml"));
-    Parent jsonViewer = FXMLLoader.load(getClass().getResource("../ui/fxml/jsonviewer.fxml"));
+    Parent configureView = FXMLLoader.load(getClass().getResource("/ui/fxml/configureView.fxml"));
+    Parent jsonViewer = FXMLLoader.load(getClass().getResource("/ui/fxml/jsonviewer.fxml"));
     configureScene = new Scene(configureView, STAGE_WIDTH, STAGE_HEIGHT);
     JSONScene = new Scene(jsonViewer, STAGE_WIDTH, STAGE_HEIGHT);
     primaryStage.setTitle("NotiToWin");
@@ -125,7 +125,7 @@ public class Main extends Application {
     primaryStage.show();
     primaryStage.setOnCloseRequest(windowEvent -> primaryStage.hide());
     primaryStage.requestFocus();
-    Parent notiParent = FXMLLoader.load(getClass().getResource("../ui/fxml/notificationCard.fxml"));
+    Parent notiParent = FXMLLoader.load(getClass().getResource("/ui/fxml/notificationCard.fxml"));
     NotiCardHelper.initialize(notiParent);
     createTaskbarIcon();
   }

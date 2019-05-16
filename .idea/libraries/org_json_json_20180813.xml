@@ -4,7 +4,9 @@
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20180813/json-20180813.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20180813/json-20180813-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES />
   </library>
 </component>

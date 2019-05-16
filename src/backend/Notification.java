@@ -83,7 +83,7 @@ public class Notification {
   public InputStream getIconInputStream() {
     try {
       return (icon == null)
-          ? new FileInputStream(new File("src/ui/res/x.png"))
+              ? new FileInputStream(new File("/ui/res/x.png"))
           : new FileInputStream(icon);
     } catch (FileNotFoundException e) {
       e.printStackTrace();

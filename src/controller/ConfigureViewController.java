@@ -3,6 +3,7 @@ package controller;
 import backend.Client;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,14 +23,14 @@ import java.util.concurrent.Executors;
 public class ConfigureViewController {
 
   private TableColumn nameCol = new TableColumn("Name");
-//  private TableColumn ipCol = new TableColumn("IP");
+  private TableColumn pairCol = new TableColumn("Pair Status");
 //  private TableColumn confirmedCol = new TableColumn("Is Confirmed?");
 //  private TableColumn hasThreadCol = new TableColumn("Has Thread?");
   private ListProperty<Client> clientProperty = new SimpleListProperty<>();
   private Executor executor;
 
   @FXML
-  private Button startServerButton, stopServerButton, toJSONButton, printClients, sendReadyButton;
+  private Button startServerButton, stopServerButton, toJSONButton, printClients, yesPairButton, noPairButton;
 
   @FXML private TableView<Client> clientList;
 
@@ -65,39 +66,46 @@ public class ConfigureViewController {
                 return new SimpleStringProperty("<no name>");
               }
             });
-//    ipCol.setCellValueFactory(
-//        (Callback<TableColumn.CellDataFeatures<Client, InetAddress>, ObservableValue<InetAddress>>)
-//            param -> {
-//              if (param.getValue() != null) {
-//                return param.getValue().ipProperty();
-//              } else {
-//                return new SimpleObjectProperty<InetAddress>(InetAddress.getLoopbackAddress());
-//              }
-//            });
-    //
-//    confirmedCol.setCellValueFactory(
-//        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
-//            param -> {
-//              if (param.getValue() != null) {
-//                return param.getValue().confirmedProperty();
-//              } else {
-//                return new SimpleBooleanProperty(false);
-//              }
-//            });
-//
-//    //
-//    hasThreadCol.setCellValueFactory(
-//        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
-//            param -> {
-//              if (param.getValue() != null) {
-//                return param.getValue().hasThreadProperty();
-//              } else {
-//                return new SimpleBooleanProperty(false);
-//              }
-//            });
+    pairCol.setCellValueFactory(
+            (Callback<TableColumn.CellDataFeatures<Client, Client.PairStatus>, ObservableValue<Client.PairStatus>>)
+                    param -> {
+                      if (param.getValue() != null) {
+                        return param.getValue().pairStatusProperty();
+                      } else {
+                        return new SimpleObjectProperty<Client.PairStatus>(Client.PairStatus.NotPaired);
+                      }
+                    });
+/*
+    confirmedCol.setCellValueFactory(
+        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
+            param -> {
+              if (param.getValue() != null) {
+                return param.getValue().confirmedProperty();
+              } else {
+                return new SimpleBooleanProperty(false);
+              }
+            });
+    hasThreadCol.setCellValueFactory(
+        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
+            param -> {
+              if (param.getValue() != null) {
+                return param.getValue().hasThreadProperty();
+              } else {
+                return new SimpleBooleanProperty(false);
+              }
+            });
+*/
+
+
     clientList.setItems(clientProperty);
     clientProperty.set(FXCollections.observableArrayList(Main.backgroundThread.getClients()));
-    clientList.getColumns().addAll(nameCol);
+    clientList.getColumns().addAll(nameCol, pairCol);
+    clientList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue.intValue() >= 0) {
+        yesPairButton.setDisable(false);
+        noPairButton.setDisable(false);
+      }
+    });
   }
 
   @FXML
@@ -131,5 +139,19 @@ public class ConfigureViewController {
     int index = clientList.getSelectionModel().getSelectedIndex();
     if (index != -1) System.out.println(Main.backgroundThread.getClient(index));
     else System.out.println("Nothing Selected!");
+  }
+
+  @FXML
+  private void requestPairAction() {
+    Client client = clientList.getSelectionModel().getSelectedItem();
+    if (client == null) return;
+    client.requestPairing();
+  }
+
+  @FXML
+  private void unpairAction() {
+    Client client = clientList.getSelectionModel().getSelectedItem();
+    if (client == null) return;
+    client.unpair();
   }
 }

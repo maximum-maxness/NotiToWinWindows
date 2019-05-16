@@ -56,6 +56,17 @@
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
                         <Button fx:id="printClients" mnemonicParsing="false" onAction="#printClients" prefHeight="49.0" prefWidth="176.0" text="Print out Selected Client" />
+                        <Pane prefHeight="100.0" prefWidth="20.0"/>
+                        <VBox prefHeight="100.0" prefWidth="216.0">
+                            <children>
+                                <Button fx:id="yesPairButton" disable="true" mnemonicParsing="false"
+                                        onAction="#requestPairAction" prefHeight="50.0" prefWidth="222.0"
+                                        text="Request Pairing"/>
+                                <Button fx:id="noPairButton" disable="true" mnemonicParsing="false"
+                                        onAction="#unpairAction" prefHeight="50.0" prefWidth="243.0"
+                                        text="Unpair Button"/>
+                            </children>
+                        </VBox>
                     </children>
                 </HBox>
             </VBox>

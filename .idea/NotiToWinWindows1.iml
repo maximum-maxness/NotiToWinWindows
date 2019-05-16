@@ -13,6 +13,5 @@
     <orderEntry type="library" name="org.json:json:20180813" level="project" />
     <orderEntry type="library" name="org.jetbrains:annotations:17.0.0" level="project" />
     <orderEntry type="library" name="org.bouncycastle:bcpkix-jdk14:1.61" level="project" />
-    <orderEntry type="library" name="lib" level="application" />
   </component>
 </module>

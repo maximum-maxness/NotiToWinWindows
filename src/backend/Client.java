@@ -1,6 +1,7 @@
 package backend;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import server.networking.helpers.PacketType;
 import server.networking.helpers.RSAHelper;
@@ -32,23 +33,30 @@ public class Client implements LANLink.PacketReceiver {
             };
     private final String clientID;
     public PublicKey publicKey;
-    public Certificate certificate;
-    public Thread requestThread = null;
-    private PairStatus pairStatus;
+    private Certificate certificate;
 
     public String getName() {
         return name.get();
     }
 
     private SimpleStringProperty name;
-    private List<Notification> notifications;
+    private SimpleObjectProperty<PairStatus> pairStatus;
+    private List<Notification> notifications = new ArrayList<>();
 
     public Client(JSONConverter json, LANLink link) {
         this.clientID = json.getString("clientID");
         this.name = new SimpleStringProperty("Unknown");
-        this.pairStatus = PairStatus.NotPaired;
+        this.pairStatus = new SimpleObjectProperty<>(PairStatus.NotPaired);
         this.publicKey = null;
         addLink(json, link);
+    }
+
+    public PairStatus getPairStatus() {
+        return pairStatus.get();
+    }
+
+    public SimpleObjectProperty<PairStatus> pairStatusProperty() {
+        return pairStatus;
     }
 
 //    public Client (String clientID){
@@ -83,7 +91,7 @@ public class Client implements LANLink.PacketReceiver {
     }
 
     public boolean isPaired() {
-        return this.pairStatus == PairStatus.Paired;
+        return this.pairStatus.get() == PairStatus.Paired;
     }
 
     public boolean isReachable() {
@@ -179,7 +187,7 @@ public class Client implements LANLink.PacketReceiver {
                         @Override
                         public void incomingRequest() {
                             for (PairingCallback pb : pairingCallback) {
-                                pb.incomingRequest();
+                                pb.incomingRequest(Client.this);
                             }
                         }
 
@@ -201,6 +209,7 @@ public class Client implements LANLink.PacketReceiver {
                         }
                     };
             pairingHandlers.put(link.getName(), link.getPairingHandler(this, callback));
+            link.addPacketReceiver(this);
         }
 
 //        link.addPacketReceiver(this);
@@ -235,15 +244,15 @@ public class Client implements LANLink.PacketReceiver {
 
     private void pairingDone() {
         System.out.println("Pairing was a success!!!");
-        pairStatus = PairStatus.Paired;
+        pairStatus.set(PairStatus.Paired);
         for (PairingCallback pb : pairingCallback) {
-            pb.pairingSuccessful();
+            pb.pairingSuccessful(this);
         }
     }
 
     private void unpairInternal() {
         System.out.println("Forcing an Unpair..");
-        pairStatus = PairStatus.NotPaired;
+        pairStatus.set(PairStatus.NotPaired);
         for (PairingCallback pb : pairingCallback) {
             pb.unpaired();
         }
@@ -307,14 +316,17 @@ public class Client implements LANLink.PacketReceiver {
         Paired
     }
 
-    public interface PairingCallback {
-        void incomingRequest();
-
-        void pairingSuccessful();
-
-        void pairingFailed(String error);
-
-        void unpaired();
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder();
+        returnString.append("Client Name: ").append(getName()).append("\n");
+        returnString.append("Client ID: ").append(getClientID()).append("\n");
+        returnString.append("Pair Status: ").append(getPairStatus()).append("\n");
+        returnString.append("Client Notifications:").append("\n");
+        for (Notification noti : this.notifications) {
+            if (noti != null) returnString.append(noti.toString()).append("\n");
+        }
+        return returnString.toString();
     }
 
     public abstract static class SendPacketStatusCallback {
@@ -357,15 +369,14 @@ public class Client implements LANLink.PacketReceiver {
         Platform.runLater(r);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder returnString = new StringBuilder();
-        returnString.append("Client Name: ").append(getName()).append("\n");
-        returnString.append("Client Notifications:").append("\n");
-        for (Notification noti : this.notifications) {
-            if (noti != null) returnString.append(noti.toString()).append("\n");
-        }
-        return returnString.toString();
+    public interface PairingCallback {
+        void incomingRequest(Client client);
+
+        void pairingSuccessful(Client client);
+
+        void pairingFailed(String error);
+
+        void unpaired();
     }
 
 }

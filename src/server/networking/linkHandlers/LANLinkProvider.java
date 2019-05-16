@@ -75,7 +75,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String message = reader.readLine();
-            System.out.println("Read message: " + message);
+//            System.out.println("Read message: " + message);
             json = JSONConverter.unserialize(message);
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,7 +96,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         final InetAddress address = packet.getAddress();
         try {
             String message = new String(packet.getData());
-            System.out.println("Received Message: " + message);
+//            System.out.println("Received Message: " + message);
             final JSONConverter json = JSONConverter.unserialize(message);
             assert json != null;
             System.out.println("JSON Type is: " + json.getType());
