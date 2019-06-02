@@ -50,7 +50,7 @@ public class ConfigureViewController {
     Console console = new Console(logOutput);
     PrintStream ps = new PrintStream(console, true);
     executor = Executors.newSingleThreadExecutor();
-    System.setOut(ps);
+//    System.setOut(ps);
     //        System.setErr(ps);
   }
 

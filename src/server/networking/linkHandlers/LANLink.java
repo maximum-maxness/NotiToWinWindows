@@ -5,9 +5,8 @@ import backend.JSONConverter;
 import server.networking.helpers.PacketType;
 import server.networking.helpers.RSAHelper;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -55,27 +54,27 @@ public class LANLink {
         this.connectionSource = connectionSource;
 
         if (oldSocket != null) {
+            System.out.println("Closing Old Socket!");
             oldSocket.close();
         }
 
         new Thread(
                 () -> {
                     try {
-                        BufferedReader reader =
-                                new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
+                        DataInputStream reader =
+                                new DataInputStream(newSocket.getInputStream());
                         while (true) {
                             String packet;
                             try {
-                                packet = reader.readLine();
+                                packet = reader.readUTF();
                             } catch (SocketTimeoutException e) {
                                 continue;
                             }
-                            if (packet == null) {
-                                throw new IOException("End of Stream");
-                            }
+//                            }
                             if (packet.isEmpty()) {
                                 continue;
                             }
+                            System.out.println("Data Received:\n" + packet);
                             JSONConverter json = JSONConverter.unserialize(packet);
                             receivedNetworkPacket(json);
                         }

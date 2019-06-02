@@ -3,10 +3,8 @@ package server.networking.linkHandlers;
 import backend.Client;
 import backend.JSONConverter;
 import server.networking.helpers.PacketType;
-import server.networking.helpers.RSAHelper;
 
 import java.security.KeyFactory;
-import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Timer;
@@ -105,17 +103,17 @@ public class LANLinkHandler { // TODO Finish and Implement
     private JSONConverter createPairPacket() {
         JSONConverter json = new JSONConverter(PacketType.PAIR_REQUEST);
         json.set("pair", true);
-        String pubKeyStr = null;
-        try {
-            PublicKey pubKey = RSAHelper.getPublicKey();
-            pubKeyStr = pubKey.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            pubKeyStr = "";
-        }
-        String publicKeyFormatted =
-                "-----BEGIN PUBLIC KEY-----\n" + pubKeyStr.trim() + "\n-----END PUBLIC KEY-----\n";
-        json.set("publicKey", publicKeyFormatted);
+//        String pubKeyStr = null;
+//        try {
+//            PublicKey pubKey = RSAHelper.getPublicKey();
+//            pubKeyStr = pubKey.toString();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            pubKeyStr = "";
+//        }
+//        String publicKeyFormatted =
+//                "-----BEGIN PUBLIC KEY-----\n" + pubKeyStr.trim() + "\n-----END PUBLIC KEY-----\n";
+//        json.set("publicKey", publicKeyFormatted);
         return json;
     }
 

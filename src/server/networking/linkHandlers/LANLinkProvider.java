@@ -1,20 +1,14 @@
 package server.networking.linkHandlers;
 
-import backend.Client;
 import backend.JSONConverter;
-import runner.Main;
 import server.networking.helpers.PacketType;
-import server.networking.helpers.SSLHelper;
 
 import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
-import java.security.cert.Certificate;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -22,7 +16,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
 
     static final int DATALOAD_TRANSFER_MIN_PORT = 1936;
     private static final int MAX_PORT = 1958;
-    private static final int MIN_PORT = 1927;
+    private static final int MIN_PORT = 1938;
     private final HashMap<String, LANLink> visibleClients = new HashMap<>();
     private final CopyOnWriteArrayList<ConnectionReceiver> connectionReceivers = new CopyOnWriteArrayList<>();
 
@@ -150,35 +144,35 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         final boolean clientMode = connectionStarted == LANLink.ConnectionStarted.Locally;
 
         try {
-            final SSLSocket sslSocket = SSLHelper.convertToSSLSocket(socket, clientID, SSLHelper.certificateIsStored(clientID), clientMode);
-            sslSocket.addHandshakeCompletedListener(event -> {
-                String mode = clientMode ? "client" : "server";
-                try {
-                    Certificate certificate = event.getPeerCertificates()[0];
-                    json.set("certificate", Base64.getEncoder().encodeToString(certificate.getEncoded()));
-                    System.out.println("Handshake as " + mode + " successful with " + json.getString("clientName") + " secured with " + event.getCipherSuite());
-                    addLink(json, sslSocket, connectionStarted);
-                } catch (Exception e) {
-                    System.err.println("Handshake as " + mode + " failed with " + json.getString("clientName"));
-                    e.printStackTrace();
-                    Client client = Main.backgroundThread.getClient(clientID);
-                    if (client == null) return;
-                    client.unpair();
-                }
-            });
-
-            new Thread(() -> {
-                try {
-                    synchronized (this) {
-                        System.out.println("Starting SSL Handshake...");
-                        sslSocket.startHandshake();
-                    }
-                } catch (Exception e) {
-                    System.err.println("Handshake failed with " + json.getString("clientName"));
-                    e.printStackTrace();
-                }
-            }).start();
-        } catch (Exception e) {
+//            final SSLSocket sslSocket = SSLHelper.convertToSSLSocket(socket, clientID, SSLHelper.certificateIsStored(clientID), clientMode);
+//            sslSocket.addHandshakeCompletedListener(event -> {
+//                String mode = clientMode ? "client" : "server";
+//                try {
+//                    Certificate certificate = event.getPeerCertificates()[0];
+//                    json.set("certificate", Base64.getEncoder().encodeToString(certificate.getEncoded()));
+//                    System.out.println("Handshake as " + mode + " successful with " + json.getString("clientName") + " secured with " + event.getCipherSuite());
+            addLink(json, socket, connectionStarted);
+//                } catch (Exception e) {
+//                    System.err.println("Handshake as " + mode + " failed with " + json.getString("clientName"));
+//                    e.printStackTrace();
+//                    Client client = Main.backgroundThread.getClient(clientID);
+//                    if (client == null) return;
+//                    client.unpair();
+//                }
+//            });
+//
+//            new Thread(() -> {
+//                try {
+//                    synchronized (this) {
+//                        System.out.println("Starting SSL Handshake...");
+//                        sslSocket.startHandshake();
+//                    }
+//                } catch (Exception e) {
+//                    System.err.println("Handshake failed with " + json.getString("clientName"));
+//                    e.printStackTrace();
+//                }
+//            }).start();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -2,6 +2,7 @@ package runner;
 
 import backend.Client;
 import backend.JSONConverter;
+import javafx.application.Platform;
 import server.networking.linkHandlers.LANLink;
 import server.networking.linkHandlers.LANLinkProvider;
 
@@ -31,21 +32,18 @@ public class BackgroundThread implements Runnable {
                             client.unpair();
                         }
                     };
-                    try {
-                        PopupHelper.createPairPopup(client, callback);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Platform.runLater(() -> {
+                        try {
+                            PopupHelper.createPairPopup(client, callback);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
 
                 @Override
                 public void pairingSuccessful(Client client) {
-//          String decision = runner.Main.getDecision("Choose A message to send!");
-//          JSONConverter json = new JSONConverter(PacketType.NOTIFICATION);
-//          json.put("message", decision);
-//          for (Client client : clients.values()) {
-//            client.sendPacket(json);
-//          }
+
                 }
 
                 @Override
@@ -125,7 +123,8 @@ public class BackgroundThread implements Runnable {
     }
 
     private void registerLinkProviders() {
-        linkProviders.add(new LANLinkProvider());
+        if (linkProviders.isEmpty())
+            linkProviders.add(new LANLinkProvider());
     }
 
     public Client getClient(String id) {

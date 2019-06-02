@@ -70,6 +70,7 @@ public class Client implements LANLink.PacketReceiver {
 
     @Override
     public void onPacketReceived(JSONConverter json) {
+        System.out.println("Received Packet of Type: " + json.getType());
         if (PacketType.PAIR_REQUEST.equals(json.getType())) {
             System.out.println("Pair Packet!");
             for (LANLinkHandler llh : pairingHandlers.values()) {
