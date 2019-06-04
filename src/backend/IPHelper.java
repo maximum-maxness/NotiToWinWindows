@@ -1,4 +1,4 @@
-package server.networking.helpers;
+package backend;
 
 import java.io.BufferedReader;
 import java.io.IOException;

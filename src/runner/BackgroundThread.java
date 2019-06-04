@@ -2,13 +2,13 @@ package runner;
 
 import backend.Client;
 import backend.JSONConverter;
-import javafx.application.Platform;
+import backend.PreferenceHelper;
 import server.networking.linkHandlers.LANLink;
 import server.networking.linkHandlers.LANLinkProvider;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.prefs.Preferences;
 
 public class BackgroundThread implements Runnable {
     private final ArrayList<LANLinkProvider> linkProviders = new ArrayList<>();
@@ -20,30 +20,12 @@ public class BackgroundThread implements Runnable {
             new Client.PairingCallback() {
                 @Override
                 public void incomingRequest(Client client) {
-                    System.err.println("Incoming from Client ID: " + client.getClientID());
-                    Client.SendPacketStatusCallback callback = new Client.SendPacketStatusCallback() {
-                        @Override
-                        public void onSuccess() {
-                            client.requestPairing();
-                        }
-
-                        @Override
-                        public void onFailure(Throwable e) {
-                            client.unpair();
-                        }
-                    };
-                    Platform.runLater(() -> {
-                        try {
-                            PopupHelper.createPairPopup(client, callback);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                    onClientListChanged();
                 }
 
                 @Override
                 public void pairingSuccessful(Client client) {
-
+                    onClientListChanged();
                 }
 
                 @Override
@@ -81,12 +63,10 @@ public class BackgroundThread implements Runnable {
                             client.addPairingCallback(devicePairingCallback);
                             Main.updateClientList(clients);
                         } else {
-                            client
-                                    .disconnect(); // TODO Implement decision making on whether to accept the pair or
+                            client.disconnect(); // TODO Implement decision making on whether to accept the pair or
                             // not, stop it from disconnecting regardless.
                         }
                     }
-
                     onClientListChanged();
                 }
 
@@ -104,6 +84,7 @@ public class BackgroundThread implements Runnable {
                 }
             };
 
+
     public ArrayList<LANLinkProvider> getLinkProviders() {
         return linkProviders;
     }
@@ -120,6 +101,16 @@ public class BackgroundThread implements Runnable {
         for (LANLinkProvider llp : linkProviders) {
             llp.onStop();
         }
+    }
+
+    public void cleanDevices() {
+        new Thread(() -> {
+            for (Client client : clients) {
+                if (!client.isPaired() && !client.isPairRequested() && !client.isPairRequestedByPeer() && !client.deviceShouldBeKeptAlive()) {
+                    client.disconnect();
+                }
+            }
+        }).start();
     }
 
     private void registerLinkProviders() {
@@ -157,8 +148,22 @@ public class BackgroundThread implements Runnable {
         clientListChangedCallbacks.remove(key);
     }
 
+    private void loadSavedDevicesFromSettings() {
+        Preferences trustStore = PreferenceHelper.getDeviceConfigStore();
+        String[] trustedDevices = PreferenceHelper.getAllStrings(trustStore);
+        for (String clientID : trustedDevices) {
+            if (trustStore.getBoolean(clientID, false)) {
+                Client client = new Client(clientID);
+                clients.add(client);
+                clientIndexMap.put(clientID, clientIndexMap.size());
+                client.addPairingCallback(devicePairingCallback);
+            }
+        }
+    }
+
     @Override
     public void run() {
+        loadSavedDevicesFromSettings();
         registerLinkProviders();
         addConnectionListener(deviceListener);
         for (LANLinkProvider llp : linkProviders) {

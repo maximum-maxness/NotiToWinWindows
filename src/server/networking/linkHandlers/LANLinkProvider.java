@@ -1,7 +1,10 @@
 package server.networking.linkHandlers;
 
+import backend.Client;
 import backend.JSONConverter;
-import server.networking.helpers.PacketType;
+import backend.PacketType;
+import backend.PreferenceHelper;
+import runner.Main;
 
 import javax.net.SocketFactory;
 import java.io.BufferedReader;
@@ -9,8 +12,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.prefs.Preferences;
 
 public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
 
@@ -29,23 +34,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
 
     }
 
-    static ServerSocket openTCPServerOnFreePort() throws IOException {
-        System.out.println("Opening TCP Server On Free Port.");
-        int tcpPort = LANLinkProvider.MIN_PORT;
-        while (tcpPort <= MAX_PORT) {
-            try {
-                ServerSocket possibleServer = new ServerSocket();
-                possibleServer.bind(new InetSocketAddress(tcpPort));
-                return possibleServer;
-            } catch (IOException e) {
-                tcpPort++;
-                if (tcpPort == MAX_PORT) {
-                    throw e;
-                }
-            }
-        }
-        throw new RuntimeException("Bad.");
-    }
+    private ArrayList<String> processingIDS = new ArrayList<>();
 
     public void addConnectionReceiver(ConnectionReceiver cr) {
         connectionReceivers.add(cr);
@@ -63,13 +52,33 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         connectionLost(broken);
     }
 
+    static ServerSocket openTCPServerOnFreePort() throws IOException {
+        System.out.println("Opening TCP Server On Free Port.");
+        int tcpPort = LANLinkProvider.MIN_PORT;
+        while (tcpPort <= MAX_PORT) {
+            try {
+                ServerSocket possibleServer = new ServerSocket();
+                possibleServer.bind(new InetSocketAddress(tcpPort));
+                System.out.println("Using port " + tcpPort);
+
+                return possibleServer;
+            } catch (IOException e) {
+                tcpPort++;
+                if (tcpPort == MAX_PORT) {
+                    throw e;
+                }
+            }
+        }
+        throw new RuntimeException("Bad.");
+    }
+
     private void TCPPacketReceived(Socket socket) {
-        System.out.println("TCP Packet Has Been Received!");
+        System.out.println("TCP Connection Has Been Made!");
         JSONConverter json;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String message = reader.readLine();
-//            System.out.println("Read message: " + message);
+            String message = reader.readLine().trim();
+            System.out.println("Read message: " + message);
             json = JSONConverter.unserialize(message);
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,6 +94,14 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         identityPacketReceived(json, socket, LANLink.ConnectionStarted.Locally);
     }
 
+    private void configureSocket(Socket socket) {
+        try {
+            socket.setKeepAlive(true);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void UDPPacketReceived(DatagramPacket packet) {
         System.out.println("UDP Packet Received!");
         final InetAddress address = packet.getAddress();
@@ -98,8 +115,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
             if (!json.getType().equals(PacketType.IDENTITY_PACKET)) {
                 return;
             } else {
-                InetAddress myHost = InetAddress.getLocalHost();
-                String ownID = myHost.getHostName();
+                String ownID = PacketType.getDeviceID();
                 if (ownID.equals(clientID)) {
                     return;
                 }
@@ -124,14 +140,6 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         }
     }
 
-    private void configureSocket(Socket socket) {
-        try {
-            socket.setKeepAlive(true);
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void identityPacketReceived(final JSONConverter json, final Socket socket, final LANLink.ConnectionStarted connectionStarted) {
         String myID = PacketType.getDeviceID();
         final String clientID = json.getString("clientID");
@@ -141,9 +149,29 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
             return;
         }
 
+        if (processingIDS.contains(clientID)) {
+            System.err.println("Already processing client ID: " + clientID);
+            return;
+        } else {
+            processingIDS.add(clientID);
+        }
+
         final boolean clientMode = connectionStarted == LANLink.ConnectionStarted.Locally;
 
         try {
+            Preferences trustedPrefs = PreferenceHelper.getTrustedDeviceNode();
+            boolean isDeviceTrusted = trustedPrefs.getBoolean(clientID, false);
+
+            if (isDeviceTrusted) {
+                Client client = Main.backgroundThread.getClient(clientID);
+                if (client == null) return;
+                if (client.isConnected()) return;
+                client.unpair();
+                System.out.println("Re-trying as Unpaired!");
+                identityPacketReceived(json, socket, connectionStarted);
+            }
+
+//
 //            final SSLSocket sslSocket = SSLHelper.convertToSSLSocket(socket, clientID, SSLHelper.certificateIsStored(clientID), clientMode);
 //            sslSocket.addHandshakeCompletedListener(event -> {
 //                String mode = clientMode ? "client" : "server";
@@ -151,9 +179,11 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
 //                    Certificate certificate = event.getPeerCertificates()[0];
 //                    json.set("certificate", Base64.getEncoder().encodeToString(certificate.getEncoded()));
 //                    System.out.println("Handshake as " + mode + " successful with " + json.getString("clientName") + " secured with " + event.getCipherSuite());
+            processingIDS.remove(clientID);
             addLink(json, socket, connectionStarted);
 //                } catch (Exception e) {
 //                    System.err.println("Handshake as " + mode + " failed with " + json.getString("clientName"));
+//                    processingIDS.remove(clientID);
 //                    e.printStackTrace();
 //                    Client client = Main.backgroundThread.getClient(clientID);
 //                    if (client == null) return;
@@ -169,6 +199,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
 //                    }
 //                } catch (Exception e) {
 //                    System.err.println("Handshake failed with " + json.getString("clientName"));
+//                    processingIDS.remove(clientID);
 //                    e.printStackTrace();
 //                }
 //            }).start();
@@ -182,7 +213,9 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         LANLink currentLink = visibleClients.get(clientID);
         if (currentLink != null) {
             System.out.println("Re Using Same Link for Client ID: " + clientID);
+//            if (currentLink.linkIsActive()) {
             final Socket oldSocket = currentLink.reset(socket, connectionStarted);
+//            }
         } else {
             System.out.println("Creating a new Link for Client ID: " + clientID);
             LANLink link = new LANLink(clientID, this, socket, connectionStarted);
@@ -209,7 +242,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
                 DatagramPacket packet = new DatagramPacket(data, bufferSize);
                 try {
                     udpServer.receive(packet);
-                    UDPPacketReceived(packet);
+                    new Thread(() -> UDPPacketReceived(packet)).start();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -231,7 +264,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
                 try {
                     Socket socket = tcpServer.accept();
                     configureSocket(socket);
-                    TCPPacketReceived(socket);
+                    new Thread(() -> TCPPacketReceived(socket)).start();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

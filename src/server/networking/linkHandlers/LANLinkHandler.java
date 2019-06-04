@@ -2,13 +2,15 @@ package server.networking.linkHandlers;
 
 import backend.Client;
 import backend.JSONConverter;
-import server.networking.helpers.PacketType;
+import backend.PacketType;
+import backend.PreferenceHelper;
 
 import java.security.KeyFactory;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.prefs.Preferences;
 
 public class LANLinkHandler { // TODO Finish and Implement
 
@@ -164,24 +166,18 @@ public class LANLinkHandler { // TODO Finish and Implement
     }
 
     private void pairingDone() {
-//        if (client.publicKey != null) { //TODO Remember Previously Paired Clients
-//            try {
-//                String encodedPublicKey = Base64.getEncoder().encodeToString(client.publicKey.getEncoded());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            try {
-//                String encodedCertificate =
-//                        Base64.getEncoder().encodeToString(client.certificate.getEncoded());
-//            } catch (NullPointerException n) {
-//                System.err.println("No Certificate Exists!");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-
-            pairStatus = PairStatus.Paired;
-            pairingHandlerCallback.pairingDone();
-//        }
+        Preferences editor = PreferenceHelper.getDeviceConfigNode(client.getClientID());
+        try {
+            String encodedCertificate = Base64.getEncoder().encodeToString(client.certificate.getEncoded());
+            editor.put("certificate", encodedCertificate);
+        } catch (NullPointerException n) {
+            System.err.println("No Certificate Exists!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        PreferenceHelper.applyChanges(editor);
+        pairStatus = PairStatus.Paired;
+        pairingHandlerCallback.pairingDone();
     }
 
     protected enum PairStatus {

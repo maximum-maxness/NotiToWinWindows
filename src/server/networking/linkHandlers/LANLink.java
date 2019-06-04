@@ -2,12 +2,12 @@ package server.networking.linkHandlers;
 
 import backend.Client;
 import backend.JSONConverter;
-import server.networking.helpers.PacketType;
-import server.networking.helpers.RSAHelper;
+import backend.PacketType;
+import backend.RSAHelper;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -48,6 +48,7 @@ public class LANLink {
     }
 
     public Socket reset(Socket newSocket, ConnectionStarted connectionSource) throws IOException {
+        System.err.println("Reset Method Invoked!");
         Socket oldSocket = socket;
         socket = newSocket;
 
@@ -79,10 +80,17 @@ public class LANLink {
                             receivedNetworkPacket(json);
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Socket closed: " + newSocket.hashCode() + ". Reason: " + e.getMessage());
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException ignored) {
+                        } // Wait a bit because we might receive a new socket meanwhile
+                        boolean thereIsaANewSocket = (newSocket != socket);
+                        if (!thereIsaANewSocket) {
+                            callback.linkDisconnected(LANLink.this);
+                        }
                     }
-                })
-                .start();
+                }).start();
 
         return oldSocket;
     }
@@ -103,12 +111,13 @@ public class LANLink {
             }
 
             try {
-                OutputStream writer = socket.getOutputStream();
-                writer.write(json.serialize().getBytes());
+                DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
+                writer.writeUTF(json.serialize());
                 writer.flush();
+//                writer.close();
             } catch (Exception e) {
                 disconnect(); // main socket is broken, disconnect
-                throw e;
+                e.printStackTrace();
             }
             callback.onSuccess();
             return true;
@@ -185,6 +194,10 @@ public class LANLink {
 
     public void removePacketReceiver(PacketReceiver pr) {
         receivers.remove(pr);
+    }
+
+    public boolean isConnected() {
+        return socket.isConnected();
     }
 
     public enum ConnectionStarted {

@@ -1,6 +1,9 @@
 package runner;
 
 import backend.Client;
+import backend.PreferenceHelper;
+import backend.RSAHelper;
+import backend.SSLHelper;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -12,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import server.networking.helpers.RSAHelper;
-import server.networking.helpers.SSLHelper;
 
 import java.awt.*;
 import java.util.Collection;
@@ -21,6 +22,8 @@ import java.util.Collection;
 public class Main extends Application {
   private static final int STAGE_WIDTH = 900;
   private static final int STAGE_HEIGHT = 600;
+
+  private static final boolean FORCE_KEY_CERT_REFRESH = true;
 
   static Stage primaryStage;
   private static Scene configureScene, JSONScene;
@@ -100,11 +103,12 @@ public class Main extends Application {
   }
 
   public static void initSecurity() {
-    RSAHelper.initKeys();
-    SSLHelper.initCertificate();
+    RSAHelper.initKeys(FORCE_KEY_CERT_REFRESH);
+    SSLHelper.initCertificate(FORCE_KEY_CERT_REFRESH);
   }
 
   public static void main(String[] args) {
+    PreferenceHelper.initPreferences();
     initSecurity();
     backgroundThread = new BackgroundThread();
     launch(args);

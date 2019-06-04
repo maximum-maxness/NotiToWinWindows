@@ -1,4 +1,4 @@
-package server.networking.helpers;
+package backend;
 
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
@@ -11,7 +11,7 @@ import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 import javax.net.ssl.*;
-import java.io.*;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -24,12 +24,13 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.prefs.Preferences;
 
 public class SSLHelper {
     public static final BouncyCastleProvider BOUNCY_CASTLE_PROVIDER = new BouncyCastleProvider();
     public static X509Certificate certificate;
 
-    public static void initCertificate() {
+    public static void initCertificate(boolean force) {
         String localCertificateFile = FileHelper.getStorePath() + "cert" + ".pem";
 
         PrivateKey privKey;
@@ -43,7 +44,8 @@ public class SSLHelper {
             return;
         }
 
-        if (!FileHelper.fileExists(localCertificateFile)) {
+        Preferences generalStore = PreferenceHelper.getGeneralConfig();
+        if (!PreferenceHelper.contains(generalStore, "certificate") || force) {
             try {
                 X500NameBuilder nameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
                 InetAddress myHost = InetAddress.getLocalHost();
@@ -66,17 +68,17 @@ public class SSLHelper {
                 );
                 ContentSigner contentSigner = new JcaContentSignerBuilder("SHA256WithRSAEncryption").setProvider(BOUNCY_CASTLE_PROVIDER).build(privKey);
                 certificate = new JcaX509CertificateConverter().setProvider(BOUNCY_CASTLE_PROVIDER).getCertificate(certificateBuilder.build(contentSigner));
-                String certStr = Base64.getEncoder().encodeToString(certificate.getEncoded());
-                saveToFile(localCertificateFile, certStr.getBytes());
+                generalStore.put("certificate", Base64.getEncoder().encodeToString(certificate.getEncoded()));
+                PreferenceHelper.applyChanges(generalStore);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("Already Have Cert!");
             try {
-                X509Certificate cert = readCertificate(localCertificateFile);
-                if (cert == null) return;
-                certificate = cert;
+                byte[] certBytes = Base64.getDecoder().decode(generalStore.get("certificate", ""));
+                X509CertificateHolder certPlaceholder = new X509CertificateHolder(certBytes);
+                certificate = new JcaX509CertificateConverter().setProvider(BOUNCY_CASTLE_PROVIDER).getCertificate(certPlaceholder);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -85,12 +87,14 @@ public class SSLHelper {
     }
 
     public static boolean certificateIsStored(String id) {
-        String certPath = createClientCertFilePath(id);
-        return FileHelper.fileExists(certPath);
-    }
-
-    private static String createClientCertFilePath(String id) {
-        return FileHelper.getStorePath() + id + ".pem";
+        Preferences devicePrefs = PreferenceHelper.getDeviceConfigNode(id);
+        boolean contains = PreferenceHelper.contains(devicePrefs, "certificate");
+        if (contains) {
+            System.out.println("Client ID: " + id + " has a certificate!");
+        } else {
+            System.out.println("Client ID: " + id + " does not have a certificate!");
+        }
+        return contains;
     }
 
     private static SSLContext getSSLContext(String clientID, boolean deviceHasBeenPaired) {
@@ -99,8 +103,10 @@ public class SSLHelper {
 
             X509Certificate clientCert = null;
             if (deviceHasBeenPaired) {
-                X509Certificate cert = readCertificate(createClientCertFilePath(clientID));
-                if (cert != null) clientCert = cert;
+                Preferences deviceStore = PreferenceHelper.getDeviceConfigNode(clientID);
+                byte[] certBytes = Base64.getDecoder().decode(deviceStore.get("certificate", ""));
+                X509CertificateHolder certificateHolder = new X509CertificateHolder(certBytes);
+                clientCert = new JcaX509CertificateConverter().setProvider(BOUNCY_CASTLE_PROVIDER).getCertificate(certificateHolder);
             }
 
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -151,7 +157,7 @@ public class SSLHelper {
                 "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
         };
         socket.setEnabledCipherSuites(supportedCiphers);
-//        socket.setSoTimeout(30000);
+        socket.setSoTimeout(30000);
 
         if (clientMode) {
             socket.setUseClientMode(true);
@@ -183,30 +189,6 @@ public class SSLHelper {
             formatter.format("%02x", hash[counter]);
             return formatter.toString();
         } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private static void saveToFile(String fileName, byte[] data) {
-        try (DataOutputStream dos = new DataOutputStream(
-                new BufferedOutputStream(
-                        new FileOutputStream(
-                                FileHelper.verifyFilePath(fileName).getAbsoluteFile()
-                        )))) {
-            dos.write(data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static X509Certificate readCertificate(String path) throws Exception {
-        InputStream in = new FileInputStream(FileHelper.verifyFilePath(path).getAbsoluteFile());
-        try (DataInputStream dis = new DataInputStream(new BufferedInputStream(in))) {
-            byte[] data = dis.readAllBytes();
-            byte[] certBytes = Base64.getDecoder().decode(data);
-            return (X509Certificate) parseCertificate(certBytes);
-        } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

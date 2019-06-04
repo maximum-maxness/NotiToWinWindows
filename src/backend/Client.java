@@ -3,9 +3,6 @@ package backend;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import server.networking.helpers.PacketType;
-import server.networking.helpers.RSAHelper;
-import server.networking.helpers.SSLHelper;
 import server.networking.linkHandlers.LANLink;
 import server.networking.linkHandlers.LANLinkHandler;
 
@@ -14,6 +11,10 @@ import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
+
+import static backend.PreferenceHelper.*;
 
 public class Client implements LANLink.PacketReceiver {
 
@@ -33,7 +34,8 @@ public class Client implements LANLink.PacketReceiver {
             };
     private final String clientID;
     public PublicKey publicKey;
-    private Certificate certificate;
+    private final Preferences settings;
+    public Certificate certificate;
 
     public String getName() {
         return name.get();
@@ -41,6 +43,7 @@ public class Client implements LANLink.PacketReceiver {
 
     private SimpleStringProperty name;
     private SimpleObjectProperty<PairStatus> pairStatus;
+    private String osName, osVersion;
     private List<Notification> notifications = new ArrayList<>();
 
     public Client(JSONConverter json, LANLink link) {
@@ -48,7 +51,17 @@ public class Client implements LANLink.PacketReceiver {
         this.name = new SimpleStringProperty("Unknown");
         this.pairStatus = new SimpleObjectProperty<>(PairStatus.NotPaired);
         this.publicKey = null;
+        settings = PreferenceHelper.getDeviceConfigNode(clientID);
         addLink(json, link);
+    }
+
+    public Client(String clientID) {
+        this.clientID = clientID;
+        this.pairStatus = new SimpleObjectProperty<>(PairStatus.Paired);
+        settings = PreferenceHelper.getDeviceConfigNode(clientID);
+        name.set(settings.get("clientName", "Unknown"));
+        osName = settings.get("osName", "Unknown");
+        osVersion = settings.get("osVer", "xx");
     }
 
     public PairStatus getPairStatus() {
@@ -58,11 +71,6 @@ public class Client implements LANLink.PacketReceiver {
     public SimpleObjectProperty<PairStatus> pairStatusProperty() {
         return pairStatus;
     }
-
-//    public Client (String clientID){
-//        this.clientID = clientID;
-//        this.pairStatus = PairStatus.Paired;
-//    }
 
     public SimpleStringProperty nameProperty() {
         return name;
@@ -97,6 +105,14 @@ public class Client implements LANLink.PacketReceiver {
 
     public boolean isReachable() {
         return !links.isEmpty();
+    }
+
+    public boolean isConnected() {
+        boolean b = false;
+        for (LANLink link : links) {
+            System.out.println("Link is connected?" + (b = link.isConnected()));
+        }
+        return b;
     }
 
     public void acceptPairing() {
@@ -143,6 +159,7 @@ public class Client implements LANLink.PacketReceiver {
     }
 
     public boolean deviceShouldBeKeptAlive() {
+        if (PreferenceHelper.contains(getTrustedDeviceNode(), getClientID(), false)) return true;
         for (LANLink l : links) {
             if (l.linkShouldBeKeptAlive()) {
                 return true;
@@ -156,6 +173,7 @@ public class Client implements LANLink.PacketReceiver {
         System.out.println("Adding Link to Client ID: " + clientID);
         if (identityPacket.has("clientName")) {
             this.name.set(identityPacket.getString("clientName"));
+            settings.put("clientName", this.name.getValue());
         }
         if (identityPacket.has("certificate")) {
             System.out.println("Packet has a certificate!");
@@ -246,6 +264,13 @@ public class Client implements LANLink.PacketReceiver {
     private void pairingDone() {
         System.out.println("Pairing was a success!!!");
         pairStatus.set(PairStatus.Paired);
+        Preferences trustStore = getTrustedDeviceNode();
+        trustStore.putBoolean(clientID, true);
+        applyChanges(trustStore);
+
+        Preferences deviceStore = getDeviceConfigNode(clientID);
+        deviceStore.put("clientName", name.getValue());
+        applyChanges(deviceStore);
         for (PairingCallback pb : pairingCallback) {
             pb.pairingSuccessful(this);
         }
@@ -254,6 +279,19 @@ public class Client implements LANLink.PacketReceiver {
     private void unpairInternal() {
         System.out.println("Forcing an Unpair..");
         pairStatus.set(PairStatus.NotPaired);
+
+        Preferences trustStore = getTrustedDeviceNode();
+        trustStore.remove(clientID);
+        applyChanges(trustStore);
+
+        Preferences deviceStore = getDeviceConfigNode(clientID);
+        try {
+            deviceStore.clear();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
+        }
+        applyChanges(deviceStore);
+
         for (PairingCallback pb : pairingCallback) {
             pb.unpaired();
         }
@@ -310,6 +348,14 @@ public class Client implements LANLink.PacketReceiver {
 
     public void removePairingCallback(PairingCallback callback) {
         pairingCallback.remove(callback);
+    }
+
+    public String getOsName() {
+        return osName;
+    }
+
+    public String getOsVersion() {
+        return osVersion;
     }
 
     public enum PairStatus {

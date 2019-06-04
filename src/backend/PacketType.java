@@ -1,6 +1,4 @@
-package server.networking.helpers;
-
-import backend.JSONConverter;
+package backend;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
