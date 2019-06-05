@@ -6,31 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/backend/PreferenceHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/backend/RSAHelper.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Sockets now Communicate.&#10;SSL Handshake now completes sometimes, but not reliable.">
+      <change afterPath="$PROJECT_DIR$/src/ui/res/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/res/ic_launcher_background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/res/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/res/ic_launcher_round.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/DataLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/DataLoad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/JSONConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/JSONConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ConfigureViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Console.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/JSONViewerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/JSONViewerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runner/BackgroundThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/runner/BackgroundThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runner/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/runner/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runner/PopupHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/runner/PopupHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/helpers/FileHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/FileHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/helpers/IPHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/IPHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/helpers/PacketType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/PacketType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/helpers/RSAHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/helpers/SSLHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/SSLHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/linkHandlers/LANLink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/networking/linkHandlers/LANLink.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/linkHandlers/LANLinkHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/networking/linkHandlers/LANLinkHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/networking/linkHandlers/LANLinkProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/networking/linkHandlers/LANLinkProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/processing/NotiToTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/processing/NotiToTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/fxml/configureView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/fxml/configureView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/fxml/jsonviewer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/fxml/jsonviewer.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,41 +85,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/server/networking/linkHandlers/LANLinkProvider.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="311" column="15" selection-start-line="311" selection-start-column="15" selection-end-line="311" selection-end-column="15" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/backend/PreferenceHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="773">
-              <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1221#1222#0" expanded="true" />
-                <element signature="e#1276#1277#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/backend/RSAHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="28" column="53" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/gradle.xml">
           <provider selected="true" editor-type-id="text-editor" />
@@ -164,7 +110,7 @@
         <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -172,7 +118,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/backend/SSLHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
+            <state relative-caret-position="1122">
               <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -184,13 +130,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/runner/BackgroundThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="48" column="41" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+            <state relative-caret-position="199">
+              <caret line="70" column="16" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3924#3925#0" expanded="true" />
+                <element signature="e#3965#3966#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ui/res/ic_launcher_round.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/res/ic_launcher_background.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/res/ic_launcher_foreground.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -327,10 +290,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-1928" />
+    <option name="y" value="-133" />
     <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="height" value="1176" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -338,7 +301,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -388,12 +350,20 @@
             </path>
             <path>
               <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NotiToWinWindows2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NotiToWinWindows2" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -418,7 +388,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554452006459" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/StudioProjects/NotiToWin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ui/res" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -435,16 +405,17 @@
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="controller" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows2\src" />
-      <recent name="$PROJECT_DIR$/src/ui/fxml" />
-      <recent name="C:\Users\Max Ritchie\IdeaProjects\NotiToWinWindows1\src\ui" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows2\src\ui\res" />
       <recent name="$PROJECT_DIR$/src/server" />
       <recent name="$PROJECT_DIR$/src/server/Networking" />
       <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows2\src\backend" />
       <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows1\src\controller" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gamer\IdeaProjects\NotiToWinWindows2\src" />
+      <recent name="$PROJECT_DIR$/src/ui/fxml" />
+      <recent name="C:\Users\Max Ritchie\IdeaProjects\NotiToWinWindows1\src\ui" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -670,7 +641,9 @@
       <workItem from="1559603150298" duration="10483000" />
       <workItem from="1559603680253" duration="61000" />
       <workItem from="1559603951379" duration="8398000" />
-      <workItem from="1559626419428" duration="2755000" />
+      <workItem from="1559626419428" duration="3121000" />
+      <workItem from="1559673435143" duration="1860000" />
+      <workItem from="1559676371772" duration="3764000" />
     </task>
     <task id="LOCAL-00001" summary="Properly implemented DiscoveryThread, can now start and stop without error.">
       <created>1547144786327</created>
@@ -798,11 +771,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559449701994</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Sockets now Communicate.&#10;SSL Handshake now completes sometimes, but not reliable.">
+      <created>1559629289839</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1559629289840</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="291287000" />
+    <option name="totallyTimeSpent" value="297277000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -814,10 +794,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-133" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.503792" side_tool="true" visible="true" weight="0.12526652" />
-      <window_info id="Structure" order="1" sideWeight="0.496208" visible="true" weight="0.12526652" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.506232" side_tool="true" visible="true" weight="0.12739871" />
+      <window_info id="Structure" order="1" sideWeight="0.49376798" visible="true" weight="0.12739871" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="Image Layers" order="4" />
@@ -825,7 +806,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" x="72" y="310" width="767" height="239" id="Run" order="2" type="WINDOWED" visible="true" weight="0.25893825" />
+      <window_info anchor="bottom" x="-1217" y="226" width="767" height="239" id="Run" order="2" type="WINDOWED" visible="true" weight="0.25893825" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25785482" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -923,7 +904,8 @@
     <MESSAGE value="Begin of Restructure" />
     <MESSAGE value="update, changes and various fixes" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="Sockets now Communicate.&#10;SSL Handshake now completes sometimes, but not reliable." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sockets now Communicate.&#10;SSL Handshake now completes sometimes, but not reliable." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1023,7 +1005,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/server/networking/linkHandlers/LANLink.java</url>
-          <line>154</line>
+          <line>157</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
@@ -1047,19 +1029,15 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ui/css/jsonviewer.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="jar:///usr/share/javafx-sdk-12/lib/javafx.graphics.jar!/javafx/stage/Stage.class" />
     <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/net/AbstractPlainDatagramSocketImpl.java" />
     <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/io/DataInputStream.java" />
     <entry file="file://$PROJECT_DIR$/src/ui/fxml/notificationCard.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/NotiToWin.uml">
       <provider selected="true" editor-type-id="UmlEditorProvider">
@@ -1303,12 +1281,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/ClientOLD.java" />
     <entry file="file://$PROJECT_DIR$/src/ui/fxml/jsonviewer.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="720">
           <caret line="48" column="90" selection-start-line="48" selection-start-column="90" selection-end-line="48" selection-end-column="90" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1337,20 +1315,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/fxml/package-info.java" />
     <entry file="file://$PROJECT_DIR$/src/ui/fxml/pairPopup.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/fxml/configureView.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1513">
           <caret line="89" selection-start-line="89" selection-end-line="89" selection-end-column="7" />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/jdk/internal/misc/Unsafe.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1487,10 +1465,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/networking/linkHandlers/LANLinkProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4964">
+          <caret line="311" column="15" selection-start-line="311" selection-start-column="15" selection-end-line="311" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backend/PreferenceHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1802">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/RSAHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
-          <caret line="28" column="53" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+          <caret line="26" column="53" selection-start-line="26" selection-start-column="53" selection-end-line="26" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -1514,14 +1512,14 @@
     <entry file="file://$PROJECT_DIR$/src/backend/PacketType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/runner/NotiCardHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/backend/SSLHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        <state relative-caret-position="1122">
+          <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1539,47 +1537,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/SSLHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/runner/NotiCardHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
+        <state relative-caret-position="68">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/backend/PreferenceHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="773">
-          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1221#1222#0" expanded="true" />
-            <element signature="e#1276#1277#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/runner/BackgroundThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="48" column="41" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+        <state relative-caret-position="199">
+          <caret line="70" column="16" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3924#3925#0" expanded="true" />
+            <element signature="e#3965#3966#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/networking/linkHandlers/LANLinkProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="311" column="15" selection-start-line="311" selection-start-column="15" selection-end-line="311" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/ui/res/ic_launcher_foreground.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/res/ic_launcher_background.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/res/ic_launcher_round.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
   <component name="masterDetails">
