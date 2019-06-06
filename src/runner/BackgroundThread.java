@@ -47,7 +47,7 @@ public class BackgroundThread implements Runnable {
                     try {
                         int index = clientIndexMap.get(clientID);
                         client = clients.get(index);
-                    } catch (NullPointerException ignored) {
+                    } catch (NullPointerException | IndexOutOfBoundsException ignored) {
                         client = null;
                     }
                     if (client != null) {
@@ -93,8 +93,13 @@ public class BackgroundThread implements Runnable {
         return clients;
     }
 
-    public Client getClient(int index) {
-        return clients.get(index);
+    public String getClientString(int index) {
+        try {
+            Client client = clients.get(index);
+            return client.toString();
+        } catch (IndexOutOfBoundsException e) {
+            return "";
+        }
     }
 
     public void stop() {

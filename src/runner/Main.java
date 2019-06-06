@@ -14,9 +14,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Collection;
 
 public class Main extends Application {
@@ -46,14 +50,11 @@ public class Main extends Application {
     clientProperty.set(FXCollections.observableArrayList(clientList));
   }
 
-  private static void createTaskbarIcon() {
+  private static void createTaskbarIcon() throws IOException {
     TrayIcon trayIcon;
     if (SystemTray.isSupported()) {
       SystemTray tray = SystemTray.getSystemTray();
-      Image image =
-          Toolkit.getDefaultToolkit()
-                  .getImage("/ui/res/x.png")
-              .getScaledInstance(tray.getTrayIconSize().width, tray.getTrayIconSize().height, 0);
+      BufferedImage image = ImageIO.read(Main.class.getResource("/ui/res/ic_launcher_round.png"));
       PopupMenu popupMenu = new PopupMenu();
       MenuItem defaultItem = new MenuItem("Show");
       defaultItem.addActionListener(
@@ -75,7 +76,7 @@ public class Main extends Application {
       popupMenu.add(defaultItem);
       popupMenu.add(hideItem);
       popupMenu.add(quitItem);
-      trayIcon = new TrayIcon(image, "Test", popupMenu);
+      trayIcon = new TrayIcon(image, "NotiToWin", popupMenu);
       trayIcon.addActionListener(
           e ->
               Platform.runLater(
@@ -92,6 +93,7 @@ public class Main extends Application {
                       primaryStage.hide();
                     }
                   }));
+      trayIcon.setImageAutoSize(true);
       try {
         tray.add(trayIcon);
       } catch (AWTException e) {
@@ -126,6 +128,8 @@ public class Main extends Application {
     primaryStage.setScene(configureScene);
     primaryStage.setScene(JSONScene);
     primaryStage.setScene(configureScene);
+    Image image = new Image(String.valueOf(Main.class.getResource("/ui/res/ic_launcher_round.png")));
+    primaryStage.getIcons().add(image);
     primaryStage.show();
     primaryStage.setOnCloseRequest(windowEvent -> primaryStage.hide());
     primaryStage.requestFocus();

@@ -143,15 +143,26 @@ public class ConfigureViewController {
     @FXML
     private void printClients() {
         int index = clientList.getSelectionModel().getSelectedIndex();
-        if (index != -1) System.out.println(Main.backgroundThread.getClient(index));
+        if (index != -1) System.out.println(Main.backgroundThread.getClientString(index));
         else System.out.println("Nothing Selected!");
     }
 
     @FXML
     private void requestPairAction() {
         Client client = clientList.getSelectionModel().getSelectedItem();
-        if (client == null) return;
-        client.requestPairing();
+        if (client != null) {
+            System.out.println("Server Name: " + client.getName() + " clicked!");
+            if (!client.isPaired()) {
+                System.out.println("Server is not paired.");
+                if (client.isPairRequestedByPeer()) {
+                    System.out.println("Server's Connection is requested by peer.");
+                    client.acceptPairing();
+                } else {
+                    System.out.println("Server's Connection is not requested by peer.");
+                    client.requestPairing();
+                }
+            }
+        }
     }
 
     @FXML

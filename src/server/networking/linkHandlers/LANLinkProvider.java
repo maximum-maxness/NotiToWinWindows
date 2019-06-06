@@ -1,10 +1,8 @@
 package server.networking.linkHandlers;
 
-import backend.Client;
 import backend.JSONConverter;
 import backend.PacketType;
 import backend.PreferenceHelper;
-import runner.Main;
 
 import javax.net.SocketFactory;
 import java.io.BufferedReader;
@@ -162,14 +160,14 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
             Preferences trustedPrefs = PreferenceHelper.getTrustedDeviceNode();
             boolean isDeviceTrusted = trustedPrefs.getBoolean(clientID, false);
 
-            if (isDeviceTrusted) {
-                Client client = Main.backgroundThread.getClient(clientID);
-                if (client == null) return;
-                if (client.isConnected()) return;
-                client.unpair();
-                System.out.println("Re-trying as Unpaired!");
-                identityPacketReceived(json, socket, connectionStarted);
-            }
+//            if (isDeviceTrusted) {
+//                Client client = Main.backgroundThread.getClient(clientID);
+//                if (client == null) return;
+//                if (client.isConnected()) return;
+//                client.unpair();
+//                System.out.println("Re-trying as Unpaired!");
+//                identityPacketReceived(json, socket, connectionStarted);
+//            }
 
 //
 //            final SSLSocket sslSocket = SSLHelper.convertToSSLSocket(socket, clientID, SSLHelper.certificateIsStored(clientID), clientMode);
@@ -213,9 +211,11 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
         LANLink currentLink = visibleClients.get(clientID);
         if (currentLink != null) {
             System.out.println("Re Using Same Link for Client ID: " + clientID);
-//            if (currentLink.linkIsActive()) {
+            if (currentLink.isConnected() && (currentLink.getConnectionSource() != connectionStarted)) {
+                System.out.println("Already connected to server, reverse connection not needed.");
+                return;
+            }
             final Socket oldSocket = currentLink.reset(socket, connectionStarted);
-//            }
         } else {
             System.out.println("Creating a new Link for Client ID: " + clientID);
             LANLink link = new LANLink(clientID, this, socket, connectionStarted);

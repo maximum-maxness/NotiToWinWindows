@@ -30,6 +30,7 @@ public class LANLinkHandler { // TODO Finish and Implement
     }
 
     public void requestPairing() {
+        System.out.println("Sending Pair Packet!");
         Client.SendPacketStatusCallback callback =
                 new Client.SendPacketStatusCallback() {
 

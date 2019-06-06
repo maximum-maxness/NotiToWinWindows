@@ -8,7 +8,6 @@ import backend.RSAHelper;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.channels.NotYetConnectedException;
@@ -30,12 +29,12 @@ public class LANLink {
             String clientID,
             LANLinkProvider linkProvider,
             Socket socket,
-            ConnectionStarted connectionSource) {
+            ConnectionStarted connectionSource) throws IOException {
         this.clientID = clientID;
         this.linkProvider = linkProvider;
         this.connectionSource = connectionSource;
-        this.socket = socket;
         callback = linkProvider;
+        reset(socket, connectionSource);
     }
 
     public String getName() {
@@ -45,6 +44,10 @@ public class LANLink {
     public LANLinkHandler getPairingHandler(
             Client device, LANLinkHandler.PairingHandlerCallback callback) {
         return new LANLinkHandler(device, callback);
+    }
+
+    public ConnectionStarted getConnectionSource() {
+        return connectionSource;
     }
 
     public Socket reset(Socket newSocket, ConnectionStarted connectionSource) throws IOException {
@@ -64,6 +67,7 @@ public class LANLink {
                     try {
                         DataInputStream reader =
                                 new DataInputStream(newSocket.getInputStream());
+                        int errCount = 0;
                         while (true) {
                             String packet;
                             try {
@@ -71,12 +75,15 @@ public class LANLink {
                             } catch (SocketTimeoutException e) {
                                 continue;
                             }
-//                            }
+                            if (packet == null) {
+                                throw new IOException("End of Stream");
+                            }
                             if (packet.isEmpty()) {
                                 continue;
                             }
                             System.out.println("Data Received:\n" + packet);
                             JSONConverter json = JSONConverter.unserialize(packet);
+                            errCount = 0;
                             receivedNetworkPacket(json);
                         }
                     } catch (IOException e) {
@@ -102,16 +109,16 @@ public class LANLink {
         }
 
         try {
-            final ServerSocket server; //TODO Implement DataLoad Sending
+//            final ServerSocket server; //TODO Implement DataLoad Sending
 
-            if (key != null) {
-                System.out.println("Encrypting Packet...");
-                json = RSAHelper.encrypt(json, key);
-                System.out.println("Packet encrypted successfully!");
-            }
-
+//            if (key != null) {
+//                System.out.println("Encrypting Packet...");
+//                json = RSAHelper.encrypt(json, key);
+//                System.out.println("Packet encrypted successfully!");
+//            }
+            System.err.println("InputStream Available? " + socket.getInputStream().available());
             try {
-                DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
+                DataOutputStream writer = new DataOutputStream(this.socket.getOutputStream());
                 writer.writeUTF(json.serialize());
                 writer.flush();
 //                writer.close();

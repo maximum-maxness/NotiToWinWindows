@@ -122,7 +122,7 @@ public class Client implements LANLink.PacketReceiver {
     }
 
     public void requestPairing() {
-
+        System.out.println("Requesting to pair to " + name.getName());
 
         if (isPaired()) {
             for (PairingCallback cb : pairingCallback) {
@@ -369,9 +369,14 @@ public class Client implements LANLink.PacketReceiver {
         returnString.append("Client Name: ").append(getName()).append("\n");
         returnString.append("Client ID: ").append(getClientID()).append("\n");
         returnString.append("Pair Status: ").append(getPairStatus()).append("\n");
+        returnString.append("Links: ").append("\n");
+        for (LANLink link : links) {
+            returnString.append("  - Name: ").append(link.getName()).append("\n    ");
+            returnString.append("  Connected: ").append(link.isConnected()).append("\n");
+        }
         returnString.append("Client Notifications:").append("\n");
         for (Notification noti : this.notifications) {
-            if (noti != null) returnString.append(noti.toString()).append("\n");
+            if (noti != null) returnString.append("  ").append(noti.toString()).append("\n");
         }
         return returnString.toString();
     }
