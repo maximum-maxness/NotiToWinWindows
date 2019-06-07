@@ -1,10 +1,7 @@
 package controller;
 
 import backend.Client;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -24,7 +21,7 @@ public class ConfigureViewController {
 
     private TableColumn nameCol = new TableColumn("Name");
     private TableColumn pairCol = new TableColumn("Pair Status");
-    //  private TableColumn confirmedCol = new TableColumn("Is Confirmed?");
+    private TableColumn trustedCol = new TableColumn("Trusted");
 //  private TableColumn hasThreadCol = new TableColumn("Has Thread?");
     private ListProperty<Client> clientProperty = new SimpleListProperty<>();
     private Executor executor;
@@ -81,17 +78,17 @@ public class ConfigureViewController {
                                 return new SimpleObjectProperty<Client.PairStatus>(Client.PairStatus.NotPaired);
                             }
                         });
-/*
-    confirmedCol.setCellValueFactory(
-        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
+
+        trustedCol.setCellValueFactory(
+                (Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>)
             param -> {
               if (param.getValue() != null) {
-                return param.getValue().confirmedProperty();
+                  return param.getValue().trustedProperty();
               } else {
                 return new SimpleBooleanProperty(false);
               }
             });
-    hasThreadCol.setCellValueFactory(
+/*    hasThreadCol.setCellValueFactory(
         (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
             param -> {
               if (param.getValue() != null) {
@@ -105,7 +102,7 @@ public class ConfigureViewController {
 
         clientList.setItems(clientProperty);
         clientProperty.set(FXCollections.observableArrayList(Main.backgroundThread.getClients()));
-        clientList.getColumns().addAll(nameCol, pairCol);
+        clientList.getColumns().addAll(nameCol, pairCol, trustedCol);
         clientList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() >= 0) {
                 yesPairButton.setDisable(false);

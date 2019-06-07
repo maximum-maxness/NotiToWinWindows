@@ -21,7 +21,9 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Main extends Application {
   private static final int STAGE_WIDTH = 900;
@@ -32,6 +34,13 @@ public class Main extends Application {
   static Stage primaryStage;
   private static Scene configureScene, JSONScene;
   public static BackgroundThread backgroundThread;
+  private static final BackgroundThread.DeviceListChangedCallback deviceListChangedCallback = new BackgroundThread.DeviceListChangedCallback() {
+    @Override
+    public void onDeviceListChanged() {
+      AtomicReference<ArrayList<Client>> clients = new AtomicReference<>(backgroundThread.getClients());
+      updateClientList(clients.get());
+    }
+  };
 
   public static void changeViewToJSON() {
     primaryStage.setScene(JSONScene);
@@ -136,5 +145,6 @@ public class Main extends Application {
     Parent notiParent = FXMLLoader.load(getClass().getResource("/ui/fxml/notificationCard.fxml"));
     NotiCardHelper.initialize(notiParent);
     createTaskbarIcon();
+    backgroundThread.addClientListChangedCallback("main", deviceListChangedCallback);
   }
 }

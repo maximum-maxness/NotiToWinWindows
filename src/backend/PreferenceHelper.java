@@ -84,6 +84,15 @@ public class PreferenceHelper {
         }
     }
 
+    public static String[] getAllKeys(Preferences node) {
+        try {
+            return node.keys();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
+            return new String[0];
+        }
+    }
+
     public static Boolean[] getAllBooleans(Preferences node) {
         try {
             String[] keys = node.keys();

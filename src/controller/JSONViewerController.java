@@ -19,119 +19,123 @@ import java.util.Date;
 
 public class JSONViewerController {
 
-  private ListProperty<Client> clientProperty = new SimpleListProperty<>();
-  private int currentClient;
+    private ListProperty<Client> clientProperty = new SimpleListProperty<>();
+    private int currentClient;
 
-  @FXML private Button toConfigButton;
+    @FXML
+    private Button toConfigButton;
 
-  @FXML private ListView<Notification> notiList;
+    @FXML
+    private ListView<Notification> notiList;
 
-  @FXML private ChoiceBox<Client> clientList;
+    @FXML
+    private ChoiceBox<Client> clientList;
 
-  @FXML private TreeView<String> jsonTree;
+    @FXML
+    private TreeView<String> jsonTree;
 
-  @FXML private ImageView iconView;
-  //
-  //    JSONViewerController(){
-  //
-  //    }
+    @FXML
+    private ImageView iconView;
+    //
+    //    JSONViewerController(){
+    //
+    //    }
 
-  @FXML
-  private void initialize() {
-    initList();
-    initChoiceBox();
-  }
-
-  private void initChoiceBox() {
-    clientList.setConverter(
-        new StringConverter<Client>() {
-          @Override
-          public String toString(Client object) {
-            return object.getName();
-          }
-
-          @Override
-          public Client fromString(String string) {
-            return null;
-          }
-        });
-    clientList.setItems(clientProperty);
-    clientProperty.set(FXCollections.observableArrayList(Main.backgroundThread.getClients()));
-
-    clientList
-        .getSelectionModel()
-        .selectedIndexProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              if (newValue.intValue() != -1) updateNotiList(newValue.intValue());
-              System.err.println("Client at index: " + newValue.intValue() + " Selected!");
-            });
-  }
-
-  private void updateNotiList(int index) {
-    currentClient = index;
-    ListProperty notiListProp = new SimpleListProperty();
-
-    notiList.setItems(notiListProp);
-    notiListProp.set(
-        FXCollections.observableArrayList(
-            Main.backgroundThread.getClients()));
-
-    notiList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-    notiList
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              getSelectedNoti(newValue);
-            });
-  }
-
-  public void refreshNotis() {
-    if (currentClient != -1) updateNotiList(currentClient);
-  }
-
-  private void getSelectedNoti(Notification noti) {
-    if (noti != null) {
-      iconView.setImage(new Image(noti.getIconInputStream()));
-      //            noti.display();
-      TreeItem<String> root = NotiToTree.convert(noti);
-      NotiToTree.expandTreeView(root);
-      jsonTree.setRoot(root);
+    @FXML
+    private void initialize() {
+        initList();
+        initChoiceBox();
     }
-  }
 
-  private void initList() {
-    notiList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-    notiList.setCellFactory(
-        new Callback<ListView<Notification>, ListCell<Notification>>() {
-          @Override
-          public ListCell<Notification> call(ListView param) {
-            ListCell<Notification> cell =
-                new ListCell<Notification>() {
-                  @Override
-                  protected void updateItem(Notification item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item != null) {
-                      PrettyTime pt = new PrettyTime();
-                      setText(item.getAppName() + " - " + pt.format(new Date(item.getTimeStamp())));
-                    } else {
-                      setText("");
+    private void initChoiceBox() {
+        clientList.setConverter(
+                new StringConverter<Client>() {
+                    @Override
+                    public String toString(Client object) {
+                        return object.getName();
                     }
-                  }
-                };
-            return cell;
-          }
-        });
-  }
 
-  @FXML
-  private void changeBoxSelection() {}
+                    @Override
+                    public Client fromString(String string) {
+                        return null;
+                    }
+                });
+        clientList.setItems(clientProperty);
+        clientProperty.set(FXCollections.observableArrayList(Main.backgroundThread.getClients()));
 
-  @FXML
-  private void changeViewToConfig() {
-    Main.changeViewToConfig();
-    notiList.setItems(FXCollections.emptyObservableList());
-  }
+        clientList
+                .getSelectionModel()
+                .selectedIndexProperty()
+                .addListener(
+                        (observable, oldValue, newValue) -> {
+                            if (newValue.intValue() != -1) updateNotiList(newValue.intValue());
+                            System.err.println("Client at index: " + newValue.intValue() + " Selected!");
+                        });
+    }
+
+    private void updateNotiList(int index) {
+        currentClient = index;
+        ListProperty notiListProp = new SimpleListProperty();
+
+        notiList.setItems(notiListProp);
+        notiListProp.set(
+                FXCollections.observableArrayList(
+                        Main.backgroundThread.getClients().get(index).getNotificationList()));
+
+        notiList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        notiList
+                .getSelectionModel()
+                .selectedItemProperty()
+                .addListener(
+                        (observable, oldValue, newValue) -> {
+                            getSelectedNoti(newValue);
+                        });
+    }
+
+    public void refreshNotis() {
+        if (currentClient != -1) updateNotiList(currentClient);
+    }
+
+    private void getSelectedNoti(Notification noti) {
+        if (noti != null) {
+            iconView.setImage(new Image(noti.getIconInputStream()));
+            //            noti.display();
+            TreeItem<String> root = NotiToTree.convert(noti);
+            NotiToTree.expandTreeView(root);
+            jsonTree.setRoot(root);
+        }
+    }
+
+    private void initList() {
+        notiList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        notiList.setCellFactory(
+                new Callback<ListView<Notification>, ListCell<Notification>>() {
+                    @Override
+                    public ListCell<Notification> call(ListView param) {
+                        return new ListCell<Notification>() {
+                            @Override
+                            protected void updateItem(Notification item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    PrettyTime pt = new PrettyTime();
+                                    setText(item.getAppName() + " - " + pt.format(new Date(item.getTimeStamp())));
+                                } else {
+                                    setText("");
+                                }
+                            }
+                        };
+                    }
+                });
+    }
+
+    @FXML
+    private void changeBoxSelection() {
+    }
+
+    @FXML
+    private void changeViewToConfig() {
+        Main.changeViewToConfig();
+        notiList.setItems(FXCollections.emptyObservableList());
+    }
 }

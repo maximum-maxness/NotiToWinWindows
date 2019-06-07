@@ -227,4 +227,18 @@ public class JSONConverter extends JSONObject {
     jo.put("body", mainBody);
     return jo.toString().replace("\\/", "/") + "\n";
   }
+
+  private DataLoad dataLoad;
+
+  public DataLoad getDataLoad() {
+    return this.dataLoad;
+  }
+
+  public void setDataLoad(DataLoad dataLoad) {
+    this.dataLoad = dataLoad;
+  }
+
+  public boolean hasDataLoad() {
+    return dataLoad != null;
+  }
 }

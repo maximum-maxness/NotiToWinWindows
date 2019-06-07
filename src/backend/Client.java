@@ -1,6 +1,7 @@
 package backend;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import server.networking.linkHandlers.LANLink;
@@ -43,6 +44,7 @@ public class Client implements LANLink.PacketReceiver {
 
     private SimpleStringProperty name;
     private SimpleObjectProperty<PairStatus> pairStatus;
+    private SimpleBooleanProperty trusted;
     private String osName, osVersion;
     private List<Notification> notifications = new ArrayList<>();
 
@@ -52,6 +54,7 @@ public class Client implements LANLink.PacketReceiver {
         this.pairStatus = new SimpleObjectProperty<>(PairStatus.NotPaired);
         this.publicKey = null;
         settings = PreferenceHelper.getDeviceConfigNode(clientID);
+        trusted = new SimpleBooleanProperty(false);
         addLink(json, link);
     }
 
@@ -59,13 +62,18 @@ public class Client implements LANLink.PacketReceiver {
         this.clientID = clientID;
         this.pairStatus = new SimpleObjectProperty<>(PairStatus.Paired);
         settings = PreferenceHelper.getDeviceConfigNode(clientID);
-        name.set(settings.get("clientName", "Unknown"));
+        name = new SimpleStringProperty(settings.get("clientName", "Unknown"));
         osName = settings.get("osName", "Unknown");
         osVersion = settings.get("osVer", "xx");
+        trusted = new SimpleBooleanProperty(true);
     }
 
     public PairStatus getPairStatus() {
         return pairStatus.get();
+    }
+
+    public SimpleBooleanProperty trustedProperty() {
+        return trusted;
     }
 
     public SimpleObjectProperty<PairStatus> pairStatusProperty() {
@@ -89,6 +97,14 @@ public class Client implements LANLink.PacketReceiver {
                 }
             }
         } else if (isPaired()) {
+            if (PacketType.NOTIFICATION.equals(json.getType())) {
+                System.out.println("Notification Packet!");
+                Notification notification = Notification.jsonToNoti(json);
+                addNoti(notification);
+            } else {
+                System.err.println("No.");
+            }
+
             //Case while paired, will implement later.
         } else {
             unpair();
@@ -228,20 +244,8 @@ public class Client implements LANLink.PacketReceiver {
                         }
                     };
             pairingHandlers.put(link.getName(), link.getPairingHandler(this, callback));
-            link.addPacketReceiver(this);
         }
-
-//        link.addPacketReceiver(this);
-//        requestThread = new Thread(() -> {
-//            String sendTestString = Main.getDecision("Request Pairing? Y/N");
-//            sendTestString = sendTestString.toUpperCase();
-//            if (sendTestString.equals("Y")) {
-//                requestPairing();
-//            } else {
-//                unpair();
-//            }
-//        });
-//        requestThread.start();
+        link.addPacketReceiver(this);
     }
 
     public void removeLink(LANLink link) {
@@ -268,6 +272,7 @@ public class Client implements LANLink.PacketReceiver {
         trustStore.putBoolean(clientID, true);
         applyChanges(trustStore);
 
+        trusted.set(true);
         Preferences deviceStore = getDeviceConfigNode(clientID);
         deviceStore.put("clientName", name.getValue());
         applyChanges(deviceStore);

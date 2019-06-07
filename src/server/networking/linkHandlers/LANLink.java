@@ -1,13 +1,10 @@
 package server.networking.linkHandlers;
 
-import backend.Client;
-import backend.JSONConverter;
-import backend.PacketType;
-import backend.RSAHelper;
+import backend.*;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.channels.NotYetConnectedException;
@@ -109,13 +106,19 @@ public class LANLink {
         }
 
         try {
-//            final ServerSocket server; //TODO Implement DataLoad Sending
+            final ServerSocket server;
+            if (json.getBoolean("hasDataLoad", false)) {
+                server = LANLinkProvider.openTCPServerOnFreePort();
+                json.put("dataLoadPort", server.getLocalPort());
+            } else {
+                server = null;
+            }
 
-//            if (key != null) {
-//                System.out.println("Encrypting Packet...");
-//                json = RSAHelper.encrypt(json, key);
-//                System.out.println("Packet encrypted successfully!");
-//            }
+            if (key != null) { //FIXME We dont need to encrypt once we have sslsockets working properly.
+                System.out.println("Encrypting Packet...");
+                json = RSAHelper.encrypt(json, key);
+                System.out.println("Packet encrypted successfully!");
+            }
             System.err.println("InputStream Available? " + socket.getInputStream().available());
             try {
                 DataOutputStream writer = new DataOutputStream(this.socket.getOutputStream());
@@ -126,6 +129,58 @@ public class LANLink {
                 disconnect(); // main socket is broken, disconnect
                 e.printStackTrace();
             }
+
+            if (server != null) {
+                Socket payloadSocket = null;
+                OutputStream outputStream = null;
+                InputStream inputStream;
+                try {
+                    server.setSoTimeout(10000);
+
+                    payloadSocket = server.accept();
+
+//                    payloadSocket = SSLHelper.convertToSSLSocket(payloadSocket, getClientID(), true, false);
+
+                    outputStream = payloadSocket.getOutputStream();
+                    inputStream = json.getDataLoad().getInputStream();
+
+                    System.out.println("Sending DataLoad!");
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    long size = json.getDataLoad().getSize();
+                    long progress = 0;
+                    long timeSinceLastUpdate = -1;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        progress += bytesRead;
+                        outputStream.write(buffer, 0, bytesRead);
+                        if (size > 0) {
+                            if (timeSinceLastUpdate + 500 < System.currentTimeMillis()) {
+                                long percent = ((100 * progress) / size);
+                                callback.onProgressChanged((int) percent);
+                                timeSinceLastUpdate = System.currentTimeMillis();
+                            }
+                        }
+                    }
+                    outputStream.flush();
+                    System.out.println("Finished Sending DataLoad, " + progress + " bytes written.");
+                } finally {
+                    try {
+                        server.close();
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        payloadSocket.close();
+                    } catch (Exception ignored) {
+                    }
+                    json.getDataLoad().getInputStream().close();
+                    try {
+                        outputStream.close();
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+
+
             callback.onSuccess();
             return true;
         } catch (Exception e) {
@@ -158,11 +213,34 @@ public class LANLink {
                 e.printStackTrace();
             }
         }
+
+        if (json.getBoolean("hasDataLoad", false)) {
+            System.out.println("Receiving DataLoad!");
+            Socket dataLoadSocket = new Socket();
+            try {
+                int tcpPort = json.getInt("dataLoadPort");
+                InetSocketAddress deviceAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+                System.out.println("Connecting to DataLoad server on port " + tcpPort);
+                dataLoadSocket.connect(new InetSocketAddress(deviceAddress.getAddress(), tcpPort));
+                System.out.println("Connected!");
+//                dataLoadSocket = SSLHelper.convertToSSLSocket(dataLoadSocket, getClientID(), true, true);
+//                System.out.println("Converted!");
+                json.setDataLoad(new DataLoad(dataLoadSocket.getInputStream(), json.getLong("dataLoadSize")));
+            } catch (Exception e) {
+                try {
+                    dataLoadSocket.close();
+                } catch (Exception ignored) {
+                }
+                e.printStackTrace();
+            }
+
+        }
+
         packageReceived(json);
     }
 
     private void packageReceived(JSONConverter json) {
-        System.out.println("Sending Packet to all Receivers!");
+        System.out.println("Sending Packet to all Receivers! (Size = " + receivers.size() + ")");
         for (PacketReceiver pr : receivers) {
             pr.onPacketReceived(json);
         }

@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="1.7976931348623157E308"
-            prefHeight="130.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.172-ea">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxWidth="1.7976931348623157E308" prefHeight="130.0"
+            prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.172-ea">
     <children>
         <VBox fx:id="vBox1" maxWidth="1.7976931348623157E308" prefHeight="130.0" prefWidth="350.0">
             <children>
@@ -39,13 +39,14 @@
                     <children>
                         <ImageView fx:id="icon" fitHeight="94.0" fitWidth="94.0" pickOnBounds="true"
                                    preserveRatio="true"/>
-                        <VBox fx:id="vBox4" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="250.0">
+                        <VBox fx:id="vBox4" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="246.0">
                             <children>
                                 <Label fx:id="title" maxWidth="1.7976931348623157E308" text="Noti Title" wrapText="true"
                                        VBox.vgrow="ALWAYS"/>
                                 <Pane prefHeight="6.0" prefWidth="100.0"/>
                                 <Label fx:id="text" maxWidth="1.7976931348623157E308" text="Noti Text" wrapText="true"
                                        VBox.vgrow="ALWAYS"/>
+                                <Pane minHeight="0.0" minWidth="0.0" prefHeight="39.0" prefWidth="236.0"/>
                             </children>
                             <padding>
                                 <Insets left="10.0"/>
@@ -56,6 +57,14 @@
                         <Insets left="5.0" right="5.0" top="10.0"/>
                     </VBox.margin>
                 </HBox>
+                <Pane fx:id="replyBar" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="39.0" prefWidth="350.0">
+                    <children>
+                        <TextField fx:id="replyField" prefHeight="39.0" prefWidth="264.0"/>
+                        <Button fx:id="replyButton" layoutX="264.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                                minHeight="-Infinity" minWidth="44.0" mnemonicParsing="false" prefHeight="39.0"
+                                prefWidth="85.0" text="Reply"/>
+                    </children>
+                </Pane>
             </children>
         </VBox>
     </children>

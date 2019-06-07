@@ -51,8 +51,10 @@ public class BackgroundThread implements Runnable {
                         client = null;
                     }
                     if (client != null) {
+                        System.out.println("addlink, known device " + client.getName());
                         client.addLink(identityPacket, link);
                     } else {
+                        System.out.println("addlink, unknown device");
                         client = new Client(identityPacket, link);
                         if (client.isPaired()
                                 || client.isPairRequested()
@@ -153,27 +155,34 @@ public class BackgroundThread implements Runnable {
         clientListChangedCallbacks.remove(key);
     }
 
-    private void loadSavedDevicesFromSettings() {
-        Preferences trustStore = PreferenceHelper.getDeviceConfigStore();
-        String[] trustedDevices = PreferenceHelper.getAllStrings(trustStore);
-        for (String clientID : trustedDevices) {
-            if (trustStore.getBoolean(clientID, false)) {
-                Client client = new Client(clientID);
-                clients.add(client);
-                clientIndexMap.put(clientID, clientIndexMap.size());
-                client.addPairingCallback(devicePairingCallback);
-            }
-        }
+    public BackgroundThread() {
+        loadSavedDevicesFromSettings();
     }
 
     @Override
     public void run() {
-        loadSavedDevicesFromSettings();
         registerLinkProviders();
         addConnectionListener(deviceListener);
         for (LANLinkProvider llp : linkProviders) {
             llp.onStart();
         }
+    }
+
+    private void loadSavedDevicesFromSettings() {
+        System.out.println("Loading trusted devices...");
+        Preferences trustStore = PreferenceHelper.getTrustedDeviceNode();
+        String[] trustedDevices = PreferenceHelper.getAllKeys(trustStore);
+        for (String clientID : trustedDevices) {
+            System.out.println("Found client " + clientID);
+            if (trustStore.getBoolean(clientID, false)) {
+                Client client = new Client(clientID);
+                clients.add(client);
+                clientIndexMap.put(clientID, clientIndexMap.size());
+                client.addPairingCallback(devicePairingCallback);
+                System.out.println("Added trusted client " + client.getName() + " from store.");
+            }
+        }
+        onClientListChanged();
     }
 
     public interface DeviceListChangedCallback {
