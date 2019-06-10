@@ -22,7 +22,7 @@ public class ConfigureViewController {
     private TableColumn nameCol = new TableColumn("Name");
     private TableColumn pairCol = new TableColumn("Pair Status");
     private TableColumn trustedCol = new TableColumn("Trusted");
-//  private TableColumn hasThreadCol = new TableColumn("Has Thread?");
+    private TableColumn connectedCol = new TableColumn("Connected");
     private ListProperty<Client> clientProperty = new SimpleListProperty<>();
     private Executor executor;
 
@@ -53,7 +53,7 @@ public class ConfigureViewController {
         Console console = new Console(logOutput);
         PrintStream ps = new PrintStream(console, true);
         executor = Executors.newSingleThreadExecutor();
-//    System.setOut(ps);
+        System.setOut(ps);
         //        System.setErr(ps);
     }
 
@@ -81,28 +81,28 @@ public class ConfigureViewController {
 
         trustedCol.setCellValueFactory(
                 (Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>)
-            param -> {
-              if (param.getValue() != null) {
-                  return param.getValue().trustedProperty();
-              } else {
-                return new SimpleBooleanProperty(false);
-              }
-            });
-/*    hasThreadCol.setCellValueFactory(
-        (Callback<TableColumn.CellDataFeatures<ClientOLD, Boolean>, ObservableValue<Boolean>>)
-            param -> {
-              if (param.getValue() != null) {
-                return param.getValue().hasThreadProperty();
-              } else {
-                return new SimpleBooleanProperty(false);
-              }
-            });
-*/
+                        param -> {
+                            if (param.getValue() != null) {
+                                return param.getValue().trustedProperty();
+                            } else {
+                                return new SimpleBooleanProperty(false);
+                            }
+                        });
+        connectedCol.setCellValueFactory(
+                (Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>)
+                        param -> {
+                            if (param.getValue() != null) {
+
+                                return param.getValue().connectedProperty();
+                            } else {
+                                return new SimpleBooleanProperty(false);
+                            }
+                        });
 
 
         clientList.setItems(clientProperty);
         clientProperty.set(FXCollections.observableArrayList(Main.backgroundThread.getClients()));
-        clientList.getColumns().addAll(nameCol, pairCol, trustedCol);
+        clientList.getColumns().addAll(nameCol, pairCol, trustedCol, connectedCol);
         clientList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() >= 0) {
                 yesPairButton.setDisable(false);

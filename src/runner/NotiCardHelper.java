@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -22,8 +23,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSUES) Look at
-    // https://github.com/goxr3plus/FX-BorderlessScene ?
+public class NotiCardHelper { // TODO BETTER IMPLEMENTATION (FOCUSING ISSUES) Look at https://github.com/goxr3plus/FX-BorderlessScene ?
     private static final int CARD_WIDTH = 350;
     private static final int CARD_HEIGHT = 162;
     private static final int DISTANCE_FROM_SIDES = 25;
@@ -32,6 +32,8 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
     private static Stage notiStage;
     private static Scene notiScene;
     private static List<Notification> queue = new ArrayList<>();
+    private static Notification NOTI_PLACEHOLDER = new Notification();
+    private static Notification currentlyDisplayedNoti = NOTI_PLACEHOLDER;
     private static boolean timerGoing = false;
     private static boolean hasQueue = false;
     private static Timer timer = new Timer();
@@ -63,12 +65,15 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
         if (!timerGoing && !hasQueue) {
             processNoti(noti, false);
         } else {
-            queue.add(noti);
-            hasQueue = true;
+            if (!queue.contains(noti) && currentlyDisplayedNoti != noti) {
+                queue.add(noti);
+                hasQueue = true;
+            }
         }
     }
 
     private static void processNoti(Notification noti, boolean lastInQueue) {
+        currentlyDisplayedNoti = noti;
         NotificationCard card = new NotificationCard(notiScene);
         card.setNotification(noti);
         Dimension screenSize =
@@ -108,6 +113,7 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
                         while (true)
                             if (!NotificationCard.replying) {
                                 Platform.runLater(tt);
+                                currentlyDisplayedNoti = NOTI_PLACEHOLDER;
                                 timerGoing = false;
                                 Platform.runLater(processQueue);
                                 break;
@@ -178,6 +184,7 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
                         timer.purge();
                         notiStage.hide();
                         tempStage.hide();
+                        replyField.setText("");
                         timerGoing = false;
                         replying = false;
                         Platform.runLater(processQueue);
@@ -201,29 +208,36 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
                     replying = true;
                     System.out.println("Reply field clicked!");
                 });
-                replyButton.setOnAction(actionEvent -> {
-                    replying = false;
-                    Client.SendPacketStatusCallback callback = new Client.SendPacketStatusCallback() {
-                        @Override
-                        public void onSuccess() {
-                            notiStage.hide();
-                            tempStage.hide();
-                            replyField.clear();
-                        }
-
-                        @Override
-                        public void onFailure(Throwable e) {
-                            e.printStackTrace();
-                        }
-                    };
-                    sendReply(noti.getRequestReplyId(), replyField.getText(), noti.getClientID(), callback);
-
+                replyButton.setOnAction(actionEvent -> replyAction(noti));
+                replyField.setOnKeyPressed(ke -> {
+                    if (ke.getCode().equals(KeyCode.ENTER)) {
+                        replyAction(noti);
+                    }
                 });
                 replyField.requestFocus();
             } else {
                 replyBar.setVisible(false);
                 replyBar.setDisable(true);
             }
+        }
+
+        private void replyAction(Notification noti) {
+            replying = false;
+            Client.SendPacketStatusCallback callback = new Client.SendPacketStatusCallback() {
+                @Override
+                public void onSuccess() {
+                    currentlyDisplayedNoti = NOTI_PLACEHOLDER;
+                    notiStage.hide();
+                    tempStage.hide();
+                    replyField.clear();
+                }
+
+                @Override
+                public void onFailure(Throwable e) {
+                    e.printStackTrace();
+                }
+            };
+            sendReply(noti.getRequestReplyId(), replyField.getText(), noti.getClientID(), callback);
         }
 
         void sendReply(String replyID, String message, String clientID, Client.SendPacketStatusCallback callback) {

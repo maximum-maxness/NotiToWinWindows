@@ -30,17 +30,18 @@
         </AnchorPane>
         <AnchorPane>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Configure" textAlignment="CENTER" textFill="$x2" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <JFXTextArea fx:id="logOutput" layoutY="376.0" prefHeight="200.0" prefWidth="670.0"
-                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                         AnchorPane.topAnchor="376.0"/>
+            <JFXTextArea fx:id="logOutput" editable="false" layoutY="376.0" prefHeight="200.0" prefWidth="670.0"
+                         style="-fx-background-color: #D3D3D3;" styleClass="log" AnchorPane.bottomAnchor="0.0"
+                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="376.0">
+            </JFXTextArea>
             <Label text="LOG" textFill="#9f9f9f" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="360.0" />
             <VBox layoutY="38.0" prefHeight="337.0" prefWidth="670.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
                 <HBox prefHeight="34.0" prefWidth="222.0">
                     <Pane prefHeight="330.0" prefWidth="8.0" />
                     <JFXButton fx:id="startServerButton" mnemonicParsing="false" onAction="#startServer"
-                               prefHeight="33.0" prefWidth="105.0" text="Start Server"/>
+                               prefHeight="33.0" prefWidth="105.0" ripplerFill="#218304" text="Start Server"/>
                     <JFXButton fx:id="stopServerButton" disable="true" mnemonicParsing="false" onAction="#stopServer"
-                               prefHeight="33.0" prefWidth="105.0" text="Stop Server"/>
+                               prefHeight="33.0" prefWidth="105.0" ripplerFill="#a40b0b" text="Stop Server"/>
                     <!--<Button mnemonicParsing="false" text="Send Ready" fx:id="sendReadyButton" onAction="#sendReady"/>-->
                 </HBox>
                 <HBox prefHeight="17.0" prefWidth="670.0">
@@ -62,16 +63,17 @@
                 <Label text="Clients" textFill="#9f9f9f" />
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="printClients" mnemonicParsing="false" onAction="#printClients" prefHeight="49.0" prefWidth="176.0" text="Print out Selected Client" />
+                        <JFXButton fx:id="printClients" mnemonicParsing="false" onAction="#printClients"
+                                   prefHeight="49.0" prefWidth="176.0" text="Print Out Selected Client"/>
                         <Pane prefHeight="100.0" prefWidth="20.0"/>
                         <VBox prefHeight="100.0" prefWidth="216.0">
                             <children>
-                                <Button fx:id="yesPairButton" disable="true" mnemonicParsing="false"
-                                        onAction="#requestPairAction" prefHeight="50.0" prefWidth="222.0"
-                                        text="Request Pairing"/>
-                                <Button fx:id="noPairButton" disable="true" mnemonicParsing="false"
-                                        onAction="#unpairAction" prefHeight="50.0" prefWidth="243.0"
-                                        text="Unpair Button"/>
+                                <JFXButton fx:id="yesPairButton" disable="true" mnemonicParsing="false"
+                                           onAction="#requestPairAction" prefHeight="50.0" prefWidth="222.0"
+                                           text="Request Pairing"/>
+                                <JFXButton fx:id="noPairButton" disable="true" mnemonicParsing="false"
+                                           onAction="#unpairAction" prefHeight="50.0" prefWidth="243.0"
+                                           text="Unpair Button"/>
                             </children>
                         </VBox>
                     </children>
@@ -92,6 +94,5 @@
             </textFill>
         </Label>
         <Pane HBox.hgrow="ALWAYS" />
-        <Label font="$x3" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER" />
     </HBox>
 </VBox>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -12,9 +11,11 @@
         <Label fx:id="prompt" layoutX="14.0" layoutY="14.0" text="Accept Pairing From &lt;name&gt;?"/>
         <VBox layoutY="36.0" prefHeight="137.0" prefWidth="300.0">
             <children>
-                <Button fx:id="acceptButton" mnemonicParsing="false" prefHeight="61.0" prefWidth="300.0" text="Yes"/>
+                <JFXButton fx:id="acceptButton" mnemonicParsing="false" prefHeight="61.0" prefWidth="300.0"
+                           ripplerFill="#218304" text="Yes"/>
                 <Pane prefHeight="13.0" prefWidth="300.0"/>
-                <Button fx:id="rejectButton" mnemonicParsing="false" prefHeight="61.0" prefWidth="300.0" text="No"/>
+                <JFXButton fx:id="rejectButton" mnemonicParsing="false" prefHeight="61.0" prefWidth="300.0"
+                           ripplerFill="#a40b0b" text="No"/>
             </children>
         </VBox>
         <Label fx:id="timer" layoutX="258.0" layoutY="178.0" text="0:30"/>

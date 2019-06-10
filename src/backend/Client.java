@@ -44,7 +44,7 @@ public class Client implements LANLink.PacketReceiver {
 
     private SimpleStringProperty name;
     private SimpleObjectProperty<PairStatus> pairStatus;
-    private SimpleBooleanProperty trusted;
+    private SimpleBooleanProperty trusted, connected;
     private String osName, osVersion;
     private List<Notification> notifications = new ArrayList<>();
 
@@ -55,6 +55,7 @@ public class Client implements LANLink.PacketReceiver {
         this.publicKey = null;
         settings = PreferenceHelper.getDeviceConfigNode(clientID);
         trusted = new SimpleBooleanProperty(false);
+        connected = new SimpleBooleanProperty(false);
         addLink(json, link);
     }
 
@@ -66,10 +67,15 @@ public class Client implements LANLink.PacketReceiver {
         osName = settings.get("osName", "Unknown");
         osVersion = settings.get("osVer", "xx");
         trusted = new SimpleBooleanProperty(true);
+        connected = new SimpleBooleanProperty(false);
     }
 
     public PairStatus getPairStatus() {
         return pairStatus.get();
+    }
+
+    public SimpleBooleanProperty connectedProperty() {
+        return connected;
     }
 
     public SimpleBooleanProperty trustedProperty() {
@@ -160,6 +166,22 @@ public class Client implements LANLink.PacketReceiver {
 
     }
 
+    public void rejectPairing() {
+
+
+        //Log.e("Device","Unpairing (rejectPairing)");
+        pairStatus.set(PairStatus.NotPaired);
+
+        for (LANLinkHandler ph : pairingHandlers.values()) {
+            ph.rejectPairing();
+        }
+
+        for (PairingCallback cb : pairingCallback) {
+            cb.pairingFailed("cancelled via user");
+        }
+
+    }
+
     public void unpair() {
 
         for (LANLinkHandler llh : pairingHandlers.values()) {
@@ -205,6 +227,7 @@ public class Client implements LANLink.PacketReceiver {
         }
 
         links.add(link);
+        connected.set(true);
 
         try {
             System.out.println("Setting Private Key..");
@@ -263,6 +286,10 @@ public class Client implements LANLink.PacketReceiver {
 
         link.removePacketReceiver(this);
         links.remove(link);
+
+        if (links.size() == 0) {
+            connected.set(false);
+        }
     }
 
     private void pairingDone() {

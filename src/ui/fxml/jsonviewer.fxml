@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTreeView?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
@@ -29,29 +27,9 @@
             <VBox layoutY="41.0" prefHeight="534.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0"
                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
                 <JFXButton fx:id="toConfigButton" mnemonicParsing="false" onAction="#changeViewToConfig"
-                           prefHeight="46.0" prefWidth="228.0" text="Configure">
-                    <ripplerFill>
-                        <LinearGradient endX="1.0" endY="1.0">
-                            <stops>
-                                <Stop color="#a600ff"/>
-                                <Stop color="#a600ff" offset="0.23371647509578544"/>
-                                <Stop color="#007bff" offset="1.0"/>
-                            </stops>
-                        </LinearGradient>
-                    </ripplerFill>
-                </JFXButton>
+                           prefHeight="46.0" prefWidth="228.0" ripplerFill="BLACK" text="Configure"/>
                 <JFXButton disable="true" mnemonicParsing="false" prefHeight="46.0" prefWidth="229.0"
-                           text="JSON Viewer">
-                    <ripplerFill>
-                        <LinearGradient endX="1.0" endY="1.0">
-                            <stops>
-                                <Stop color="#a600ff"/>
-                                <Stop color="#a600ff" offset="0.23371647509578544"/>
-                                <Stop color="#007bff" offset="1.0"/>
-                            </stops>
-                        </LinearGradient>
-                    </ripplerFill>
-                </JFXButton>
+                           ripplerFill="BLACK" text="JSON Viewer"/>
             </VBox>
         </AnchorPane>
         <AnchorPane maxWidth="-Infinity" prefHeight="578.0" prefWidth="236.0">
@@ -59,7 +37,11 @@
                    textAlignment="CENTER" textFill="$x2" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0"/>
             <Label layoutY="240.0" prefHeight="17.0" prefWidth="215.0" text="Select Received Notification:"
                    textFill="#9f9f9f" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="240.0"/>
-            <JFXListView fx:id="notiList" layoutY="257.0" prefHeight="318.0" prefWidth="250.0"/>
+            <JFXScrollPane layoutY="257.0" prefHeight="320.0" prefWidth="250.0">
+                <children>
+                    <JFXListView fx:id="notiList" prefHeight="318.0" prefWidth="250.0"/>
+                </children>
+            </JFXScrollPane>
             <ChoiceBox fx:id="clientList" layoutY="72.0" prefHeight="58.0" prefWidth="250.0"/>
             <AnchorPane id="iconView" layoutY="130.0" prefHeight="110.0" prefWidth="250.0"
                         style="-fx-background-color: #424242;" stylesheets="@../css/jsonviewer.css">
@@ -68,6 +50,8 @@
                                preserveRatio="true"/>
                 </children>
             </AnchorPane>
+            <JFXCheckBox fx:id="cardShowBox" checkedColor="#54ccff" layoutX="14.0" layoutY="47.0"
+                         mnemonicParsing="false" text="Show Notification Card?"/>
         </AnchorPane>
         <AnchorPane prefHeight="578.0" prefWidth="425.0">
             <JFXTreeView fx:id="jsonTree" prefHeight="578.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0"
@@ -87,6 +71,5 @@
             </textFill>
         </Label>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Label fx:id="serverStatusLabel2" font="$x3" text="Disconnected" textFill="$x4" HBox.hgrow="NEVER"/>
     </HBox>
 </VBox>

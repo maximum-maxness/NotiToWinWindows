@@ -4,6 +4,8 @@ import backend.Client;
 import backend.JSONConverter;
 import backend.PacketType;
 import backend.PreferenceHelper;
+import javafx.application.Platform;
+import runner.PopupHelper;
 
 import java.security.KeyFactory;
 import java.security.spec.X509EncodedKeySpec;
@@ -150,6 +152,18 @@ public class LANLinkHandler { // TODO Finish and Implement
                 }
 
                 //TODO Implement Choosing Whether or not to accept pair
+                Client.SendPacketStatusCallback callback = new Client.SendPacketStatusCallback() {
+                    @Override
+                    public void onSuccess() {
+                        client.acceptPairing();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable e) {
+                        client.rejectPairing();
+                    }
+                };
+                Platform.runLater(() -> PopupHelper.createPairPopup(client, callback));
 
                 pairStatus = PairStatus.RequestedByPeer;
                 pairingHandlerCallback.incomingRequest();

@@ -13,6 +13,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.ocpsoft.prettytime.PrettyTime;
 import runner.Main;
+import runner.NotiCardHelper;
 import server.processing.NotiToTree;
 
 import java.util.Date;
@@ -33,6 +34,9 @@ public class JSONViewerController {
 
     @FXML
     private TreeView<String> jsonTree;
+
+    @FXML
+    private CheckBox cardShowBox;
 
     @FXML
     private ImageView iconView;
@@ -104,6 +108,8 @@ public class JSONViewerController {
             TreeItem<String> root = NotiToTree.convert(noti);
             NotiToTree.expandTreeView(root);
             jsonTree.setRoot(root);
+            if (cardShowBox.isSelected())
+                NotiCardHelper.showNotification(noti);
         }
     }
 

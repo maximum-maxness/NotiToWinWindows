@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxWidth="1.7976931348623157E308" prefHeight="162.0"
             prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.172-ea">
     <children>
@@ -28,11 +31,11 @@
                             </HBox.margin>
                         </Label>
                         <Pane HBox.hgrow="ALWAYS"/>
-                        <Button fx:id="hideButton" mnemonicParsing="false" text="X">
+                        <JFXButton fx:id="hideButton" mnemonicParsing="false" text="X">
                             <HBox.margin>
                                 <Insets/>
                             </HBox.margin>
-                        </Button>
+                        </JFXButton>
                     </children>
                 </HBox>
                 <HBox fx:id="hBox3" maxWidth="1.7976931348623157E308">
@@ -42,11 +45,15 @@
                         <VBox fx:id="vBox4" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="246.0">
                             <children>
                                 <Label fx:id="title" maxWidth="1.7976931348623157E308" text="Noti Title" wrapText="true"
-                                       VBox.vgrow="ALWAYS"/>
+                                       VBox.vgrow="ALWAYS">
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
                                 <Pane prefHeight="6.0" prefWidth="100.0"/>
-                                <Label fx:id="text" maxWidth="1.7976931348623157E308" prefHeight="96.0"
-                                       prefWidth="236.0" text="Noti Text" wrapText="true" VBox.vgrow="ALWAYS"/>
-                                <Pane minHeight="0.0" minWidth="0.0" prefHeight="39.0" prefWidth="236.0"/>
+                                <Label fx:id="text" maxWidth="1.7976931348623157E308" prefHeight="72.0"
+                                       prefWidth="236.0" text="Noti Text" textOverrun="CLIP" wrapText="true"
+                                       VBox.vgrow="ALWAYS"/>
                             </children>
                             <padding>
                                 <Insets left="10.0"/>
@@ -59,10 +66,11 @@
                 </HBox>
                 <Pane fx:id="replyBar" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="39.0" prefWidth="350.0">
                     <children>
-                        <TextField fx:id="replyField" prefHeight="39.0" prefWidth="264.0"/>
-                        <Button fx:id="replyButton" layoutX="264.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                                minHeight="-Infinity" minWidth="44.0" mnemonicParsing="false" prefHeight="39.0"
-                                prefWidth="85.0" text="Reply"/>
+                        <JFXTextField fx:id="replyField" prefHeight="39.0" prefWidth="264.0"
+                                      style="-fx-background-color: #D3D3D3;"/>
+                        <JFXButton fx:id="replyButton" layoutX="264.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                                   minHeight="-Infinity" minWidth="44.0" mnemonicParsing="false" prefHeight="39.0"
+                                   prefWidth="85.0" style="-fx-background-color: #D3D3D3;" text="Reply"/>
                     </children>
                 </Pane>
             </children>
