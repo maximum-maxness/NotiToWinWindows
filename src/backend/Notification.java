@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Notification {
 
     private boolean isClearable, isRepliable, hasDataLoad;
-    private String id, appName, title, text, dataLoadHash, requestReplyId;
+    private String id, appName, title, text, dataLoadHash, requestReplyId, clientID;
 
     private File icon;
     private Icon ico; // TODO Proper Icon integration
@@ -21,6 +21,7 @@ public class Notification {
         this.isClearable = false;
         this.isRepliable = false;
         this.hasDataLoad = false;
+        this.clientID = "";
         this.id = "";
         this.appName = "";
         this.title = "";
@@ -30,8 +31,9 @@ public class Notification {
         this.timeStamp = 0L;
     }
 
-    public static Notification jsonToNoti(JSONConverter json) {
+    public static Notification jsonToNoti(JSONConverter json, String clientID) {
         Notification noti = new Notification();
+        noti.clientID = clientID;
         JSONObject jsonOb = json.getMainBody();
         Iterator<String> iter = jsonOb.keys();
         while (iter.hasNext()) {
@@ -75,8 +77,12 @@ public class Notification {
             }
         }
         if (json.getDataLoad() != null)
-            noti.setIcon(recieveDataLoad(json.getDataLoad(), (noti.getTimeStamp() + ".bmp")));
+            noti.setIcon(recieveDataLoad(json.getDataLoad(), (noti.getAppName() + "." + noti.getTimeStamp() + "")));
         return noti;
+    }
+
+    public String getClientID() {
+        return clientID;
     }
 
     public static File recieveDataLoad(DataLoad dataLoad, String name) { // TODO

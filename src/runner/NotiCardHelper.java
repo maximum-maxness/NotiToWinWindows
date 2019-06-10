@@ -1,6 +1,9 @@
 package runner;
 
+import backend.Client;
+import backend.JSONConverter;
 import backend.Notification;
+import backend.PacketType;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
@@ -22,7 +25,7 @@ import java.util.*;
 public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISSUES) Look at
     // https://github.com/goxr3plus/FX-BorderlessScene ?
     private static final int CARD_WIDTH = 350;
-    private static final int CARD_HEIGHT = 135;
+    private static final int CARD_HEIGHT = 162;
     private static final int DISTANCE_FROM_SIDES = 25;
     private static final int DISTANCE_FROM_BOTTOM = 45;
     private static Stage tempStage = new Stage(StageStyle.UTILITY);
@@ -42,8 +45,8 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
         notiStage.setScene(notiScene);
         notiStage.setAlwaysOnTop(false);
         notiStage.setResizable(true);
-        tempStage.focusedProperty().addListener(NotiCardHelper::changed);
-        notiStage.focusedProperty().addListener(NotiCardHelper::changed);
+//        tempStage.focusedProperty().addListener(NotiCardHelper::changed);
+//        notiStage.focusedProperty().addListener(NotiCardHelper::changed);
     }
 
     private static void changed(
@@ -102,13 +105,28 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
                 new TimerTask() {
                     @Override
                     public void run() {
-                        Platform.runLater(tt);
-                        timerGoing = false;
-                        Platform.runLater(processQueue);
+                        while (true)
+                            if (!NotificationCard.replying) {
+                                Platform.runLater(tt);
+                                timerGoing = false;
+                                Platform.runLater(processQueue);
+                                break;
+                            } else {
+                                try {
+                                    Thread.sleep(500L);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                     }
                 };
         if (!timerGoing) {
-            timer.schedule(tt2, ms);
+            try {
+                timer.schedule(tt2, ms);
+            } catch (IllegalStateException e) {
+                timer = new Timer();
+                timer.schedule(tt2, ms);
+            }
             timerGoing = true;
         }
     }
@@ -142,6 +160,8 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
                     }
                 };
 
+        public static boolean replying = false;
+
         NotificationCard(Scene notiCard) {
             text = (Label) notiCard.lookup("#text");
             title = (Label) notiCard.lookup("#title");
@@ -159,6 +179,7 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
                         notiStage.hide();
                         tempStage.hide();
                         timerGoing = false;
+                        replying = false;
                         Platform.runLater(processQueue);
                     });
 
@@ -173,20 +194,45 @@ public class NotiCardHelper { // TODO BETTER IMPLEMENTATION PLEASE (FOCUSING ISS
             this.time.setText(time);
             icon.setImage(new Image(noti.getIconInputStream()));
             if (noti.isRepliable()) {
+                System.out.println("Making repliable notification card!");
                 replyBar.setVisible(true);
                 replyBar.setDisable(false);
+                replyField.setOnMouseClicked(event -> {
+                    replying = true;
+                    System.out.println("Reply field clicked!");
+                });
                 replyButton.setOnAction(actionEvent -> {
-                    timer.purge();
-                    notiStage.hide();
-                    tempStage.hide();
-                    timerGoing = false;
-                    Platform.runLater(processQueue);
+                    replying = false;
+                    Client.SendPacketStatusCallback callback = new Client.SendPacketStatusCallback() {
+                        @Override
+                        public void onSuccess() {
+                            notiStage.hide();
+                            tempStage.hide();
+                            replyField.clear();
+                        }
+
+                        @Override
+                        public void onFailure(Throwable e) {
+                            e.printStackTrace();
+                        }
+                    };
+                    sendReply(noti.getRequestReplyId(), replyField.getText(), noti.getClientID(), callback);
 
                 });
+                replyField.requestFocus();
             } else {
                 replyBar.setVisible(false);
                 replyBar.setDisable(true);
             }
+        }
+
+        void sendReply(String replyID, String message, String clientID, Client.SendPacketStatusCallback callback) {
+            JSONConverter packet = new JSONConverter(PacketType.NOTIFICATION_ACTION);
+            packet.set("requestReplyId", replyID);
+            packet.set("message", message);
+            Platform.runLater(() -> {
+                Main.backgroundThread.getClient(clientID).sendPacket(packet, callback);
+            });
         }
     }
 }

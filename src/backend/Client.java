@@ -99,7 +99,7 @@ public class Client implements LANLink.PacketReceiver {
         } else if (isPaired()) {
             if (PacketType.NOTIFICATION.equals(json.getType())) {
                 System.out.println("Notification Packet!");
-                Notification notification = Notification.jsonToNoti(json);
+                Notification notification = Notification.jsonToNoti(json, getClientID());
                 addNoti(notification);
             } else {
                 System.err.println("No.");

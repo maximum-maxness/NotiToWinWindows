@@ -1,6 +1,7 @@
 package server.networking.linkHandlers;
 
 import backend.*;
+import javafx.application.Platform;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -181,7 +182,7 @@ public class LANLink {
             }
 
 
-            callback.onSuccess();
+            Platform.runLater(callback::onSuccess);
             return true;
         } catch (Exception e) {
             if (callback != null) {

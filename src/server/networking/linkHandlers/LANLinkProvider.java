@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.prefs.Preferences;
@@ -115,6 +116,7 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
             } else {
                 String ownID = PacketType.getDeviceID();
                 if (ownID.equals(clientID)) {
+                    System.out.println("This is my own packet...");
                     return;
                 }
             }
@@ -276,34 +278,77 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
     private void broadcastUdpPacket() {
         System.out.println("Broadcasting Identity Packet to 255.255.255.255");
         new Thread(() -> {
-            String broadcast = "255.255.255.255";
-
-            JSONConverter passportPacket = PacketType.makeIdentityPacket();
-            int port = (tcpServer == null || !tcpServer.isBound()) ? MIN_PORT : tcpServer.getLocalPort();
-            passportPacket.set("tcpPort", port);
-            DatagramSocket socket = null;
-            byte[] bytes = null;
             try {
-                socket = new DatagramSocket();
-                socket.setReuseAddress(true);
-                socket.setBroadcast(true);
-                bytes = passportPacket.serialize().getBytes();
-            } catch (Exception e) {
+                MulticastSocket socket = new MulticastSocket(8657);
+//            socket.setBroadcast(true);
+                InetAddress intIP = InetAddress.getByName("230.1.1.1");
+                socket.joinGroup(intIP);
+
+                JSONConverter passportPacket = PacketType.makeIdentityPacket();
+                byte[] sendData = passportPacket.serialize().getBytes();
+                int port = (tcpServer == null || !tcpServer.isBound()) ? MIN_PORT : tcpServer.getLocalPort();
+                passportPacket.set("tcpPort", port);
+
+
+                Enumeration interfaces;
+                interfaces = NetworkInterface.getNetworkInterfaces();
+                while (interfaces.hasMoreElements()) {
+                    NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
+
+                    if (networkInterface.isLoopback() || !networkInterface.isUp() || networkInterface.getDisplayName().contains("radio")) {
+                        continue; // Don't want to broadcast to the loopback interface
+                    }
+
+                    for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+                        InetAddress broadcast = interfaceAddress.getBroadcast();
+                        if (broadcast == null) {
+                            continue;
+                        }
+
+                        // Send the broadcast package!
+                        try {
+                            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, MIN_PORT);
+                            socket.send(sendPacket);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        System.out.println("Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
+                    }
+                }
+                socket.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            if (bytes != null) {
-                try {
-                    InetAddress client = InetAddress.getByName(broadcast);
-                    socket.send(new DatagramPacket(bytes, bytes.length, client, MIN_PORT));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (socket != null) {
-                socket.close();
-            }
+//            String broadcast = "255.255.255.255";
+//
+//            JSONConverter passportPacket = PacketType.makeIdentityPacket();
+//            int port = (tcpServer == null || !tcpServer.isBound()) ? MIN_PORT : tcpServer.getLocalPort();
+//            passportPacket.set("tcpPort", port);
+//            DatagramSocket socket = null;
+//            byte[] bytes = null;
+//            try {
+//                socket = new DatagramSocket();
+//                socket.setReuseAddress(true);
+//                socket.setBroadcast(true);
+//                bytes = passportPacket.serialize().getBytes();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            if (bytes != null) {
+//                try {
+//                    InetAddress client = InetAddress.getByName(broadcast);
+//                    socket.send(new DatagramPacket(bytes, bytes.length, client, MIN_PORT));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if (socket != null) {
+//                socket.close();
+//            }
         }).start();
     }
 
@@ -327,6 +372,10 @@ public class LANLinkProvider implements LANLink.LinkDisconnectedCallback {
             setupUDPListener();
             broadcastUdpPacket();
         }
+    }
+
+    public void onNetworkChange() {
+        broadcastUdpPacket();
     }
 
     public void onStop() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -21,19 +22,25 @@
                 </textFill>
             </Label>
             <VBox layoutY="41.0" prefHeight="536.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-                <Button fx:id="toConfigureButton" disable="true" mnemonicParsing="false" prefHeight="46.0" prefWidth="228.0" text="Configure" />
-                <Button fx:id="toJSONButton" mnemonicParsing="false" onAction="#changeViewToJSON" prefHeight="46.0" prefWidth="229.0" text="JSON Viewer" />
+                <JFXButton fx:id="toConfigureButton" disable="true" mnemonicParsing="false" prefHeight="46.0"
+                           prefWidth="228.0" text="Configure"/>
+                <JFXButton fx:id="toJSONButton" mnemonicParsing="false" onAction="#changeViewToJSON" prefHeight="46.0"
+                           prefWidth="229.0" text="JSON Viewer"/>
             </VBox>
         </AnchorPane>
         <AnchorPane>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Configure" textAlignment="CENTER" textFill="$x2" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <TextArea fx:id="logOutput" layoutY="376.0" prefHeight="200.0" prefWidth="670.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="376.0" />
+            <JFXTextArea fx:id="logOutput" layoutY="376.0" prefHeight="200.0" prefWidth="670.0"
+                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                         AnchorPane.topAnchor="376.0"/>
             <Label text="LOG" textFill="#9f9f9f" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="360.0" />
             <VBox layoutY="38.0" prefHeight="337.0" prefWidth="670.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
                 <HBox prefHeight="34.0" prefWidth="222.0">
                     <Pane prefHeight="330.0" prefWidth="8.0" />
-                    <Button fx:id="startServerButton" mnemonicParsing="false" onAction="#startServer" prefHeight="33.0" prefWidth="105.0" text="Start Server" />
-                    <Button fx:id="stopServerButton" disable="true" mnemonicParsing="false" onAction="#stopServer" prefHeight="33.0" prefWidth="105.0" text="Stop Server" />
+                    <JFXButton fx:id="startServerButton" mnemonicParsing="false" onAction="#startServer"
+                               prefHeight="33.0" prefWidth="105.0" text="Start Server"/>
+                    <JFXButton fx:id="stopServerButton" disable="true" mnemonicParsing="false" onAction="#stopServer"
+                               prefHeight="33.0" prefWidth="105.0" text="Stop Server"/>
                     <!--<Button mnemonicParsing="false" text="Send Ready" fx:id="sendReadyButton" onAction="#sendReady"/>-->
                 </HBox>
                 <HBox prefHeight="17.0" prefWidth="670.0">

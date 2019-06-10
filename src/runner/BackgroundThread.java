@@ -157,6 +157,28 @@ public class BackgroundThread implements Runnable {
 
     public BackgroundThread() {
         loadSavedDevicesFromSettings();
+        startSystemSleepDetector();
+    }
+
+    private void startSystemSleepDetector() {
+        new Thread(() -> {
+            long pause = 10000L;
+            long error = 100L;
+
+            while (true) {
+                long sleepTil = System.currentTimeMillis() + pause + error;
+                try {
+                    Thread.sleep(pause);
+                } catch (InterruptedException ignored) {
+                }
+                if (System.currentTimeMillis() > sleepTil) {
+                    System.out.println("System was suspended");
+                    for (LANLinkProvider llp : linkProviders) {
+                        llp.onNetworkChange();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
